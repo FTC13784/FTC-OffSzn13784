@@ -33,7 +33,7 @@ Ignore "group = "Linear Opmode"" */
  * If you don't want to see it in opmode selection, simply take out the "//" and it will be disabled again*/
 @Disabled
 
-/* This is the start of your new opmode. The name after "puclic class MUST BE THE SAME AS THE NAME OF THE FILE,
+/* This is the start of your new opmode. The name after "public class MUST BE THE SAME AS THE NAME OF THE FILE,
  * but doesn't have to be the same name as the name that shows up on your phone.
  * This will normally fill in automatically when you create a new Java class.
  * Don't worry about the "extends LinearOpMode" but make sure you include it. */
