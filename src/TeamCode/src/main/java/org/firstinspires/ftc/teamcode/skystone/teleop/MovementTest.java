@@ -5,19 +5,16 @@ TODO: servo initialize to 0, x --> 1, y --> 0
 */
 
 // team package
-package org.firstinspires.ftc.teamcode.SkyStone.TeleOp;
+package org.firstinspires.ftc.teamcode.skystone.teleop;
 
 // import statement
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.SkyStone.SkyStoneUtils;
+import org.firstinspires.ftc.teamcode.skystone.SkyStoneUtils;
 
 // set teleop mode
 @TeleOp(name = "Motor Test", group = "Linear Opmode")
