@@ -24,10 +24,14 @@ import org.firstinspires.ftc.teamcode.SkyStone.SkyStoneUtils;
 
 // main
 
-/*
-
+/**
+ * @author John (FavouriteDragon)
+ * Just a test class for controlling the robot. Copied over from TeleopChad, but cleaned up.
  */
+
+//TODO: Actually test this. The robot is currently out of commission.
 public class MovementTest extends LinearOpMode {
+
     // start timer
     private ElapsedTime runtime = new ElapsedTime();
 
