@@ -1,16 +1,15 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.examples.samplecode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "Encoder Tutorial", group = "Linear Opmode")
-@Disabled
+@Autonomous(name = "Turn Practice", group = "Linear Opmode")
+//@Disabled
 
-public class EncoderTutorial extends LinearOpMode {
+public class TurnPractice extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -19,8 +18,8 @@ public class EncoderTutorial extends LinearOpMode {
     DcMotor rightFront;
     DcMotor rightBack;
 
-    int ticks;
-    double drivePower;
+    int ticks = 1120;
+    double drivePower = 1.0;
 
     @Override
     public void runOpMode() {
@@ -52,8 +51,8 @@ public class EncoderTutorial extends LinearOpMode {
 
         leftFront.setTargetPosition(ticks);
         leftBack.setTargetPosition(ticks);
-        rightFront.setTargetPosition(ticks);
-        rightBack.setTargetPosition(ticks);
+        rightFront.setTargetPosition(-ticks);
+        rightBack.setTargetPosition(-ticks);
 
         leftFront.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);

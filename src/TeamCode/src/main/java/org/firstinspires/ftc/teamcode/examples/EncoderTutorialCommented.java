@@ -1,6 +1,6 @@
 /* this doesn't have to do with the code itself. it defines where this java class will be.
 it will appear when you create a new java class. */
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.examples;
 
 /* Created by Maya Shah
 Special thanks to Casey for many of the explanations to components. */
