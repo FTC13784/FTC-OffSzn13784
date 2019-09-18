@@ -22,9 +22,6 @@ import org.firstinspires.ftc.teamcode.SkyStone.SkyStoneUtils;
 // set teleop mode
 @TeleOp(name = "Motor Test", group = "Linear Opmode")
 
-// make code not appear on phone
-@Disabled
-
 // main
 
 /*
