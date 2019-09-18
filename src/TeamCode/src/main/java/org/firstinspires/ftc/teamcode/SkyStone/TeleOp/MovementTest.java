@@ -55,19 +55,6 @@ public class MovementTest extends LinearOpMode {
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
 
-
-            if (Math.abs(gamepad1.left_stick_y) < 0.1) {
-                gamepad1.left_stick_y = 0;
-            }
-            if (Math.abs(gamepad1.right_stick_y) < 0.1) {
-                gamepad1.right_stick_y = 0;
-            }
-
-            // setPower(allDrive, -gamepad1.left_stick_x);
-
-            // left stick controls direction
-            // right stick X controls rotation
-
             SkyStoneUtils.handleGamepadControls(gamepad1, leftBack, leftFront, rightBack, rightFront);
 
 
