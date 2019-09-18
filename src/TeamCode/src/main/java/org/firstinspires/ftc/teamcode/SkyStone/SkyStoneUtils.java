@@ -20,10 +20,10 @@ public class SkyStoneUtils {
         motors[3] = map.dcMotor.get("Right_Back");
     }
 
-    //Currently the y controls are inverse
+    //Currently the y controls are inverse if you make the left stick y negative.
     public static void handleGamepadControls(Gamepad pad, DcMotor leftBack, DcMotor leftFront,
                                              DcMotor rightBack, DcMotor rightFront) {
-        float gamepad1LeftY = -pad.left_stick_y;
+        float gamepad1LeftY = pad.left_stick_y;
         float gamepad1LeftX = pad.left_stick_x;
         float gamepad1RightX = pad.right_stick_x;
 
