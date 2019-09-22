@@ -9,19 +9,22 @@
 - [x] move everyone to same node and update SkyStone folder naming convention
 - [ ] fix inverted joystick issue + get movement running
 - [ ] create method for moving servos and merge with teleop or util
-- [ ] fix the stupid formatting for directory in readme
+- [x] fix the stupid formatting for directory in readme
 
 ### Dir
-#### autonomous
- - AutonomousTest - testing for autonomous mode
+**bold** = folder
+regular = file
 
-#### teleop
- - MovementTest - testing for teleop mode
+#### src
+- **autonomous**
+  - AutonomousTest - testing for autonomous mode
 
+- **teleop**
+  - MovementTest - testing for teleop mode
 
-* SkyStoneUtils - general code relevant to both auto and teleop (e.g. motor / servo initialization)
+- SkyStoneUtils - general code relevant to both auto and teleop (e.g. motor / servo initialization)
+- ServoCode - testing for servo motors; on Joey's branch in Teleop folder (note: merge later)
 
-* ServoCode - testing for servo motors; on Joey's branch in Teleop folder (note: merge later)
 
 
 #### Rob Orientation - intake in the front, pulley to left, foundmover in back
