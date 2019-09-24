@@ -20,7 +20,6 @@ import org.firstinspires.ftc.teamcode.skystone.SkyStoneUtils;
 @TeleOp(name = "Motor Test", group = "Linear Opmode")
 
 // main
-
 /**
  * @author John (FavouriteDragon)
  * Just a test class for controlling the robot. Copied over from TeleopChad, but cleaned up.
@@ -53,6 +52,7 @@ public class MovementTest extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+            //Debugging
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
 
