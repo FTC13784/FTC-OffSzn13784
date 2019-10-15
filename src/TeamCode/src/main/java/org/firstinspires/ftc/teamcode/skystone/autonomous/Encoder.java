@@ -17,7 +17,7 @@ public class Encoder extends LinearOpMode {
     DcMotor rightFront;
     DcMotor rightBack;
     int ticks = 1120;
-    double wheeldiameter = 10;
+    double wheelDiameter = 10;
     double drivePower;
     private ElapsedTime runtime = new ElapsedTime();
 
