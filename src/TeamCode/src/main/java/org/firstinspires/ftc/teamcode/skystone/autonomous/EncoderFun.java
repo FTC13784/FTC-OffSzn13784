@@ -32,7 +32,7 @@ public class EncoderFun extends Encoder {
         telemetry = opMode.telemetry;
         InitializeHardware();
         wheelCircumference = wheelRadius * Math.PI * 2;
-        ticksPerIn = 2 * ((ticksPerRev * 1) / wheelCircumference);
+        ticksPerIn = 2 * (ticksPerRev / wheelCircumference);
         ticksPerDegree = 2 * (ticksPerRev / 130);
 
         telemetry.addData("lf position", allDrive[0].getCurrentPosition());
