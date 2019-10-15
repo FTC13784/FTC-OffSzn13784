@@ -23,7 +23,7 @@ public class AutonomousTest extends LinearOpMode {
         telemetry.addData("Status", "Start received");
         telemetry.update();
 
-        ourBot.driveTicks(50000, 1);
+        ourBot.driveTicks(5000, 1);
         ourBot.driveTime(10,1);
 
         telemetry.addData("Statues", "Done");
