@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "AutonomousTest", group = "Autonomous")
-public class AutonomousTest extends LinearOpMode {
+@Autonomous(name = "AutonomousTurn", group = "Autonomous")
+public class AutoTurn extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     EncoderFun ourBot;
@@ -23,17 +23,7 @@ public class AutonomousTest extends LinearOpMode {
         telemetry.addData("Status", "Start received");
         telemetry.update();
 
-        ourBot.driveTicks(5000, 1.0);
-
-        wait(1000);
-
-        ourBot.driveBackTicks(5000,1.0);
-
-        wait(1000);
-
-        //ourBot.turnLeft(1000,1.0);
-        //ourBot.turnRight(1000,1.0);
-        //ourBot.turnLeft(1000,1.0);
+        ourBot.turnLeft(1000,1.0);
 
         telemetry.addData("Statues", "Done");
         telemetry.update();

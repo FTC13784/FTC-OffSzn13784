@@ -5,8 +5,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.skystone.Encoder;
+import org.firstinspires.ftc.teamcode.skystone.autonomous.Encoder;
 
 public class EncoderFun extends Encoder {
 
@@ -94,8 +95,13 @@ public class EncoderFun extends Encoder {
         }
     }
 
-    public void stopDriving() {
-        setPower(allDrive, 0);
+    public void stopDriving(double power) {
+        for (double i = power; i > 0; i -= 0.05F)
+         setPower(allDrive, power - 0.1);
+       // if (power == 0) {
+            setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
+            setDirection(rightDrive, DcMotorSimple.Direction.FORWARD);
+        //
     }
 
     public void driveTicks(double ticks, double speed) {
@@ -113,8 +119,74 @@ public class EncoderFun extends Encoder {
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
             //wait until target position in reached
         }
-        stopDriving();
+        stopDriving(speed);
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void driveBackTicks(double ticks, double speed) {
+
+        setDirection(leftDrive, DcMotorSimple.Direction.FORWARD);
+        setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
+
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        setWheelTargetPosition(allDrive, ticks);
+
+        setMode(allDrive, DcMotor.RunMode.RUN_TO_POSITION);
+
+        // Set drive power
+        setPower(allDrive, speed);
+
+
+        while (isBusy(allDrive) && opMode.opModeIsActive()) {
+            //wait until target position in reached
+        }
+        stopDriving(speed);
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void turnLeft(double ticks, double speed) {
+
+        setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
+        setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
+
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        setWheelTargetPosition(allDrive, ticks);
+
+        setMode(allDrive, DcMotor.RunMode.RUN_TO_POSITION);
+        // Set drive power
+        setPower(allDrive, speed);
+
+
+        while (isBusy(allDrive) && opMode.opModeIsActive()) {
+            //wait until target position in reached
+        }
+        stopDriving(speed);
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+
+    }
+
+    public void turnRight(double ticks, double speed) {
+
+        setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
+        setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
+
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        setWheelTargetPosition(allDrive, ticks);
+
+        setMode(allDrive, DcMotor.RunMode.RUN_TO_POSITION);
+        // Set drive power
+        setPower(allDrive, speed);
+
+
+        while (isBusy(allDrive) && opMode.opModeIsActive()) {
+            //wait until target position in reached
+        }
+        stopDriving(1);
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+
     }
 
     public void driveTime(double time, double speed) throws InterruptedException {
@@ -125,7 +197,7 @@ public class EncoderFun extends Encoder {
             wait(1000);
             i--;
         }
-        stopDriving();
+        stopDriving(speed);
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 }
