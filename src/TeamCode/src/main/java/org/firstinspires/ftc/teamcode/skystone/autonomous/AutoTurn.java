@@ -23,7 +23,7 @@ public class AutoTurn extends LinearOpMode {
         telemetry.addData("Status", "Start received");
         telemetry.update();
 
-        ourBot.turnLeft(1000,1.0);
+        ourBot.turnLeft(1100,1.0);
 
         telemetry.addData("Statues", "Done");
         telemetry.update();

@@ -5,9 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.skystone.autonomous.Encoder;
 
 public class EncoderFun extends Encoder {
 
@@ -96,12 +94,14 @@ public class EncoderFun extends Encoder {
     }
 
     public void stopDriving(double power) {
-        for (double i = power; i > 0; i -= 0.05F)
-         setPower(allDrive, power - 0.1);
-       // if (power == 0) {
-            setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
-            setDirection(rightDrive, DcMotorSimple.Direction.FORWARD);
-        //
+       /* for (double i = power; i > 0; i -= 0.05F) {
+            setPower(allDrive, i);
+            System.out.println("Power is " + i);
+        }**/
+        setPower(allDrive, 0);
+        //Resets the motors to normal.
+        setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
+        setDirection(rightDrive, DcMotorSimple.Direction.FORWARD);
     }
 
     public void driveTicks(double ticks, double speed) {
@@ -118,6 +118,10 @@ public class EncoderFun extends Encoder {
 
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
             //wait until target position in reached
+            telemetry.addData("Forwards Power", drivePower);
+            telemetry.addData("Ticks", ticks);
+            telemetry.update();
+            ticks--;
         }
         stopDriving(speed);
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
@@ -140,6 +144,10 @@ public class EncoderFun extends Encoder {
 
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
             //wait until target position in reached
+            telemetry.addData("Backwards Power", drivePower);
+            telemetry.addData("Backwards Ticks", ticks);
+            telemetry.update();
+            ticks--;
         }
         stopDriving(speed);
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
@@ -184,7 +192,7 @@ public class EncoderFun extends Encoder {
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
             //wait until target position in reached
         }
-        stopDriving(1);
+        stopDriving(speed);
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
