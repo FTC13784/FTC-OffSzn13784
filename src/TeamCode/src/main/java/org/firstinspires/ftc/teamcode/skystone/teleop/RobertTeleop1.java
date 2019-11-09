@@ -12,6 +12,7 @@ package org.firstinspires.ftc.teamcode.skystone.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -41,10 +42,21 @@ public class RobertTeleop1 extends LinearOpMode {
         float[] powerTelemetry = new float[4];
         float servoRelocRPos = 0;
         float servoRelocLPos = 1;
+        //for raise
+        boolean lefttrigger = false;
+        boolean rightbump = false;
+        boolean leftbump = false;
+        float oneBlock = -2000;
+        int targetBlock=0;
+        double upCoolDown=-500;
+        double downCoolDown=-500;
+        int extendTarget=0;
+
+
 
         telemetry.addData("Status", "Initialized");
 
-        telemetry.update();
+
 
         //SkyStoneUtils.initializeTeleOpHardware(allDrive, leftBack, leftFront, rightBack, rightFront, servoRelocL, servoRelocR, hardwareMap);
         leftFront = hardwareMap.dcMotor.get("lf");
@@ -67,6 +79,7 @@ public class RobertTeleop1 extends LinearOpMode {
         extend.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         raise.setPower(1);
         extend.setPower(1);
+
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -104,15 +117,49 @@ public class RobertTeleop1 extends LinearOpMode {
             leftBack.setPower(BackLeftPower);
             rightFront.setPower(FrontRightPower);
             rightBack.setPower(BackRightPower);
+            float raisePos=raise.getCurrentPosition();
+            telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
 
-            if (gamepad1.left_trigger < .5)
-                raise.setTargetPosition(1000);
-            else raise.setTargetPosition(0);
 
-            if (gamepad1.right_trigger < .5)
-                extend.setTargetPosition(1000);
-            else extend.setTargetPosition(0);
-            //raise.
+            if (!rightbump&&gamepad1.right_bumper&&getRuntime()>upCoolDown){
+                targetBlock++;
+                upCoolDown=getRuntime()+.2; //cooldown of .2s
+            }
+            if (!leftbump&&gamepad1.left_bumper&&getRuntime()>downCoolDown){
+                targetBlock--;
+                downCoolDown=getRuntime()+.2; //cooldown of .2s
+            }
+            rightbump=gamepad1.right_bumper;
+            leftbump=gamepad1.left_bumper;
+            telemetry.addData("Raiseblock", "going to: " + targetBlock);
+
+
+
+            int targetPos=Math.round(targetBlock*oneBlock);
+
+            telemetry.addData("Raisepos", "going to: " + targetPos);
+
+
+            //raise.getCurrentPosition();
+            raise.setTargetPosition(targetPos);
+
+
+            if (gamepad1.left_trigger<.5&& !lefttrigger){
+                if (extendTarget==0) extendTarget=8500;
+
+                else extendTarget=0;
+
+            }
+            if (gamepad1.left_trigger<.5) lefttrigger=true;
+            else lefttrigger=false;
+
+
+            //extend.getCurrentPosition();
+            extend.setTargetPosition(extendTarget);
+
+            telemetry.addData("ExtendTarget", "Value: " + extend.getTargetPosition());
+
+            telemetry.addData("ExtendEncode", "Value: " + extend.getCurrentPosition());
 
             telemetry.update();
         }
