@@ -26,21 +26,22 @@ public class AutonomousTest extends LinearOpMode {
         ourBot.driveTicks(5000, 1.0);
 
         wait(1000);
-      //  telemetry.addData("Power", ourBot.drivePower);
-     //   telemetry.update();
+        telemetry.addData("Power", ourBot.drivePower);
+        telemetry.update();
 
         ourBot.driveBackTicks(5000,1.0);
-      //  telemetry.addData("Backwards Power", ourBot.drivePower);
-       // telemetry.update();
+        telemetry.addData("Backwards Power", ourBot.drivePower);
+        telemetry.update();
 
         wait(1000);
 
-        //ourBot.turnLeft(1000,1.0);
-        //ourBot.turnRight(1000,1.0);
-        //ourBot.turnLeft(1000,1.0);
+        ourBot.turnLeft(1000,1.0);
+        ourBot.turnRight(1000,1.0);
+        ourBot.turnLeft(1000,1.0);
 
         telemetry.addData("Statues", "Done");
 
         telemetry.update();
+
     }
 }

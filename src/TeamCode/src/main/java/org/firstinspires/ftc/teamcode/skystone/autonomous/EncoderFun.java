@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -12,6 +13,8 @@ public class EncoderFun extends Encoder {
     DcMotor[] allDrive = new DcMotor[4];
     DcMotor[] leftDrive = new DcMotor[2];
     DcMotor[] rightDrive = new DcMotor[2];
+
+    ColorSensor colorSensor;
 
     HardwareMap hardwareMap;
     LinearOpMode opMode;
@@ -38,6 +41,8 @@ public class EncoderFun extends Encoder {
         telemetry.addData("lb position", allDrive[1].getCurrentPosition());
         telemetry.addData("rf position", allDrive[2].getCurrentPosition());
         telemetry.addData("rb position", allDrive[3].getCurrentPosition());
+        telemetry.addData("rgb", colorSensor.red() + ", " + colorSensor.green() + ", " + colorSensor.blue());
+        telemetry.addData("luminosity, color total", colorSensor.alpha() + " " + colorSensor.argb());
         telemetry.update();
     }
 
@@ -54,6 +59,8 @@ public class EncoderFun extends Encoder {
         allDrive[1] = hardwareMap.dcMotor.get("lb");
         allDrive[2] = hardwareMap.dcMotor.get("rf");
         allDrive[3] = hardwareMap.dcMotor.get("rb");
+
+        colorSensor = hardwareMap.colorSensor.get("color");
     }
 
     private void setDirection(DcMotor[] motors, DcMotorSimple.Direction direction) {
@@ -112,12 +119,12 @@ public class EncoderFun extends Encoder {
 
         setMode(allDrive, DcMotor.RunMode.RUN_TO_POSITION);
 
-        // Set drive power
+        // set drive power
         setPower(allDrive, speed);
 
 
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
-            //wait until target position in reached
+            // wait until target position in reached
             telemetry.addData("Forwards Power", drivePower);
             telemetry.addData("Ticks", ticks);
             telemetry.update();
@@ -207,5 +214,27 @@ public class EncoderFun extends Encoder {
         }
         stopDriving(speed);
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void driveUntilAlpha (double threshold, double speed) {
+        colorSensor.enableLed(true);
+
+        while (colorSensor.argb() < threshold) {
+            driveTicks(200, speed);
+        }
+
+        colorSensor.enableLed(false);
+    }
+
+    public void driveUntilPicture (double lumThreshold, double threshold, double speed) {
+        boolean looping = true;
+
+        while (looping) {
+            driveUntilAlpha(threshold, speed);
+
+            if (colorSensor.alpha() < lumThreshold) {
+                looping = false;
+            }
+        }
     }
 }
