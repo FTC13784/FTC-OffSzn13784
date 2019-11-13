@@ -12,7 +12,6 @@ package org.firstinspires.ftc.teamcode.skystone.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -43,19 +42,20 @@ public class RobertTeleop1 extends LinearOpMode {
         float servoRelocRPos = 0;
         float servoRelocLPos = 1;
         //for raise
-        boolean lefttrigger = false;
+        boolean leftTrigger = false;
+        boolean rightTrigger = false;
         boolean rightbump = false;
         boolean leftbump = false;
+        float initialFrontRightPower, initialBackRightPower, initialFrontLeftPower, initialBackLeftPower;
         float oneBlock = -2000;
-        int targetBlock=0;
-        double upCoolDown=-500;
-        double downCoolDown=-500;
-        int extendTarget=0;
-
+        //TODO: Change this into a double to raise and lower the servo by half blocks.
+        int targetBlock = 0;
+        double upCoolDown = -500;
+        double downCoolDown = -500;
+        int extendTarget = 0;
 
 
         telemetry.addData("Status", "Initialized");
-
 
 
         //SkyStoneUtils.initializeTeleOpHardware(allDrive, leftBack, leftFront, rightBack, rightFront, servoRelocL, servoRelocR, hardwareMap);
@@ -90,6 +90,11 @@ public class RobertTeleop1 extends LinearOpMode {
             float gamepad1LeftY = gamepad1.left_stick_y;
             float gamepad1RightX = gamepad1.right_stick_x;
 
+            rightbump = gamepad1.right_bumper;
+            leftbump = gamepad1.left_bumper;
+            rightTrigger = gamepad1.right_trigger < 0.5;
+            leftTrigger = gamepad1.left_trigger < 0.5;
+
             if (Math.abs(gamepad1LeftX) < 0.1 && Math.abs(gamepad1LeftX) > -0.1) {
                 gamepad1LeftX = 0;
             }
@@ -107,6 +112,28 @@ public class RobertTeleop1 extends LinearOpMode {
             float FrontRightPower = -gamepad1LeftY - gamepad1LeftX - gamepad1RightX;
             float BackRightPower = -gamepad1LeftY + gamepad1LeftX - gamepad1RightX;
 
+            initialBackLeftPower = BackLeftPower;
+            initialFrontLeftPower = FrontLeftPower;
+            initialFrontRightPower = FrontRightPower;
+            initialBackRightPower = BackRightPower;
+
+            if (rightTrigger) {
+                FrontLeftPower = initialFrontLeftPower * 0.5F;
+                BackLeftPower = initialBackLeftPower * 0.5F;
+                FrontRightPower = initialFrontRightPower * 0.5F;
+                BackRightPower = initialBackRightPower * 0.5F;
+            } else if (leftTrigger) {
+                FrontLeftPower = initialFrontLeftPower * 1.5F;
+                BackLeftPower = initialBackLeftPower * 1.5F;
+                FrontRightPower = initialFrontRightPower * 1.5F;
+                BackRightPower = initialBackRightPower * 1.5F;
+            } else {
+                FrontLeftPower = initialFrontLeftPower;
+                BackLeftPower = initialBackLeftPower;
+                FrontRightPower = initialFrontRightPower;
+                BackRightPower = initialBackRightPower;
+            }
+
             FrontLeftPower = Range.clip(FrontLeftPower, -1, 1);
             BackLeftPower = Range.clip(BackLeftPower, -1, 1);
             FrontRightPower = Range.clip(FrontRightPower, -1, 1);
@@ -117,25 +144,24 @@ public class RobertTeleop1 extends LinearOpMode {
             leftBack.setPower(BackLeftPower);
             rightFront.setPower(FrontRightPower);
             rightBack.setPower(BackRightPower);
-            float raisePos=raise.getCurrentPosition();
+            float raisePos = raise.getCurrentPosition();
             telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
 
 
-            if (!rightbump&&gamepad1.right_bumper&&getRuntime()>upCoolDown){
+            if (rightbump && getRuntime() > upCoolDown) {
                 targetBlock++;
-                upCoolDown=getRuntime()+.2; //cooldown of .2s
+                upCoolDown = getRuntime() + .2; //cooldown of .2s
             }
-            if (!leftbump&&gamepad1.left_bumper&&getRuntime()>downCoolDown){
+            if (leftbump && getRuntime() > downCoolDown) {
                 targetBlock--;
-                downCoolDown=getRuntime()+.2; //cooldown of .2s
+                downCoolDown = getRuntime() + .2; //cooldown of .2s
             }
-            rightbump=gamepad1.right_bumper;
-            leftbump=gamepad1.left_bumper;
+
+
             telemetry.addData("Raiseblock", "going to: " + targetBlock);
 
 
-
-            int targetPos=Math.round(targetBlock*oneBlock);
+            int targetPos = Math.round(targetBlock * oneBlock);
 
             telemetry.addData("Raisepos", "going to: " + targetPos);
 
@@ -144,14 +170,11 @@ public class RobertTeleop1 extends LinearOpMode {
             raise.setTargetPosition(targetPos);
 
 
-            if (gamepad1.left_trigger<.5&& !lefttrigger){
-                if (extendTarget==0) extendTarget=8500;
-
-                else extendTarget=0;
-
+            if (leftTrigger) {
+                if (extendTarget == 0)
+                    extendTarget = 8500;
+                else extendTarget = 0;
             }
-            if (gamepad1.left_trigger<.5) lefttrigger=true;
-            else lefttrigger=false;
 
 
             //extend.getCurrentPosition();
