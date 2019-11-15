@@ -161,7 +161,8 @@ public class RobertTeleop1 extends LinearOpMode {
             telemetry.addData("Raiseblock", "going to: " + targetBlock);
 
 
-            int targetPos = Math.round(targetBlock * oneBlock);
+            //We want to account for half blocks/being able to pick up blocks as wel as place them.
+            int targetPos = Math.round(targetBlock * oneBlock / 2);
 
             telemetry.addData("Raisepos", "going to: " + targetPos);
 
