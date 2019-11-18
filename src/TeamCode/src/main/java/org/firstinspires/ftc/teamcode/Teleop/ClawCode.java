@@ -24,7 +24,7 @@ public class ClawCode extends LinearOpMode {
             // check to see if we need to move the servo.
             servoClaw.setPosition(0);
             if (gamepad1.y) {
-                // move to 90 degrees.
+                // move to 180 degrees.
                 servoClaw.setPosition(1);
             } else {
                 // move to 0 degrees.
