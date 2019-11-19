@@ -131,6 +131,8 @@ public class EncoderFun extends Encoder {
         }
     }
 
+
+
     public void driveCm(double distance, double speed) {
 
         int ticks = (int)(distance/.03526);
@@ -392,7 +394,13 @@ public class EncoderFun extends Encoder {
         colorSensor.enableLed(true);
 
         while (colorSensor.argb() < threshold) {
-            driveTicks(200, speed);
+            try {
+                driveTime(200, speed);
+            }
+            catch (InterruptedException e) {
+                telemetry.addData("Interrupted!", "Exception");
+                telemetry.update();
+            }
         }
 
         colorSensor.enableLed(false);
