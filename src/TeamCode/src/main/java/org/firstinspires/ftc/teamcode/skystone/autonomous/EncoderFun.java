@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.robot.RobotState;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -27,6 +29,10 @@ public class EncoderFun extends Encoder {
     double ticksPerIn;
     double wheelCircumference;
     double ticksPerDegree;
+
+    long start, now, duration = 0;
+    double currentPower;
+    private Servo servoClaw;
 
     public EncoderFun(LinearOpMode opMode) {
         this.opMode = opMode;
@@ -59,8 +65,8 @@ public class EncoderFun extends Encoder {
         allDrive[1] = hardwareMap.dcMotor.get("lb");
         allDrive[2] = hardwareMap.dcMotor.get("rf");
         allDrive[3] = hardwareMap.dcMotor.get("rb");
-
         colorSensor = hardwareMap.colorSensor.get("color");
+        servoClaw = hardwareMap.servo.get("servoClaw");
     }
 
     private void setDirection(DcMotor[] motors, DcMotorSimple.Direction direction) {
@@ -111,7 +117,23 @@ public class EncoderFun extends Encoder {
         setDirection(rightDrive, DcMotorSimple.Direction.FORWARD);
     }
 
-    public void driveTicks(double ticks, double speed) {
+    public void accelerateTo(double power) {
+        start = System.currentTimeMillis();
+
+        while (currentPower < power) {
+            now = System.currentTimeMillis();
+            duration = start - now;
+
+            if (duration > 1) {
+                power += 0.001;
+                setPower(allDrive, 0);
+            }
+        }
+    }
+
+    public void driveCm(double distance, double speed) {
+
+        int ticks = (int)(distance/.03526);
 
         setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -119,22 +141,22 @@ public class EncoderFun extends Encoder {
 
         setMode(allDrive, DcMotor.RunMode.RUN_TO_POSITION);
 
-        // set drive power
-        setPower(allDrive, speed);
-
+        accelerateTo(1.0);
 
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
             // wait until target position in reached
             telemetry.addData("Forwards Power", drivePower);
-            telemetry.addData("Ticks", ticks);
             telemetry.update();
+            telemetry.addData("Ticks", ticks);
             ticks--;
         }
         stopDriving(speed);
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void driveBackTicks(double ticks, double speed) {
+    public void driveBackCm(double distance, double speed) {
+
+        int ticks = (int)(distance/.03526);
 
         setDirection(leftDrive, DcMotorSimple.Direction.FORWARD);
         setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
@@ -145,23 +167,161 @@ public class EncoderFun extends Encoder {
 
         setMode(allDrive, DcMotor.RunMode.RUN_TO_POSITION);
 
-        // Set drive power
-        setPower(allDrive, speed);
-
+        accelerateTo(1.0);
 
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
             //wait until target position in reached
-            telemetry.addData("Backwards Power", drivePower);
-            telemetry.addData("Backwards Ticks", ticks);
-            telemetry.update();
-            ticks--;
         }
         stopDriving(speed);
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void turnLeft(double ticks, double speed) {
+    public void driveLeftCm(double distance, double speed) {
 
+        int ticks = (int)(distance/.03526);
+
+        leftDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
+        leftDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
+        rightDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
+        rightDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
+
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        setWheelTargetPosition(allDrive, ticks);
+
+        setMode(allDrive, DcMotor.RunMode.RUN_TO_POSITION);
+
+        accelerateTo(1.0);
+
+        while (isBusy(allDrive) && opMode.opModeIsActive()) {
+            //wait until target position in reached
+        }
+        stopDriving(speed);
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void driveRightCm(double distance, double speed) {
+
+        int ticks = (int)(distance/.03526);
+
+        leftDrive[0].setDirection(DcMotorSimple.Direction.REVERSE);
+        leftDrive[1].setDirection(DcMotorSimple.Direction.FORWARD);
+        rightDrive[0].setDirection(DcMotorSimple.Direction.REVERSE);
+        rightDrive[1].setDirection(DcMotorSimple.Direction.FORWARD);
+
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        setWheelTargetPosition(allDrive, ticks);
+
+        setMode(allDrive, DcMotor.RunMode.RUN_TO_POSITION);
+
+        accelerateTo(1.0);
+
+        while (isBusy(allDrive) && opMode.opModeIsActive()) {
+            //wait until target position in reached
+        }
+        stopDriving(speed);
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+        long init = System.currentTimeMillis();
+        for (long now = System.currentTimeMillis(); now - init < 500; init = System.currentTimeMillis());
+    }
+
+    public void drive_lf(double ticks, double speed) {
+
+        leftDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
+        rightDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
+
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        setWheelTargetPosition(allDrive, ticks);
+
+        leftDrive[1].setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightDrive[0].setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        accelerateTo(1.0);
+
+        while (isBusy(allDrive) && opMode.opModeIsActive()) {
+            //wait until target position in reached
+        }
+        stopDriving(speed);
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+        long init = System.currentTimeMillis();
+        for (long now = System.currentTimeMillis(); now - init < 500; init = System.currentTimeMillis());
+    }
+
+    public void drive_rf(double ticks, double speed) {
+
+        leftDrive[0].setDirection(DcMotorSimple.Direction.REVERSE);
+        rightDrive[1].setDirection(DcMotorSimple.Direction.FORWARD);
+
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        setWheelTargetPosition(allDrive, ticks);
+
+        leftDrive[0].setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightDrive[1].setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        accelerateTo(1.0); //Maybe fix this later
+
+        while (isBusy(allDrive) && opMode.opModeIsActive()) {
+            //wait until target position in reached
+        }
+        stopDriving(speed);
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+        long init = System.currentTimeMillis();
+        for (long now = System.currentTimeMillis(); now - init < 500; init = System.currentTimeMillis());
+    }
+
+    public void drive_lb(double ticks, double speed) {
+
+        leftDrive[1].setDirection(DcMotorSimple.Direction.FORWARD);
+        rightDrive[0].setDirection(DcMotorSimple.Direction.REVERSE);
+
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        setWheelTargetPosition(allDrive, ticks);
+
+        leftDrive[1].setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightDrive[0].setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        leftDrive[1].setPower(speed);
+//        rightDrive[0].setPower(speed);
+        accelerateTo(1.0);
+
+        while (isBusy(allDrive) && opMode.opModeIsActive()) {
+            //wait until target position in reached
+        }
+        stopDriving(speed);
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+        long init = System.currentTimeMillis();
+        for (long now = System.currentTimeMillis(); now - init < 500; init = System.currentTimeMillis());
+    }
+
+    public void drive_rb(double ticks, double speed) {
+
+        leftDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
+        rightDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
+
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        setWheelTargetPosition(allDrive, ticks);
+
+        leftDrive[0].setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightDrive[1].setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        accelerateTo(1.0);
+
+        while (isBusy(allDrive) && opMode.opModeIsActive()) {
+            //wait until target position in reached
+        }
+        stopDriving(speed);
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+        long init = System.currentTimeMillis();
+        for (long now = System.currentTimeMillis(); now - init < 500; init = System.currentTimeMillis());
+    }
+
+    public void turnLeft(double degrees, double speed) {
+
+        double ticks = degrees*1100/90;
         setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
         setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
 
@@ -182,8 +342,9 @@ public class EncoderFun extends Encoder {
 
     }
 
-    public void turnRight(double ticks, double speed) {
+    public void turnRight(double degrees, double speed) {
 
+        double ticks = degrees*1100/90;
         setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
         setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
 
@@ -215,6 +376,17 @@ public class EncoderFun extends Encoder {
         stopDriving(speed);
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
+    public void clawPress() {
+        servoClaw.setPosition(1);
+        telemetry.addData("Claw", "Close");
+    }
+
+    public void clawDrop() {
+        servoClaw.setPosition(0);
+        telemetry.addData("Claw", "Open");
+    }
+
 
     public void driveUntilAlpha (double threshold, double speed) {
         colorSensor.enableLed(true);

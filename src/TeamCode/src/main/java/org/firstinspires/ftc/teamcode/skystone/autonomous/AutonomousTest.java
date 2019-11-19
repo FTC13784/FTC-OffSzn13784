@@ -7,8 +7,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous(name = "AutonomousTest", group = "Autonomous")
 public class AutonomousTest extends LinearOpMode {
 
-    private ElapsedTime runtime = new ElapsedTime();
     EncoderFun ourBot;
+    long start, now, duration = 0;
+    private ElapsedTime runtime = new ElapsedTime();
+    // private RobotState currentState = RobotState.start;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -23,25 +25,72 @@ public class AutonomousTest extends LinearOpMode {
         telemetry.addData("Status", "Start received");
         telemetry.update();
 
-        ourBot.driveTicks(5000, 1.0);
-
-        wait(1000);
-        telemetry.addData("Power", ourBot.drivePower);
+        ourBot.driveLeftCm(80, 1.0);
+        telemetry.addData("Left Power", ourBot.drivePower);
         telemetry.update();
 
-        ourBot.driveBackTicks(5000,1.0);
+        ourBot.sleep(400);
+
+        ourBot.drive_rf(3500, 1.0);
+        telemetry.addData("RF Power", ourBot.drivePower);
+        telemetry.update();
+
+        ourBot.sleep(400);
+
+        ourBot.driveCm(20, 1.0);
+        telemetry.addData("Forward Power", ourBot.drivePower);
+        telemetry.update();
+
+        telemetry.addData("This works", ourBot.drivePower);
+        telemetry.update();
+
+        ourBot.sleep(400);
+
+        ourBot.driveBackCm(20, 1.0);
         telemetry.addData("Backwards Power", ourBot.drivePower);
         telemetry.update();
 
-        wait(1000);
+        ourBot.sleep(400);
 
-        ourBot.turnLeft(1000,1.0);
-        ourBot.turnRight(1000,1.0);
-        ourBot.turnLeft(1000,1.0);
+        ourBot.drive_lb(100, 1.0);
+        telemetry.addData("LB Power", ourBot.drivePower);
+        telemetry.update();
+
+        ourBot.sleep(400);
+
+        ourBot.driveBackCm(400, 1.0);
+        telemetry.addData("Backwards Power", ourBot.drivePower);
+        telemetry.update();
 
         telemetry.addData("Statues", "Done");
 
         telemetry.update();
 
     }
+
+   /* private enum RobotState {
+        start,
+        driveForward,
+        driveRight,
+        driveLeft,
+        driveForwardRight,
+        driveFowardLeft,
+        drive,
+        driveBackward,
+        driveBackRight,
+        driveBackLeft,
+        stop,
+        wait,
+        turnLeft,
+        turnRight,
+        clawUp,
+        clawDown,
+        clawForward,
+        clawBack,
+        detectStone,
+        detectLine;
+    }
+**/
+
+
 }
