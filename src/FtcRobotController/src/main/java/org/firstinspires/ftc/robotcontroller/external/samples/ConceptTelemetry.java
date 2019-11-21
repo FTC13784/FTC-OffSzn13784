@@ -81,7 +81,8 @@ public class ConceptTelemetry extends LinearOpMode  {
         ""
     };
 
-    @Override public void runOpMode() {
+    @Override
+    public void runOpMode() {
 
         /* we keep track of how long it's been since the OpMode was started, just
          * to have some interesting data to show */
