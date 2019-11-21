@@ -2,46 +2,98 @@ package org.firstinspires.ftc.teamcode.skystone.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.teamcode.skystone.SkyStoneUtils;
-
-@Autonomous(name = "Autonomous", group = "Linear Opmode")
+@Autonomous(name = "AutonomousTest", group = "Autonomous")
 public class AutonomousTest extends LinearOpMode {
     // start timer
     private ElapsedTime runtime = new ElapsedTime();
 
-    // initialize motor array as well as variables
-    DcMotor[] allDrive = new DcMotor[4];
-
-    DcMotor leftFront, leftBack, rightFront, rightBack;
-    Servo servoRelocL, servoRelocR;
+    EncoderFun ourBot;
+    long start, now, duration = 0;
+    private ElapsedTime runtime = new ElapsedTime();
+    // private RobotState currentState = RobotState.start;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        SkyStoneUtils.initializeTeleOpHardware(allDrive, leftBack, leftFront, rightBack, rightFront, servoRelocL, servoRelocR, hardwareMap);
+        ourBot = new EncoderFun(this);
+
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
 
         waitForStart();
         runtime.reset();
 
+        telemetry.addData("Status", "Start received");
+        telemetry.update();
 
-        // TODO: Get vuforia to work properly
-        VuforiaLocalizer vuforia;
+        ourBot.driveLeftCm(80, 1.0);
+        telemetry.addData("Left Power", ourBot.drivePower);
+        telemetry.update();
 
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId",
-                "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+        ourBot.sleep(400);
 
-        // Ed's license key - only 1k uses per month :C
-        parameters.vuforiaLicenseKey = "AWWeNcn/////AAABmbzEQcjD+EkFoiSZqjg+u5lx/yGKr1cswTXJyKam9aypsQkEusq7NS661eR2F6TTehJxCMN09Rn7Y7AQtYBYflZ1EexJOBKAHZeqEMal0bsoxZ35GB9T7xlcCW+2nGCIhyhsB01Yxt84BFQzC7COawfvIXgJFS8a7kg5nekjFdY0tPuR9niPUTmklKhc9RqIQVL1KXp6P5ypinxVm3xpAUosB+AEupCvA6NkEbZS4gFAZoytSjBfrvkMHtLPlUJYESEnt8mY7m0CKSj1V3hf8J9o7b8kgFZqqmGgZhvqSgFMaBQiRc7HM/mNqTGIT11dWeqYgWlHTHO7k2xFwgtSzxsD8AHqB2qtCG+uR+A3TxUm";
+        ourBot.drive_rf(3500, 1.0);
+        telemetry.addData("RF Power", ourBot.drivePower);
+        telemetry.update();
 
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-        // this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+        ourBot.sleep(400);
 
+        ourBot.driveCm(20, 1.0);
+        telemetry.addData("Forward Power", ourBot.drivePower);
+        telemetry.update();
+
+        telemetry.addData("This works", ourBot.drivePower);
+        telemetry.update();
+
+        ourBot.sleep(400);
+
+        ourBot.driveBackCm(20, 1.0);
+        telemetry.addData("Backwards Power", ourBot.drivePower);
+        telemetry.update();
+
+        ourBot.sleep(400);
+
+        ourBot.drive_lb(100, 1.0);
+        telemetry.addData("LB Power", ourBot.drivePower);
+        telemetry.update();
+
+        ourBot.sleep(400);
+
+        ourBot.driveBackCm(400, 1.0);
+        telemetry.addData("Backwards Power", ourBot.drivePower);
+        telemetry.update();
+
+        telemetry.addData("Statues", "Done");
+
+        telemetry.update();
 
     }
+
+   /* private enum RobotState {
+        start,
+        driveForward,
+        driveRight,
+        driveLeft,
+        driveForwardRight,
+        driveFowardLeft,
+        drive,
+        driveBackward,
+        driveBackRight,
+        driveBackLeft,
+        stop,
+        wait,
+        turnLeft,
+        turnRight,
+        clawUp,
+        clawDown,
+        clawForward,
+        clawBack,
+        detectStone,
+        detectLine;
+    }
+**/
+
+
 }
