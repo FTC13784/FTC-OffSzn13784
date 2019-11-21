@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.skystone.autonomous;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -12,7 +11,6 @@ public class AutonomousTest extends LinearOpMode {
 
     EncoderFun ourBot;
     long start, now, duration = 0;
-    private ElapsedTime runtime = new ElapsedTime();
     // private RobotState currentState = RobotState.start;
 
     @Override
