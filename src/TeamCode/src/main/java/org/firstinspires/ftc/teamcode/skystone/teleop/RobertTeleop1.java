@@ -118,6 +118,11 @@ public class RobertTeleop1 extends LinearOpMode {
             initialFrontRightPower = FrontRightPower;
             initialBackRightPower = BackRightPower;
 
+            FrontLeftPower = Range.clip(FrontLeftPower, -1, 1);
+            BackLeftPower = Range.clip(BackLeftPower, -1, 1);
+            FrontRightPower = Range.clip(FrontRightPower, -1, 1);
+            BackRightPower = Range.clip(BackRightPower, -1, 1);
+
             if (rightTrigger) {
                 FrontLeftPower = initialFrontLeftPower * 0.5F;
                 BackLeftPower = initialBackLeftPower * 0.5F;
@@ -135,40 +140,51 @@ public class RobertTeleop1 extends LinearOpMode {
                 BackRightPower = initialBackRightPower;
             }
 
-            FrontLeftPower = Range.clip(FrontLeftPower, -1, 1);
-            BackLeftPower = Range.clip(BackLeftPower, -1, 1);
-            FrontRightPower = Range.clip(FrontRightPower, -1, 1);
-            BackRightPower = Range.clip(BackRightPower, -1, 1);
-
             // write the values to the motors
             //Remember to make them accelerate! We want to change the power every tick.
             if (leftFront.getPower() != FrontLeftPower) {
-                if (prevRunTime < getRuntime()) {
+                for (double i = leftFront.getPower(); i < FrontLeftPower; i += 0.05) {
+                    leftFront.setPower(i);
+                }
+                leftFront.setPower(FrontLeftPower);
+                /*if (prevRunTime < getRuntime()) {
                     double targetPower = FrontLeftPower < leftFront.getPower() ?
                             Math.max(FrontLeftPower, leftFront.getPower() - 0.1) : Math.min(FrontLeftPower, leftFront.getPower() - 0.1);
                     leftFront.setPower(targetPower);
-                }
+                }**/
             }
             if (leftBack.getPower() != BackLeftPower) {
-                if (prevRunTime < getRuntime()) {
+                for (double i = leftBack.getPower(); i < BackLeftPower; i += 0.05) {
+                    leftBack.setPower(i);
+                }
+                leftBack.setPower(BackRightPower);
+               /* if (prevRunTime < getRuntime()) {
                     double targetPower = BackLeftPower < leftBack.getPower() ?
                             Math.max(BackLeftPower, leftBack.getPower() - 0.1) : Math.min(BackLeftPower, leftBack.getPower() - 0.1);
                     leftBack.setPower(targetPower);
-                }
+                }**/
             }
             if (rightFront.getPower() != FrontRightPower) {
-                if (prevRunTime < getRuntime()) {
+                for (double i = rightFront.getPower(); i < FrontRightPower; i += 0.05) {
+                    leftFront.setPower(i);
+                }
+                rightFront.setPower(FrontRightPower);
+              /*  if (prevRunTime < getRuntime()) {
                     double targetPower = FrontRightPower < rightFront.getPower() ?
                             Math.max(FrontRightPower, rightFront.getPower() - 0.1) : Math.min(FrontRightPower, rightFront.getPower() - 0.1);
                     rightFront.setPower(targetPower);
                 }
-            }
+            }**/
             if (rightBack.getPower() != BackRightPower) {
-                if (prevRunTime < getRuntime()) {
+                for (double i = rightBack.getPower(); i < BackRightPower; i += 0.05) {
+                    rightBack.setPower(i);
+                }
+                rightBack.setPower(BackRightPower);
+              /*  if (prevRunTime < getRuntime()) {
                     double targetPower = BackRightPower < rightBack.getPower() ?
                             Math.max(BackRightPower, rightBack.getPower() - 0.1) : Math.min(BackRightPower, rightBack.getPower() - 0.1);
                     rightBack.setPower(targetPower);
-                }
+                }**/
             }
             float raisePos = raise.getCurrentPosition();
             telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
