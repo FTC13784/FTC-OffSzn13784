@@ -12,7 +12,6 @@ public class AutonomousTest extends LinearOpMode {
 
     EncoderFun ourBot;
     long start, now, duration = 0;
-    private ElapsedTime runtime = new ElapsedTime();
     // private RobotState currentState = RobotState.start;
 
     @Override
