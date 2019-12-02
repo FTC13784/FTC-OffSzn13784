@@ -175,65 +175,66 @@ public class RobertTeleop1 extends LinearOpMode {
                     rightFront.setPower(targetPower);
                 }
             }**/
-            if (rightBack.getPower() != BackRightPower) {
-                for (double i = rightBack.getPower(); i < BackRightPower; i += 0.05) {
-                    rightBack.setPower(i);
-                }
-                rightBack.setPower(BackRightPower);
+                if (rightBack.getPower() != BackRightPower) {
+                    for (double i = rightBack.getPower(); i < BackRightPower; i += 0.05) {
+                        rightBack.setPower(i);
+                    }
+                    rightBack.setPower(BackRightPower);
               /*  if (prevRunTime < getRuntime()) {
                     double targetPower = BackRightPower < rightBack.getPower() ?
                             Math.max(BackRightPower, rightBack.getPower() - 0.1) : Math.min(BackRightPower, rightBack.getPower() - 0.1);
                     rightBack.setPower(targetPower);
                 }**/
+                }
+                float raisePos = raise.getCurrentPosition();
+                telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
+
+
+                if (rightbump && getRuntime() > upCoolDown) {
+                    targetBlock++;
+                    upCoolDown = getRuntime() + .2; //cooldown of .2s
+                }
+                if (leftbump && getRuntime() > downCoolDown) {
+                    targetBlock--;
+                    downCoolDown = getRuntime() + .2; //cooldown of .2s
+                }
+
+
+                telemetry.addData("Raiseblock", "going to: " + targetBlock);
+
+
+                //We want to account for half blocks/being able to pick up blocks as wel as place them.
+                int targetPos = Math.round(targetBlock * oneBlock / 2);
+
+                telemetry.addData("Raisepos", "going to: " + targetPos);
+
+
+                //raise.getCurrentPosition();
+                raise.setTargetPosition(targetPos);
+
+
+                if (leftTrigger) {
+                    if (extendTarget == 0)
+                        extendTarget = 8500;
+                    else extendTarget = 0;
+                }
+
+
+                //extend.getCurrentPosition();
+                extend.setTargetPosition(extendTarget);
+
+                telemetry.addData("ExtendTarget", "Value: " + extend.getTargetPosition());
+
+                telemetry.addData("ExtendEncode", "Value: " + extend.getCurrentPosition());
+
+                telemetry.update();
+
+                prevRunTime = getRuntime();
             }
-            float raisePos = raise.getCurrentPosition();
-            telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
-
-
-            if (rightbump && getRuntime() > upCoolDown) {
-                targetBlock++;
-                upCoolDown = getRuntime() + .2; //cooldown of .2s
-            }
-            if (leftbump && getRuntime() > downCoolDown) {
-                targetBlock--;
-                downCoolDown = getRuntime() + .2; //cooldown of .2s
-            }
-
-
-            telemetry.addData("Raiseblock", "going to: " + targetBlock);
-
-
-            //We want to account for half blocks/being able to pick up blocks as wel as place them.
-            int targetPos = Math.round(targetBlock * oneBlock / 2);
-
-            telemetry.addData("Raisepos", "going to: " + targetPos);
-
-
-            //raise.getCurrentPosition();
-            raise.setTargetPosition(targetPos);
-
-
-            if (leftTrigger) {
-                if (extendTarget == 0)
-                    extendTarget = 8500;
-                else extendTarget = 0;
-            }
-
-
-            //extend.getCurrentPosition();
-            extend.setTargetPosition(extendTarget);
-
-            telemetry.addData("ExtendTarget", "Value: " + extend.getTargetPosition());
-
-            telemetry.addData("ExtendEncode", "Value: " + extend.getCurrentPosition());
-
-            telemetry.update();
-
-            prevRunTime = getRuntime();
         }
     }
 
-    public void accelerateTo(DcMotor motor, float power) {
+        public void accelerateTo (DcMotor motor,float power){
 
-    }
+        }
 }
