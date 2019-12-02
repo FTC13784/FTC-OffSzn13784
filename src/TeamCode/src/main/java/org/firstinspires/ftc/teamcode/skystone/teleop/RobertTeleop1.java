@@ -33,6 +33,7 @@ public class RobertTeleop1 extends LinearOpMode {
     //DcMotor[] allDrive = new DcMotor[4];
     // start timer
     private ElapsedTime runtime = new ElapsedTime();
+    private double prevRunTime = 0;
     //Servo servoRelocL, servoRelocR, servoClaw;
 
     // opmode
@@ -140,10 +141,35 @@ public class RobertTeleop1 extends LinearOpMode {
             BackRightPower = Range.clip(BackRightPower, -1, 1);
 
             // write the values to the motors
-            leftFront.setPower(FrontLeftPower);
-            leftBack.setPower(BackLeftPower);
-            rightFront.setPower(FrontRightPower);
-            rightBack.setPower(BackRightPower);
+            //Remember to make them accelerate! We want to change the power every tick.
+            if (leftFront.getPower() != FrontLeftPower) {
+                if (prevRunTime < getRuntime()) {
+                    double targetPower = FrontLeftPower < leftFront.getPower() ?
+                            Math.max(FrontLeftPower, leftFront.getPower() - 0.1) : Math.min(FrontLeftPower, leftFront.getPower() - 0.1);
+                    leftFront.setPower(targetPower);
+                }
+            }
+            if (leftBack.getPower() != BackLeftPower) {
+                if (prevRunTime < getRuntime()) {
+                    double targetPower = BackLeftPower < leftBack.getPower() ?
+                            Math.max(BackLeftPower, leftBack.getPower() - 0.1) : Math.min(BackLeftPower, leftBack.getPower() - 0.1);
+                    leftBack.setPower(targetPower);
+                }
+            }
+            if (rightFront.getPower() != FrontRightPower) {
+                if (prevRunTime < getRuntime()) {
+                    double targetPower = FrontRightPower < rightFront.getPower() ?
+                            Math.max(FrontRightPower, rightFront.getPower() - 0.1) : Math.min(FrontRightPower, rightFront.getPower() - 0.1);
+                    rightFront.setPower(targetPower);
+                }
+            }
+            if (rightBack.getPower() != BackRightPower) {
+                if (prevRunTime < getRuntime()) {
+                    double targetPower = BackRightPower < rightBack.getPower() ?
+                            Math.max(BackRightPower, rightBack.getPower() - 0.1) : Math.min(BackRightPower, rightBack.getPower() - 0.1);
+                    rightBack.setPower(targetPower);
+                }
+            }
             float raisePos = raise.getCurrentPosition();
             telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
 
@@ -186,6 +212,12 @@ public class RobertTeleop1 extends LinearOpMode {
             telemetry.addData("ExtendEncode", "Value: " + extend.getCurrentPosition());
 
             telemetry.update();
+
+            prevRunTime = getRuntime();
         }
+    }
+
+    public void accelerateTo(DcMotor motor, float power) {
+
     }
 }
