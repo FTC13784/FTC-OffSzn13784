@@ -144,12 +144,12 @@ public class RobertTeleop1 extends LinearOpMode {
             //Remember to make them accelerate! We want to change the power every tick.
             if (leftFront.getPower() != FrontLeftPower) {
                 if (BackRightPower > leftFront.getPower()) {
-                    for (double i = leftFront.getPower(); i < FrontLeftPower; i += 0.05) {
+                    for (double i = leftFront.getPower(); i < FrontLeftPower; i += 0.15) {
                         leftFront.setPower(i);
                     }
                 }
                 else {
-                    for (double i = leftFront.getPower(); i > FrontLeftPower; i -= 0.05) {
+                    for (double i = leftFront.getPower(); i > FrontLeftPower; i -= 0.15) {
                         leftFront.setPower(i);
                     }
                 }
@@ -157,12 +157,12 @@ public class RobertTeleop1 extends LinearOpMode {
             }
             if (leftBack.getPower() != BackLeftPower) {
                 if (BackLeftPower > leftBack.getPower()) {
-                    for (double i = leftBack.getPower(); i < BackLeftPower; i += 0.05) {
+                    for (double i = leftBack.getPower(); i < BackLeftPower; i += 0.15) {
                         leftBack.setPower(i);
                     }
                 }
                 else {
-                    for (double i = leftBack.getPower(); i > BackLeftPower; i -= 0.05) {
+                    for (double i = leftBack.getPower(); i > BackLeftPower; i -= 0.15) {
                         leftBack.setPower(i);
                     }
                 }
@@ -170,12 +170,12 @@ public class RobertTeleop1 extends LinearOpMode {
             }
             if (rightFront.getPower() != FrontRightPower) {
                 if (FrontRightPower > rightFront.getPower()) {
-                    for (double i = rightFront.getPower(); i < FrontRightPower; i += 0.05) {
+                    for (double i = rightFront.getPower(); i < FrontRightPower; i += 0.15) {
                         rightFront.setPower(i);
                     }
                 }
                 else {
-                    for (double i = rightFront.getPower(); i > FrontRightPower; i -= 0.05) {
+                    for (double i = rightFront.getPower(); i > FrontRightPower; i -= 0.15) {
                         rightFront.setPower(i);
                     }
                 }
@@ -183,12 +183,12 @@ public class RobertTeleop1 extends LinearOpMode {
             }
                 if (rightBack.getPower() != BackRightPower) {
                     if (BackRightPower > rightBack.getPower()) {
-                        for (double i = rightBack.getPower(); i < BackRightPower; i += 0.05) {
+                        for (double i = rightBack.getPower(); i < BackRightPower; i += 0.15) {
                             rightBack.setPower(i);
                         }
                     }
                     else {
-                        for (double i = rightBack.getPower(); i > BackRightPower; i -= 0.05) {
+                        for (double i = rightBack.getPower(); i > BackRightPower; i -= 0.15) {
                             rightBack.setPower(i);
                         }
                     }
