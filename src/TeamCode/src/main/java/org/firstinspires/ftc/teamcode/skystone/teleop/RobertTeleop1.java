@@ -143,48 +143,56 @@ public class RobertTeleop1 extends LinearOpMode {
             // write the values to the motors
             //Remember to make them accelerate! We want to change the power every tick.
             if (leftFront.getPower() != FrontLeftPower) {
-                for (double i = leftFront.getPower(); i < FrontLeftPower; i += 0.05) {
-                    leftFront.setPower(i);
+                if (BackRightPower > leftFront.getPower()) {
+                    for (double i = leftFront.getPower(); i < FrontLeftPower; i += 0.05) {
+                        leftFront.setPower(i);
+                    }
+                }
+                else {
+                    for (double i = leftFront.getPower(); i > FrontLeftPower; i -= 0.05) {
+                        leftFront.setPower(i);
+                    }
                 }
                 leftFront.setPower(FrontLeftPower);
-                /*if (prevRunTime < getRuntime()) {
-                    double targetPower = FrontLeftPower < leftFront.getPower() ?
-                            Math.max(FrontLeftPower, leftFront.getPower() - 0.1) : Math.min(FrontLeftPower, leftFront.getPower() - 0.1);
-                    leftFront.setPower(targetPower);
-                }**/
             }
             if (leftBack.getPower() != BackLeftPower) {
-                for (double i = leftBack.getPower(); i < BackLeftPower; i += 0.05) {
-                    leftBack.setPower(i);
+                if (BackLeftPower > leftBack.getPower()) {
+                    for (double i = leftBack.getPower(); i < BackLeftPower; i += 0.05) {
+                        leftBack.setPower(i);
+                    }
                 }
-                leftBack.setPower(BackRightPower);
-               /* if (prevRunTime < getRuntime()) {
-                    double targetPower = BackLeftPower < leftBack.getPower() ?
-                            Math.max(BackLeftPower, leftBack.getPower() - 0.1) : Math.min(BackLeftPower, leftBack.getPower() - 0.1);
-                    leftBack.setPower(targetPower);
-                }**/
+                else {
+                    for (double i = leftBack.getPower(); i > BackLeftPower; i -= 0.05) {
+                        leftBack.setPower(i);
+                    }
+                }
+                leftBack.setPower(BackLeftPower);
             }
             if (rightFront.getPower() != FrontRightPower) {
-                for (double i = rightFront.getPower(); i < FrontRightPower; i += 0.05) {
-                    leftFront.setPower(i);
+                if (FrontRightPower > rightFront.getPower()) {
+                    for (double i = rightFront.getPower(); i < FrontRightPower; i += 0.05) {
+                        rightFront.setPower(i);
+                    }
+                }
+                else {
+                    for (double i = rightFront.getPower(); i > FrontRightPower; i -= 0.05) {
+                        rightFront.setPower(i);
+                    }
                 }
                 rightFront.setPower(FrontRightPower);
-              /*  if (prevRunTime < getRuntime()) {
-                    double targetPower = FrontRightPower < rightFront.getPower() ?
-                            Math.max(FrontRightPower, rightFront.getPower() - 0.1) : Math.min(FrontRightPower, rightFront.getPower() - 0.1);
-                    rightFront.setPower(targetPower);
-                }
-            }**/
+            }
                 if (rightBack.getPower() != BackRightPower) {
-                    for (double i = rightBack.getPower(); i < BackRightPower; i += 0.05) {
-                        rightBack.setPower(i);
+                    if (BackRightPower > rightBack.getPower()) {
+                        for (double i = rightBack.getPower(); i < BackRightPower; i += 0.05) {
+                            rightBack.setPower(i);
+                        }
+                    }
+                    else {
+                        for (double i = rightBack.getPower(); i > BackRightPower; i -= 0.05) {
+                            rightBack.setPower(i);
+                        }
                     }
                     rightBack.setPower(BackRightPower);
-              /*  if (prevRunTime < getRuntime()) {
-                    double targetPower = BackRightPower < rightBack.getPower() ?
-                            Math.max(BackRightPower, rightBack.getPower() - 0.1) : Math.min(BackRightPower, rightBack.getPower() - 0.1);
-                    rightBack.setPower(targetPower);
-                }**/
                 }
                 float raisePos = raise.getCurrentPosition();
                 telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
@@ -221,7 +229,7 @@ public class RobertTeleop1 extends LinearOpMode {
 
 
                 //extend.getCurrentPosition();
-                extend.setTargetPosition(extendTarget);
+               // extend.setTargetPosition(extendTarget);
 
                 telemetry.addData("ExtendTarget", "Value: " + extend.getTargetPosition());
 
@@ -230,7 +238,6 @@ public class RobertTeleop1 extends LinearOpMode {
                 telemetry.update();
 
                 prevRunTime = getRuntime();
-            }
         }
     }
 
