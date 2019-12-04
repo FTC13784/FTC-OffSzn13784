@@ -124,15 +124,15 @@ public class RobertTeleop1 extends LinearOpMode {
             BackRightPower = Range.clip(BackRightPower, -1, 1);
 
             if (rightTrigger) {
-                FrontLeftPower = initialFrontLeftPower * 0.5F;
-                BackLeftPower = initialBackLeftPower * 0.5F;
-                FrontRightPower = initialFrontRightPower * 0.5F;
-                BackRightPower = initialBackRightPower * 0.5F;
+                FrontLeftPower *= 0.5F;
+                BackLeftPower *= 0.5F;
+                FrontRightPower *= 0.5F;
+                BackRightPower *= 0.5F;
             } else if (leftTrigger) {
-                FrontLeftPower = initialFrontLeftPower * 1.5F;
-                BackLeftPower = initialBackLeftPower * 1.5F;
-                FrontRightPower = initialFrontRightPower * 1.5F;
-                BackRightPower = initialBackRightPower * 1.5F;
+                FrontLeftPower *= 1.5F;
+                BackLeftPower *= 1.5F;
+                FrontRightPower *= 1.5F;
+                BackRightPower *= 1.5F;
             } else {
                 FrontLeftPower = initialFrontLeftPower;
                 BackLeftPower = initialBackLeftPower;

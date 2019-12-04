@@ -29,13 +29,11 @@
 
 package org.firstinspires.ftc.teamcode.skystone.teleop;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 
 /**
@@ -43,10 +41,10 @@ import com.qualcomm.robotcore.util.Range;
  * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
  * of the FTC Driver Station. When an selection is made from the menu, the corresponding OpMode
  * class is instantiated on the Robot Controller and executed.
- *
+ * <p>
  * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
  * It includes all the skeletal struct ure that all linear OpModes contain.
- *
+ * <p>
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
@@ -63,7 +61,7 @@ lifter motor -> raise
 extender motor -> extend
  */
 
-@TeleOp(name="Test Teleop", group="Linear Opmode")
+@TeleOp(name = "Test Teleop", group = "Linear Opmode")
 //@Disabled
 public class NewTelop extends LinearOpMode {
 
@@ -89,7 +87,7 @@ public class NewTelop extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftFrontDrive  = hardwareMap.get(DcMotor.class, "lf");
+        leftFrontDrive = hardwareMap.get(DcMotor.class, "lf");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "rf");
         leftBackDrive = hardwareMap.get(DcMotor.class, "lb");
         rightBackDrive = hardwareMap.get(DcMotor.class, "rb");
@@ -108,36 +106,99 @@ public class NewTelop extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            sendPowerToMotor(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x);
+            double speedMult = 1;
+
+            if (gamepad1.right_trigger > 0.5)
+                speedMult = 1.5;
+            else if (gamepad1.left_trigger > 0.5)
+                speedMult = 0.5;
+            sendPowerToMotor(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, speedMult);
 
             liftMotor.setPower(gamepad2.right_stick_y);
             extensionMotor.setPower(gamepad2.left_stick_y);
 
-            if(gamepad2.left_bumper) closeClaw();
-            if(gamepad2.right_bumper) openClaw();
+            if (gamepad2.left_bumper) closeClaw();
+            if (gamepad2.right_bumper) openClaw();
 
-            telemetry.addData("x:",gamepad1.left_stick_x);
-            telemetry.addData("y:",gamepad1.left_stick_y);
-            telemetry.addData("r:",gamepad1.right_stick_x);
-            telemetry.addData("l:",gamepad2.right_stick_y);
-            telemetry.addData("e:",gamepad2.left_stick_y);
+            telemetry.addData("x:", gamepad1.left_stick_x);
+            telemetry.addData("y:", gamepad1.left_stick_y);
+            telemetry.addData("r:", gamepad1.right_stick_x);
+            telemetry.addData("l:", gamepad2.right_stick_y);
+            telemetry.addData("e:", gamepad2.left_stick_y);
             telemetry.update();
         }
     }
 
-    void sendPowerToMotor(double x, double y, double r){
-        leftFrontDrive.setPower(- x + y - r);
-        leftBackDrive.setPower(x + y - r);
-        rightFrontDrive.setPower(-x - y - r);
-        rightBackDrive.setPower(x - y - r);
+    void sendPowerToMotor(double x, double y, double r, double speedMult) {
+        double backLeftPower = -x + y - r;
+        double backRightPower = x - y - r;
+        double frontLeftPower = x + y - r;
+        double frontRightPower = -x - y - r;
+
+        //Triggers for speeding up and slowing down.
+        backLeftPower *= speedMult;
+        backRightPower *= speedMult;
+        frontLeftPower *= speedMult;
+        frontRightPower *= speedMult;
+
+        //Acceleration.
+
+        if (leftFrontDrive.getPower() != frontLeftPower) {
+            if (backRightPower > leftFrontDrive.getPower()) {
+                for (double i = leftFrontDrive.getPower(); i < frontLeftPower; i += 0.15) {
+                    leftFrontDrive.setPower(i);
+                }
+            } else {
+                for (double i = leftFrontDrive.getPower(); i > frontLeftPower; i -= 0.15) {
+                    leftFrontDrive.setPower(i);
+                }
+            }
+            leftFrontDrive.setPower(frontLeftPower);
+        }
+        if (leftBackDrive.getPower() != backLeftPower) {
+            if (backLeftPower > leftBackDrive.getPower()) {
+                for (double i = leftBackDrive.getPower(); i < backLeftPower; i += 0.15) {
+                    leftBackDrive.setPower(i);
+                }
+            } else {
+                for (double i = leftBackDrive.getPower(); i > backLeftPower; i -= 0.15) {
+                    leftBackDrive.setPower(i);
+                }
+            }
+            leftBackDrive.setPower(backLeftPower);
+        }
+        if (rightFrontDrive.getPower() != frontRightPower) {
+            if (frontRightPower > rightFrontDrive.getPower()) {
+                for (double i = rightFrontDrive.getPower(); i < frontRightPower; i += 0.15) {
+                    rightFrontDrive.setPower(i);
+                }
+            } else {
+                for (double i = rightFrontDrive.getPower(); i > frontRightPower; i -= 0.15) {
+                    rightFrontDrive.setPower(i);
+                }
+            }
+            rightFrontDrive.setPower(frontRightPower);
+        }
+        if (rightBackDrive.getPower() != backRightPower) {
+            if (backRightPower > rightBackDrive.getPower()) {
+                for (double i = rightBackDrive.getPower(); i < backRightPower; i += 0.15) {
+                    rightBackDrive.setPower(i);
+                }
+            } else {
+                for (double i = rightBackDrive.getPower(); i > backRightPower; i -= 0.15) {
+                    rightBackDrive.setPower(i);
+                }
+            }
+            rightBackDrive.setPower(backRightPower);
+        }
     }
 
-    void openClaw(){
+    void openClaw() {
         frontClawServo.setPosition(1);
         backClawServo.setPosition(0);
     }
 
-    void closeClaw(){
+    void closeClaw() {
         frontClawServo.setPosition(.2);
         backClawServo.setPosition(.8);
     }
