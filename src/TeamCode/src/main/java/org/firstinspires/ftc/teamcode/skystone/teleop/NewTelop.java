@@ -113,20 +113,27 @@ public class NewTelop extends LinearOpMode {
             //Motion
             double speedMult = 1;
 
-            if (gamepad1.right_trigger < 0.5)
+            if (gamepad1.right_trigger > 0.5)
                 speedMult = 1.5;
-            else if (gamepad1.left_trigger < 0.5)
+            else if (gamepad1.left_trigger > 0.5)
                 speedMult = 0.5;
+
+            telemetry.addData("Right Trigger", gamepad1.right_trigger);
+            telemetry.addData("Left Trigger", gamepad1.left_trigger);
+            telemetry.update();
 
             sendPowerToMotor(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, speedMult);
 
             //Auxiliary
             //TODO: Add target positions for blocks.
-            if (gamepad2.left_bumper && liftMotor.getCurrentPosition() > 0)
-                liftMotor.setPower(-0.5);
-            else if (gamepad2.right_bumper && liftMotor.getCurrentPosition() < 3)
-                liftMotor.setPower(0.5);
-            else liftMotor.setPower(0);
+            if (gamepad2.left_bumper && liftMotor.getCurrentPosition() > 0) {
+                liftMotor.setTargetPosition(liftMotor.getCurrentPosition() - 1);
+                liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+            else if (gamepad2.right_bumper && liftMotor.getCurrentPosition() < 3) {
+                liftMotor.setTargetPosition(liftMotor.getCurrentPosition() + 1);
+                liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
 
             extensionMotor.setPower(gamepad2.dpad_up ? 0.5 : gamepad2.dpad_down ? -0.5 : 0);
 
@@ -148,14 +155,14 @@ public class NewTelop extends LinearOpMode {
         if (Math.abs(x) < 0.1) {
             x = 0;
         }
-        if (Math.abs(y) < 0.1) {
+        if (Math.abs(y) <  0.1) {
             y = 0;
         }
 
-        double backLeftPower = -x + y - r;
-        double backRightPower = x - y - r;
-        double frontLeftPower = x + y - r;
-        double frontRightPower = -x - y - r;
+        double backLeftPower = x + y - r;
+        double backRightPower = -y + x - r;
+        double frontLeftPower = y - x - r;
+        double frontRightPower = -y -x -r;
 
         //Clipping.
         backLeftPower = Range.clip(backLeftPower, -1F, 1F);
@@ -173,11 +180,11 @@ public class NewTelop extends LinearOpMode {
 
         if (leftFrontDrive.getPower() != frontLeftPower) {
             if (backRightPower > leftFrontDrive.getPower()) {
-                for (double i = leftFrontDrive.getPower(); i < frontLeftPower; i += 0.3) {
+                for (double i = leftFrontDrive.getPower(); i < frontLeftPower; i += 0.25) {
                     leftFrontDrive.setPower(i);
                 }
             } else {
-                for (double i = leftFrontDrive.getPower(); i > frontLeftPower; i -= 0.3) {
+                for (double i = leftFrontDrive.getPower(); i > frontLeftPower; i -= 0.25) {
                     leftFrontDrive.setPower(i);
                 }
             }
@@ -185,11 +192,11 @@ public class NewTelop extends LinearOpMode {
         }
         if (leftBackDrive.getPower() != backLeftPower) {
             if (backLeftPower > leftBackDrive.getPower()) {
-                for (double i = leftBackDrive.getPower(); i < backLeftPower; i += 0.3) {
+                for (double i = leftBackDrive.getPower(); i < backLeftPower; i += 0.25) {
                     leftBackDrive.setPower(i);
                 }
             } else {
-                for (double i = leftBackDrive.getPower(); i > backLeftPower; i -= 0.3) {
+                for (double i = leftBackDrive.getPower(); i > backLeftPower; i -= 0.25) {
                     leftBackDrive.setPower(i);
                 }
             }
@@ -197,11 +204,11 @@ public class NewTelop extends LinearOpMode {
         }
         if (rightFrontDrive.getPower() != frontRightPower) {
             if (frontRightPower > rightFrontDrive.getPower()) {
-                for (double i = rightFrontDrive.getPower(); i < frontRightPower; i += 0.3) {
+                for (double i = rightFrontDrive.getPower(); i < frontRightPower; i += 0.25) {
                     rightFrontDrive.setPower(i);
                 }
             } else {
-                for (double i = rightFrontDrive.getPower(); i > frontRightPower; i -= 0.3) {
+                for (double i = rightFrontDrive.getPower(); i > frontRightPower; i -= 0.25) {
                     rightFrontDrive.setPower(i);
                 }
             }
@@ -209,11 +216,11 @@ public class NewTelop extends LinearOpMode {
         }
         if (rightBackDrive.getPower() != backRightPower) {
             if (backRightPower > rightBackDrive.getPower()) {
-                for (double i = rightBackDrive.getPower(); i < backRightPower; i += 0.3) {
+                for (double i = rightBackDrive.getPower(); i < backRightPower; i += 0.25) {
                     rightBackDrive.setPower(i);
                 }
             } else {
-                for (double i = rightBackDrive.getPower(); i > backRightPower; i -= 0.3) {
+                for (double i = rightBackDrive.getPower(); i > backRightPower; i -= 0.25) {
                     rightBackDrive.setPower(i);
                 }
             }
