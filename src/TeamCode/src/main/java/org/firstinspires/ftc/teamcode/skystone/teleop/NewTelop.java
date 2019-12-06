@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 
 /**
@@ -64,6 +65,8 @@ extender motor -> extend
 @TeleOp(name = "Test Teleop", group = "Linear Opmode")
 //@Disabled
 public class NewTelop extends LinearOpMode {
+
+    //TODO: Map all non-movement code to gamepad2, for a second auxiliary driver.
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -106,19 +109,29 @@ public class NewTelop extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+
+            //Motion
             double speedMult = 1;
 
-            if (gamepad1.right_trigger > 0.5)
+            if (gamepad1.right_trigger < 0.5)
                 speedMult = 1.5;
-            else if (gamepad1.left_trigger > 0.5)
+            else if (gamepad1.left_trigger < 0.5)
                 speedMult = 0.5;
+
             sendPowerToMotor(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, speedMult);
 
-            liftMotor.setPower(gamepad2.right_stick_y);
-            extensionMotor.setPower(gamepad2.left_stick_y);
+            //Auxiliary
+            //TODO: Add target positions for blocks.
+            if (gamepad2.left_bumper && liftMotor.getCurrentPosition() > 0)
+                liftMotor.setPower(-0.5);
+            else if (gamepad2.right_bumper && liftMotor.getCurrentPosition() < 3)
+                liftMotor.setPower(0.5);
+            else liftMotor.setPower(0);
 
-            if (gamepad2.left_bumper) closeClaw();
-            if (gamepad2.right_bumper) openClaw();
+            extensionMotor.setPower(gamepad2.dpad_up ? 0.5 : gamepad2.dpad_down ? -0.5 : 0);
+
+            if (gamepad2.x) closeClaw();
+            if (gamepad2.y) openClaw();
 
             telemetry.addData("x:", gamepad1.left_stick_x);
             telemetry.addData("y:", gamepad1.left_stick_y);
@@ -130,10 +143,25 @@ public class NewTelop extends LinearOpMode {
     }
 
     void sendPowerToMotor(double x, double y, double r, double speedMult) {
+        //Reduces sensitivity
+
+        if (Math.abs(x) < 0.1) {
+            x = 0;
+        }
+        if (Math.abs(y) < 0.1) {
+            y = 0;
+        }
+
         double backLeftPower = -x + y - r;
         double backRightPower = x - y - r;
         double frontLeftPower = x + y - r;
         double frontRightPower = -x - y - r;
+
+        //Clipping.
+        backLeftPower = Range.clip(backLeftPower, -1F, 1F);
+        backRightPower = Range.clip(backRightPower, -1F, 1F);
+        frontLeftPower = Range.clip(frontLeftPower, -1F, 1F);
+        frontRightPower = Range.clip(frontRightPower, -1F, 1F);
 
         //Triggers for speeding up and slowing down.
         backLeftPower *= speedMult;
@@ -145,11 +173,11 @@ public class NewTelop extends LinearOpMode {
 
         if (leftFrontDrive.getPower() != frontLeftPower) {
             if (backRightPower > leftFrontDrive.getPower()) {
-                for (double i = leftFrontDrive.getPower(); i < frontLeftPower; i += 0.15) {
+                for (double i = leftFrontDrive.getPower(); i < frontLeftPower; i += 0.3) {
                     leftFrontDrive.setPower(i);
                 }
             } else {
-                for (double i = leftFrontDrive.getPower(); i > frontLeftPower; i -= 0.15) {
+                for (double i = leftFrontDrive.getPower(); i > frontLeftPower; i -= 0.3) {
                     leftFrontDrive.setPower(i);
                 }
             }
@@ -157,11 +185,11 @@ public class NewTelop extends LinearOpMode {
         }
         if (leftBackDrive.getPower() != backLeftPower) {
             if (backLeftPower > leftBackDrive.getPower()) {
-                for (double i = leftBackDrive.getPower(); i < backLeftPower; i += 0.15) {
+                for (double i = leftBackDrive.getPower(); i < backLeftPower; i += 0.3) {
                     leftBackDrive.setPower(i);
                 }
             } else {
-                for (double i = leftBackDrive.getPower(); i > backLeftPower; i -= 0.15) {
+                for (double i = leftBackDrive.getPower(); i > backLeftPower; i -= 0.3) {
                     leftBackDrive.setPower(i);
                 }
             }
@@ -169,11 +197,11 @@ public class NewTelop extends LinearOpMode {
         }
         if (rightFrontDrive.getPower() != frontRightPower) {
             if (frontRightPower > rightFrontDrive.getPower()) {
-                for (double i = rightFrontDrive.getPower(); i < frontRightPower; i += 0.15) {
+                for (double i = rightFrontDrive.getPower(); i < frontRightPower; i += 0.3) {
                     rightFrontDrive.setPower(i);
                 }
             } else {
-                for (double i = rightFrontDrive.getPower(); i > frontRightPower; i -= 0.15) {
+                for (double i = rightFrontDrive.getPower(); i > frontRightPower; i -= 0.3) {
                     rightFrontDrive.setPower(i);
                 }
             }
@@ -181,11 +209,11 @@ public class NewTelop extends LinearOpMode {
         }
         if (rightBackDrive.getPower() != backRightPower) {
             if (backRightPower > rightBackDrive.getPower()) {
-                for (double i = rightBackDrive.getPower(); i < backRightPower; i += 0.15) {
+                for (double i = rightBackDrive.getPower(); i < backRightPower; i += 0.3) {
                     rightBackDrive.setPower(i);
                 }
             } else {
-                for (double i = rightBackDrive.getPower(); i > backRightPower; i -= 0.15) {
+                for (double i = rightBackDrive.getPower(); i > backRightPower; i -= 0.3) {
                     rightBackDrive.setPower(i);
                 }
             }
