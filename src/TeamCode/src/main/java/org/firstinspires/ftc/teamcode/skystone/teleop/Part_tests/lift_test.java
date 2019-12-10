@@ -47,9 +47,8 @@ public class lift_test extends LinearOpMode {
         boolean rightbump = false;
         boolean leftbump = false;
         float initialFrontRightPower, initialBackRightPower, initialFrontLeftPower, initialBackLeftPower;
-        float oneBlock = -20;
-        //TODO: Change this into a double to raise and lower the servo by half blocks.
-        int targetBlock = 0;
+        float oneBlock = -1900;
+        double targetBlock = 0;
         double upCoolDown = -10;
         double downCoolDown = -10;
         int extendTarget = 0;
@@ -90,13 +89,24 @@ public class lift_test extends LinearOpMode {
                 targetBlock--;
                 downCoolDown = getRuntime() + .2; //cooldown of .2s
             }
+            if(targetBlock<0) targetBlock=0;
 
+            telemetry.addData("Raiseblock", "going to: " + targetBlock);
 
-            //telemetry.addData("Raiseblock", "going to: " + targetBlock);
+            //max = 6000
+            //one block = 1950
 
-
-            //We want to account for half blocks/being able to pick up blocks as wel as place them.
-            int targetPos = Math.round(targetBlock * oneBlock / 23);
+            //We want to account for half blocks/being able to pick up blocks as wel as place them
+            int targetPos = (int) Math.round(targetBlock * oneBlock);
+            if (targetPos<-5700){
+                telemetry.addData("Warning", "targetPos value is too low!");
+                targetPos=-5700;
+                targetBlock--;
+            }
+            if (targetPos>0){
+                telemetry.addData("Warning", "targetPos value is too high!");
+                targetPos=0;
+            }
 
             telemetry.addData("Raisepos", "going to: " + targetPos);
 
