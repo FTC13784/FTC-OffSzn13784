@@ -41,11 +41,11 @@ public class LiftTest extends LinearOpMode {
         float servoRelocRPos = 0;
         float servoRelocLPos = 1;
         //for raise
-        boolean leftTrigger = false;
-        boolean rightTrigger = false;
-        boolean rightbump = false;
-        boolean leftbump = false;
-        float initialFrontRightPower, initialBackRightPower, initialFrontLeftPower, initialBackLeftPower;
+       // boolean leftTrigger = false;
+       // boolean rightTrigger = false;
+        boolean rightbump;
+        boolean leftbump;
+        //float initialFrontRightPower, initialBackRightPower, initialFrontLeftPower, initialBackLeftPower;
         float oneBlock = -1900;
         double targetBlock = 0;
         double upCoolDown = -10;
