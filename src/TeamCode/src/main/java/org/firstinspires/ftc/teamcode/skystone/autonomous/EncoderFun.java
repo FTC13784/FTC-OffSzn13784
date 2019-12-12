@@ -100,6 +100,18 @@ public class EncoderFun extends Encoder {
 
     private void setPower(DcMotor[] motors, double power) {
         for (DcMotor motor : motors) {
+            if (motor.getPower() != power) {
+                if (motor.getPower() > power) {
+                    for (double i = motor.getPower(); i > power; i -= 0.25) {
+                        motor.setPower(i);
+                    }
+                }
+                else {
+                    for (double i = motor.getPower(); i < power; i += 0.25) {
+                        motor.setPower(i);
+                    }
+                }
+            }
             motor.setPower(power);
         }
     }
