@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 
 // set teleop mode
@@ -54,6 +55,8 @@ public class ClawTest extends LinearOpMode {
 
         boolean xPress;
         boolean yPress;
+        double lPos;
+        double rPos;
 
         waitForStart();
         runtime.reset();
@@ -65,19 +68,13 @@ public class ClawTest extends LinearOpMode {
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             xPress=gamepad1.x;
             yPress=gamepad1.y;
+            lPos=gamepad1.left_stick_x/2+.5;
+            rPos=gamepad1.right_stick_x/2+.5;
 
-            if(xPress){
-                clSetPos=1;
-                crSetPos=-1;
-            }
-            if(yPress){
-                clSetPos=0;
-                crSetPos=0;
-            }
-            cl.setPosition(clSetPos);
-            cr.setPosition(crSetPos);
+            cl.setPosition(lPos);
+            cr.setPosition(rPos);
 
-            telemetry.addData("clawsetpos","cl: "+clSetPos+"  cr:"+crSetPos);
+            telemetry.addData("clawsetpos","cl: "+lPos+"  cr: "+rPos);
             telemetry.update();
             prevRunTime = getRuntime();
         }
