@@ -62,7 +62,7 @@ lifter motor -> raise
 extender motor -> extend
  */
 
-@TeleOp(name = "Test Teleop", group = "Linear Opmode")
+@TeleOp(name = "Good Teleop", group = "Linear Opmode")
 //@Disabled
 public class NewTelop extends LinearOpMode {
 
@@ -81,11 +81,23 @@ public class NewTelop extends LinearOpMode {
 
     private Servo frontClawServo = null;
     private Servo backClawServo = null;
+    float oneBlock = -1900;
 
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+        boolean rightBumper;
+        boolean leftBumper;
+        //float initialFrontRightPower, initialBackRightPower, initialFrontLeftPower, initialBackLeftPower;
+
+        double targetBlock = 0;
+        double upCoolDown = -10;
+        double downCoolDown = -10;
+
+
+        telemetry.addData("Status", "Initialized");
+
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
@@ -98,24 +110,25 @@ public class NewTelop extends LinearOpMode {
         liftMotor = hardwareMap.get(DcMotor.class, "raise");
         extensionMotor = hardwareMap.get(DcMotor.class, "extend");
 
-        frontClawServo = hardwareMap.get(Servo.class, "cf");
-        backClawServo = hardwareMap.get(Servo.class, "bf");
+        frontClawServo = hardwareMap.get(Servo.class, "cr");
+        backClawServo = hardwareMap.get(Servo.class, "bl");
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
 
+
+        setUpLift();
         openClaw();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+            //TODO: Cleanup lift code into a separate method
 
             //Motion
             double speedMult = 1;
 
-            if (gamepad1.right_trigger > 0.5)
-                speedMult = 1.5;
-            else if (gamepad1.left_trigger > 0.5)
+            if (gamepad1.right_trigger > 0.5 || gamepad1.left_trigger > 0.5)
                 speedMult = 0.5;
 
             telemetry.addData("Right Trigger", gamepad1.right_trigger);
@@ -126,20 +139,39 @@ public class NewTelop extends LinearOpMode {
 
             //Auxiliary
             //TODO: Add target positions for blocks.
-            if (gamepad2.left_bumper && liftMotor.getCurrentPosition() > 0) {
-                liftMotor.setTargetPosition(liftMotor.getCurrentPosition() - 1);
-                liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            }
-            else if (gamepad2.right_bumper && liftMotor.getCurrentPosition() < 3) {
-                liftMotor.setTargetPosition(liftMotor.getCurrentPosition() + 1);
-                liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            }
 
             extensionMotor.setPower(gamepad2.dpad_up ? 0.5 : gamepad2.dpad_down ? -0.5 : 0);
 
             if (gamepad2.x) closeClaw();
             if (gamepad2.y) openClaw();
 
+            telemetry.addData("Status", "Run Time: " + runtime.toString());
+
+            float raisePos = liftMotor.getCurrentPosition();
+            telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
+
+            //Lift motor stuff.
+            rightBumper = gamepad1.right_bumper;
+            leftBumper = gamepad1.left_bumper;
+
+            if (rightBumper && getRuntime() > upCoolDown) {
+                targetBlock++;
+                upCoolDown = getRuntime() + 0.2; //cooldown of .2s
+            }
+            if (leftBumper && getRuntime() > downCoolDown) {
+                targetBlock--;
+                downCoolDown = getRuntime() + 0.2; //cooldown of .2s
+            }
+            targetBlock = Math.max(targetBlock, 0);
+
+            //We want to account for half blocks/being able to pick up blocks as wel as place them
+            if (targetBlock * oneBlock < -5700)
+                targetBlock--;
+
+            telemetry.addData("Raiseblock", "going to: " + targetBlock);
+            controlLiftMotor(targetBlock);
+
+            telemetry.update();
             telemetry.addData("x:", gamepad1.left_stick_x);
             telemetry.addData("y:", gamepad1.left_stick_y);
             telemetry.addData("r:", gamepad1.right_stick_x);
@@ -155,14 +187,14 @@ public class NewTelop extends LinearOpMode {
         if (Math.abs(x) < 0.1) {
             x = 0;
         }
-        if (Math.abs(y) <  0.1) {
+        if (Math.abs(y) < 0.1) {
             y = 0;
         }
 
         double backLeftPower = x + y - r;
         double backRightPower = -y + x - r;
         double frontLeftPower = y - x - r;
-        double frontRightPower = -y -x -r;
+        double frontRightPower = -y - x - r;
 
         //Clipping.
         backLeftPower = Range.clip(backLeftPower, -1F, 1F);
@@ -228,6 +260,22 @@ public class NewTelop extends LinearOpMode {
         }
     }
 
+
+    void controlLiftMotor(double targetBlock) {
+        int targetPos = (int) Math.round(targetBlock * oneBlock);
+        if (targetPos < -5700) {
+            telemetry.addData("Warning", "targetPos value is too low!");
+            targetPos = -5700;
+        }
+        if (targetPos > 0) {
+            telemetry.addData("Warning", "targetPos value is too high!");
+            targetPos = 0;
+        }
+
+        telemetry.addData("Raisepos", "going to: " + targetPos);
+        liftMotor.setTargetPosition(targetPos);
+    }
+
     void openClaw() {
         frontClawServo.setPosition(1);
         backClawServo.setPosition(0);
@@ -236,5 +284,10 @@ public class NewTelop extends LinearOpMode {
     void closeClaw() {
         frontClawServo.setPosition(.2);
         backClawServo.setPosition(.8);
+    }
+    void setUpLift() {
+        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        liftMotor.setPower(1);
     }
 }
