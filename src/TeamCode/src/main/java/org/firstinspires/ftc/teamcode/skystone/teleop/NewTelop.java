@@ -111,7 +111,7 @@ public class NewTelop extends LinearOpMode {
         extensionMotor = hardwareMap.get(DcMotor.class, "extend");
 
         frontClawServo = hardwareMap.get(Servo.class, "cr");
-        backClawServo = hardwareMap.get(Servo.class, "bl");
+        backClawServo = hardwareMap.get(Servo.class, "cl");
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
