@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Teleop Steve Basic", group="Linear Opmode")  // @Autonomous(...) is the other common choice
+@TeleOp(name="Teleop Steve Basic", group="Linear Opmode")  // @Autonomous1(...) is the other common choice
 @Disabled
 public class TeleopSteveBasic extends LinearOpMode {
 

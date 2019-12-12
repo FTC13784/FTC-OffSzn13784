@@ -21,8 +21,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /* This line declares 3 things: whether the opmode is a teleop or autonomous,
 the name that you see on your phone screen when selecting it,
 and what group you will find it.
-Autonomous opModes are when your robot is not controlled by a driver, only by pre-written code.
-@Autonomous means your opMode is an autonomous. This means it will show up on the phone underneath the Autonomous selection
+Autonomous1 opModes are when your robot is not controlled by a driver, only by pre-written code.
+@Autonomous1 means your opMode is an autonomous. This means it will show up on the phone underneath the Autonomous1 selection
 The other option is Teleop, meaning your robot is driver operated.
 @Teleop means that your opMode is a Teleop and will show up on the phone underneath the Teleop selection.
 Ignore "group = "Linear Opmode"" */

@@ -24,7 +24,7 @@ import com.qualcomm.robotcore.util.Range;
 
 
 @TeleOp(name = "Teleop Chad Holonomic", group = "Linear Opmode")
-// @Autonomous(...) is the other common choice
+// @Autonomous1(...) is the other common choice
 //@Disabled
 public class TeleopChad extends LinearOpMode {
 
