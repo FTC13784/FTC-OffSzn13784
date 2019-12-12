@@ -5,7 +5,7 @@ TODO: servo initialize to 0, x --> 1, y --> 0
 */
 
 // team package
-package org.firstinspires.ftc.teamcode.skystone.teleop.Part_tests;
+package org.firstinspires.ftc.teamcode.skystone.teleop.parttests;
 
 // import statement
 
@@ -13,19 +13,18 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 //import org.firstinspires.ftc.teamcode.skystone.SkyStoneUtils;
 
 // set teleop mode
-@TeleOp(name = "lift_test", group = "Linear Opmode")
+@TeleOp(name = "LiftTest", group = "Linear Opmode")
 
 // main
 /**
  * @author robert does stuff
  */
 
-public class lift_test extends LinearOpMode {
+public class LiftTest extends LinearOpMode {
 
     DcMotor leftFront, leftBack, rightFront, rightBack, raise, extend;
 
