@@ -79,6 +79,9 @@ public class NewTelop extends LinearOpMode {
     private DcMotor liftMotor = null;
     private DcMotor extensionMotor = null;
 
+    private Servo foundationFront = null;
+    private Servo foundationBack = null;
+
     private Servo frontClawServo = null;
     private Servo backClawServo = null;
     float oneBlock = -1900;
@@ -109,6 +112,8 @@ public class NewTelop extends LinearOpMode {
 
         liftMotor = hardwareMap.get(DcMotor.class, "raise");
         extensionMotor = hardwareMap.get(DcMotor.class, "extend");
+        foundationFront = hardwareMap.get(Servo.class, "ff");
+        foundationBack = hardwareMap.get(Servo.class, "fb");
 
         frontClawServo = hardwareMap.get(Servo.class, "cr");
         backClawServo = hardwareMap.get(Servo.class, "cl");
@@ -118,8 +123,9 @@ public class NewTelop extends LinearOpMode {
         runtime.reset();
 
 
-        setUpLift();
+        setupLift();
         openClaw();
+        closeFoundation();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -144,6 +150,9 @@ public class NewTelop extends LinearOpMode {
 
             if (gamepad2.x) closeClaw();
             if (gamepad2.y) openClaw();
+
+            if (gamepad2.a) openFoundation();
+            if (gamepad2.b) closeFoundation();
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
 
@@ -172,6 +181,8 @@ public class NewTelop extends LinearOpMode {
             controlLiftMotor(targetBlock);
 
             telemetry.update();
+            telemetry.addData("foundationFront:", foundationFront.getPosition());
+            telemetry.addData("foundationBack:", foundationBack.getPosition());
             telemetry.addData("x:", gamepad1.left_stick_x);
             telemetry.addData("y:", gamepad1.left_stick_y);
             telemetry.addData("r:", gamepad1.right_stick_x);
@@ -285,9 +296,16 @@ public class NewTelop extends LinearOpMode {
         frontClawServo.setPosition(.2);
         backClawServo.setPosition(.8);
     }
-    void setUpLift() {
+    void setupLift() {
         liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         liftMotor.setPower(1);
+    }
+
+    void openFoundation() {
+    }
+
+    void closeFoundation() {
+        
     }
 }
