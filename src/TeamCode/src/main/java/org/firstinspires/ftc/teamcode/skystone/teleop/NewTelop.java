@@ -125,7 +125,7 @@ public class NewTelop extends LinearOpMode {
 
         setupLift();
         openClaw();
-        closeFoundation();
+       // openFoundation();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -160,8 +160,8 @@ public class NewTelop extends LinearOpMode {
             telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
 
             //Lift motor stuff.
-            rightBumper = gamepad1.right_bumper;
-            leftBumper = gamepad1.left_bumper;
+            rightBumper = gamepad2.right_bumper;
+            leftBumper = gamepad2.left_bumper;
 
             if (rightBumper && getRuntime() > upCoolDown) {
                 targetBlock++;
@@ -173,8 +173,8 @@ public class NewTelop extends LinearOpMode {
             }
             targetBlock = Math.max(targetBlock, 0);
 
-            //We want to account for half blocks/being able to pick up blocks as wel as place them
-            if (targetBlock * oneBlock < -5700)
+            //Cap the lift motor to stop crashing
+            if (targetBlock * oneBlock < -5500)
                 targetBlock--;
 
             telemetry.addData("Raiseblock", "going to: " + targetBlock);
@@ -303,9 +303,12 @@ public class NewTelop extends LinearOpMode {
     }
 
     void openFoundation() {
+        foundationFront.setPosition(1);
+        foundationBack.setPosition(0);
     }
 
     void closeFoundation() {
-        
+        foundationFront.setPosition(.2);
+        foundationBack.setPosition(.8);
     }
 }
