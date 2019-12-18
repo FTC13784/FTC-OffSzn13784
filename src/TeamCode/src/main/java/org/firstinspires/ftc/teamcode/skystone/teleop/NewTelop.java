@@ -303,12 +303,12 @@ public class NewTelop extends LinearOpMode {
     }
 
     void openFoundation() {
-        foundationFront.setPosition(1);
-        foundationBack.setPosition(0);
+        foundationFront.setPosition(0.1);
+        foundationBack.setPosition(0.4);
     }
 
     void closeFoundation() {
-        foundationFront.setPosition(.2);
-        foundationBack.setPosition(.8);
+        foundationFront.setPosition(0);
+        foundationBack.setPosition(0);
     }
 }
