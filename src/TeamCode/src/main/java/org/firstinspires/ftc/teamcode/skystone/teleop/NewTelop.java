@@ -31,8 +31,11 @@ package org.firstinspires.ftc.teamcode.skystone.teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoImpl;
+import com.qualcomm.robotcore.hardware.configuration.annotations.ServoType;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -79,7 +82,7 @@ public class NewTelop extends LinearOpMode {
     private DcMotor liftMotor = null;
     private DcMotor extensionMotor = null;
 
-    private Servo foundationFront = null;
+    private CRServo foundationFront = null;
     private Servo foundationBack = null;
 
     private Servo frontClawServo = null;
@@ -112,7 +115,7 @@ public class NewTelop extends LinearOpMode {
 
         liftMotor = hardwareMap.get(DcMotor.class, "raise");
         extensionMotor = hardwareMap.get(DcMotor.class, "extend");
-        foundationFront = hardwareMap.get(Servo.class, "ff");
+        foundationFront = hardwareMap.get(CRServo.class, "ff");
         foundationBack = hardwareMap.get(Servo.class, "fb");
 
         frontClawServo = hardwareMap.get(Servo.class, "cr");
@@ -125,6 +128,8 @@ public class NewTelop extends LinearOpMode {
 
         setupLift();
         openClaw();
+        foundationFront.setPower(0);
+        foundationBack.setPosition(1);
        // openFoundation();
 
         // run until the end of the match (driver presses STOP)
@@ -151,8 +156,8 @@ public class NewTelop extends LinearOpMode {
             if (gamepad2.x) closeClaw();
             if (gamepad2.y) openClaw();
 
-            if (gamepad2.a) openFoundation();
-            if (gamepad2.b) closeFoundation();
+            //if (gamepad2.a) openFoundation();
+            //if (gamepad2.b) closeFoundation();
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
 
@@ -181,13 +186,13 @@ public class NewTelop extends LinearOpMode {
             controlLiftMotor(targetBlock);
 
             telemetry.update();
-            telemetry.addData("foundationFront:", foundationFront.getPosition());
+            telemetry.addData("foundationFront:", foundationFront.getDirection());
             telemetry.addData("foundationBack:", foundationBack.getPosition());
-            telemetry.addData("x:", gamepad1.left_stick_x);
-            telemetry.addData("y:", gamepad1.left_stick_y);
-            telemetry.addData("r:", gamepad1.right_stick_x);
-            telemetry.addData("l:", gamepad2.right_stick_y);
-            telemetry.addData("e:", gamepad2.left_stick_y);
+           // telemetry.addData("x:", gamepad1.left_stick_x);
+            //telemetry.addData("y:", gamepad1.left_stick_y);
+           // telemetry.addData("r:", gamepad1.right_stick_x);
+           // telemetry.addData("l:", gamepad2.right_stick_y);
+           // telemetry.addData("e:", gamepad2.left_stick_y);
             telemetry.update();
         }
     }
@@ -303,12 +308,13 @@ public class NewTelop extends LinearOpMode {
     }
 
     void openFoundation() {
-        foundationFront.setPosition(0.1);
-        foundationBack.setPosition(0.4);
+       //foundationFront.setPosition(0.1);
+        //foundationBack.setPosition(0.4);
     }
 
     void closeFoundation() {
-        foundationFront.setPosition(0);
-        foundationBack.setPosition(0);
+        //foundationFront.setPosition(0);
+        //foundationBack.setPosition(0);
+
     }
 }
