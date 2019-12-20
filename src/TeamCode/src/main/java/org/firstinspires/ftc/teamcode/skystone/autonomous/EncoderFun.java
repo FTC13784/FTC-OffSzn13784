@@ -105,8 +105,7 @@ public class EncoderFun extends Encoder {
                     for (double i = motor.getPower(); i > power; i -= 0.25) {
                         motor.setPower(i);
                     }
-                }
-                else {
+                } else {
                     for (double i = motor.getPower(); i < power; i += 0.25) {
                         motor.setPower(i);
                     }
@@ -212,7 +211,7 @@ public class EncoderFun extends Encoder {
             //wait until target position in reached
         }
         stopDriving();
-        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);;
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void drive_lf(double ticks, double speed) {
@@ -302,7 +301,7 @@ public class EncoderFun extends Encoder {
 
     public void turnLeft(double degrees, double speed) {
 
-        double ticks = degrees * 1100 / 90;
+        double ticks = degrees * 1200 / 90;
         setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
         setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
 
@@ -325,7 +324,7 @@ public class EncoderFun extends Encoder {
 
     public void turnRight(double degrees, double speed) {
 
-        double ticks = degrees * 1100 / 90;
+        double ticks = degrees * 1200 / 90;
         setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
         setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
 

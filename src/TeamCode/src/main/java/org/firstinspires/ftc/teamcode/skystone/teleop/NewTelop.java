@@ -87,7 +87,7 @@ public class NewTelop extends LinearOpMode {
 
     private Servo frontClawServo = null;
     private Servo backClawServo = null;
-    float oneBlock = -1900;
+    float oneBlock = -1900/2;
 
     @Override
     public void runOpMode() {
@@ -179,7 +179,10 @@ public class NewTelop extends LinearOpMode {
             targetBlock = Math.max(targetBlock, 0);
 
             //Cap the lift motor to stop crashing
-            if (targetBlock * oneBlock < -5500)
+            //NOTE! this allows targetBlock to increase to one more than the max value.
+            //in the case that it is above the max value it will round to the max value.
+            //the final increment will simply set it to the max height (probably less than oneBlock
+            if ((targetBlock-1) * oneBlock < -5500)
                 targetBlock--;
 
             telemetry.addData("Raiseblock", "going to: " + targetBlock);
@@ -279,9 +282,9 @@ public class NewTelop extends LinearOpMode {
 
     void controlLiftMotor(double targetBlock) {
         int targetPos = (int) Math.round(targetBlock * oneBlock);
-        if (targetPos < -5700) {
+        if (targetPos < -5500) {
             telemetry.addData("Warning", "targetPos value is too low!");
-            targetPos = -5700;
+            targetPos = -5500;
         }
         if (targetPos > 0) {
             telemetry.addData("Warning", "targetPos value is too high!");
