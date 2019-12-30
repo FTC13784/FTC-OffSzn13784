@@ -23,7 +23,7 @@ public class LightTest extends LinearOpMode {
         telemetry.addData("Status", "Start received");
         telemetry.update();
 
-
+        ourBot.driveUntilAlpha(500, 50);
 
         ourBot.lightTele();
 

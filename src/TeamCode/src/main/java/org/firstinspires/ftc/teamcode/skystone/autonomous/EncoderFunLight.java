@@ -229,4 +229,21 @@ public class EncoderFunLight extends Encoder {
             telemetry.update();
         }
     }
+
+    public void lightTele (double blockThresh, double skyThresh) {
+        while (true) {
+            telemetry.addData("rgb", colorSensor.red() + ", " + colorSensor.green() + ", " + colorSensor.blue());
+            telemetry.addData("luminosity, color total", colorSensor.alpha() + " " + colorSensor.argb());
+
+            if (colorSensor.alpha() < skyThresh) {
+                telemetry.addData("block", "skystone");
+            } else if (colorSensor.argb() < blockThresh) {
+                telemetry.addData("block", "normal");
+            } else {
+                telemetry.addData("block", "n/a");
+            }
+
+            telemetry.update();
+        }
+    }
 }
