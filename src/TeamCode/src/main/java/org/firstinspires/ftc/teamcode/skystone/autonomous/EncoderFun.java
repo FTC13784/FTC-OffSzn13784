@@ -21,7 +21,7 @@ public class EncoderFun extends Encoder {
     LinearOpMode opMode;
     Telemetry telemetry;
 
-    //these are the measurements you need to change for a different tank drive robot.
+    //these are the measurements you need to change for a different tank drive robot
     private double ticksPerRev = 1120;
     private double wheelRadius = 2; // inches
 
@@ -31,7 +31,7 @@ public class EncoderFun extends Encoder {
 
     //long start, now, duration = 0;
     //double currentPower;
-//    private Servo servoClaw;
+    // private Servo servoClaw;
 
     public EncoderFun(LinearOpMode opMode) {
         this.opMode = opMode;
@@ -46,8 +46,8 @@ public class EncoderFun extends Encoder {
         telemetry.addData("lb position", allDrive[1].getCurrentPosition());
         telemetry.addData("rf position", allDrive[2].getCurrentPosition());
         telemetry.addData("rb position", allDrive[3].getCurrentPosition());
-//        telemetry.addData("rgb", colorSensor.red() + ", " + colorSensor.green() + ", " + colorSensor.blue());
-//        telemetry.addData("luminosity, color total", colorSensor.alpha() + " " + colorSensor.argb());
+        // telemetry.addData("rgb", colorSensor.red() + ", " + colorSensor.green() + ", " + colorSensor.blue());
+        // telemetry.addData("luminosity, color total", colorSensor.alpha() + " " + colorSensor.argb());
         telemetry.update();
     }
 
@@ -64,8 +64,8 @@ public class EncoderFun extends Encoder {
         allDrive[1] = hardwareMap.dcMotor.get("lb");
         allDrive[2] = hardwareMap.dcMotor.get("rf");
         allDrive[3] = hardwareMap.dcMotor.get("rb");
-//        colorSensor = hardwareMap.colorSensor.get("color");
-//        servoClaw = hardwareMap.servo.get("servoClaw");
+        // colorSensor = hardwareMap.colorSensor.get("color");
+        // servoClaw = hardwareMap.servo.get("servoClaw");
     }
 
     private void setDirection(DcMotor[] motors, DcMotorSimple.Direction direction) {
@@ -117,7 +117,8 @@ public class EncoderFun extends Encoder {
 
     private void stopDriving() {
         setPower(allDrive, 0);
-        //Resets the motors to normal.
+
+        // resets the motors to normal
         setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
         setDirection(rightDrive, DcMotorSimple.Direction.FORWARD);
     }
@@ -208,7 +209,7 @@ public class EncoderFun extends Encoder {
         setPower(allDrive, speed);
 
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
-            //wait until target position in reached
+            // wait until target position in reached
         }
         stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
@@ -250,7 +251,7 @@ public class EncoderFun extends Encoder {
         setPower(allDrive, speed);
 
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
-            //wait until target position in reached
+            // wait until target position in reached
         }
         stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
@@ -267,12 +268,12 @@ public class EncoderFun extends Encoder {
 
         leftDrive[1].setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightDrive[0].setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        leftDrive[1].setPower(speed);
-//        rightDrive[0].setPower(speed);
+        // leftDrive[1].setPower(speed);
+        // rightDrive[0].setPower(speed);
         setPower(allDrive, speed);
 
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
-            //wait until target position in reached
+            // wait until target position in reached
         }
         stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
@@ -293,7 +294,7 @@ public class EncoderFun extends Encoder {
         setPower(allDrive, speed);
 
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
-            //wait until target position in reached
+            // wait until target position in reached
         }
         stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
@@ -310,12 +311,12 @@ public class EncoderFun extends Encoder {
         setWheelTargetPosition(allDrive, ticks);
 
         setMode(allDrive, DcMotor.RunMode.RUN_TO_POSITION);
-        // Set drive power
+        // set drive power
         setPower(allDrive, speed);
 
 
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
-            //wait until target position in reached
+            // wait until target position in reached
         }
         stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
@@ -333,12 +334,12 @@ public class EncoderFun extends Encoder {
         setWheelTargetPosition(allDrive, ticks);
 
         setMode(allDrive, DcMotor.RunMode.RUN_TO_POSITION);
-        // Set drive power
+        // set drive power
         setPower(allDrive, speed);
 
 
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
-            //wait until target position in reached
+            // wait until target position in reached
         }
         stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
@@ -357,42 +358,42 @@ public class EncoderFun extends Encoder {
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-//    public void clawPress() {
-//        servoClaw.setPosition(1);
-//        telemetry.addData("Claw", "Close");
-//    }
-//
-//    public void clawDrop() {
-//        servoClaw.setPosition(0);
-//        telemetry.addData("Claw", "Open");
-//    }
+    /* public void clawPress() {
+        servoClaw.setPosition(1);
+        telemetry.addData("Claw", "Close");
+    }
+
+    public void clawDrop() {
+        servoClaw.setPosition(0);
+        telemetry.addData("Claw", "Open");
+    }
 
 
-//    public void driveUntilAlpha (double threshold, double speed) {
-//        colorSensor.enableLed(true);
-//
-//        while (colorSensor.argb() < threshold) {
-//            try {
-//                driveTime(200, speed);
-//            }
-//            catch (InterruptedException e) {
-//                telemetry.addData("Interrupted!", "Exception");
-//                telemetry.update();
-//            }
-//        }
-//
-//        colorSensor.enableLed(false);
-//    }
+    public void driveUntilAlpha (double threshold, double speed) {
+        colorSensor.enableLed(true);
 
-//    public void driveUntilPicture (double lumThreshold, double threshold, double speed) {
-//        boolean looping = true;
-//
-//        while (looping) {
-//            driveUntilAlpha(threshold, speed);
-//
-//            if (colorSensor.alpha() < lumThreshold) {
-//                looping = false;
-//            }
-//        }
-//    }
+        while (colorSensor.argb() < threshold) {
+            try {
+                driveTime(200, speed);
+            }
+            catch (InterruptedException e) {
+                telemetry.addData("Interrupted!", "Exception");
+                telemetry.update();
+            }
+        }
+
+        colorSensor.enableLed(false);
+    }
+
+    public void driveUntilPicture (double lumThreshold, double threshold, double speed) {
+        boolean looping = true;
+
+        while (looping) {
+            driveUntilAlpha(threshold, speed);
+
+            if (colorSensor.alpha() < lumThreshold) {
+                looping = false;
+           }
+        }
+    } */
 }

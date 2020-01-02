@@ -1,77 +1,45 @@
-/* Copyright (c) 2017 FIRST. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided that
- * the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list
- * of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright notice, this
- * list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution.
- *
- * Neither the name of FIRST nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
- * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+/** Configuration:
+*
+* left front motor -> lf
+* right front motor -> rf
+* left back motor -> lb
+* right back motor -> rb
+*
+* lifter motor -> raise
+* extender motor -> extend
+*
+* foundation front motor -> ff
+* foundation back motor -> fb
+*
+* left claw servo -> cl
+* right claw servo -> cr
+*/
 
+// TeleOp package
 package org.firstinspires.ftc.teamcode.skystone.teleop;
 
+// import packages
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ServoImpl;
-import com.qualcomm.robotcore.hardware.configuration.annotations.ServoType;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 
-/**
- * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
- * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
- * of the FTC Driver Station. When an selection is made from the menu, the corresponding OpMode
- * class is instantiated on the Robot Controller and executed.
- * <p>
- * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
- * It includes all the skeletal struct ure that all linear OpModes contain.
- * <p>
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
-
-/*
-Config:
-
-left front motor -> lf
-right front motor -> rf
-left back motor -> lb
-right back motor -> rb
-
-lifter motor -> raise
-extender motor -> extend
- */
-
+// TeleOp declaration
 @TeleOp(name = "Good Teleop", group = "Linear Opmode")
+
+// disable telemetry
 //@Disabled
-public class NewTelop extends LinearOpMode {
 
-    //TODO: Map all non-movement code to gamepad2, for a second auxiliary driver.
+// GoodTeleop class
+public class GoodTeleop extends LinearOpMode {
 
-    // Declare OpMode members.
+    // TODO: Map all non-movement code to gamepad2, for a second auxiliary driver.
+
+    // declare OpMode members
     private ElapsedTime runtime = new ElapsedTime();
 
     private DcMotor leftFrontDrive = null;
@@ -89,10 +57,17 @@ public class NewTelop extends LinearOpMode {
     private Servo rightClawServo = null;
     float oneBlock = -1900/2;
 
+
+    // run OpMode
     @Override
     public void runOpMode() {
-        telemetry.addData("Status", "Initialized");
+
+        // initialization telemetry
+        telemetry.addData("Status", "Initializing");
         telemetry.update();
+
+
+        // declaration of variables
         boolean rightBumper;
         boolean leftBumper;
         //float initialFrontRightPower, initialBackRightPower, initialFrontLeftPower, initialBackLeftPower;
@@ -102,12 +77,12 @@ public class NewTelop extends LinearOpMode {
         double downCoolDown = -10;
 
 
-        telemetry.addData("Status", "Initialized");
+        // initialization finished
+        telemetry.addData("Status", "Initialization finished");
+        telemetry.update();
 
 
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
+        // initialization of hardware variables - REMEMBER TO CHANGE CONFIGURATION ON PHONES AS WELL
         leftFrontDrive = hardwareMap.get(DcMotor.class, "lf");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "rf");
         leftBackDrive = hardwareMap.get(DcMotor.class, "lb");
@@ -121,24 +96,29 @@ public class NewTelop extends LinearOpMode {
         rightClawServo = hardwareMap.get(Servo.class, "cr");
         leftClawServo = hardwareMap.get(Servo.class, "cl");
 
-        // Wait for the game to start (driver presses PLAY)
+
+        // wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
 
 
+        // initial position
         setupLift();
         openClaw();
         foundationFront.setPower(0);
         foundationBack.setPosition(1);
-       // openFoundation();
+        // openFoundation();
+
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            //TODO: Cleanup lift code into a separate method
+            // TODO: cleanup lift code into a separate method
 
-            //Motion
+            // MOTION FUNCTIONS
             double speedMult = 1;
 
+
+            // triggers for better motion control
             if (gamepad1.right_trigger > 0.5 || gamepad1.left_trigger > 0.5)
                 speedMult = 0.5;
 
@@ -146,25 +126,34 @@ public class NewTelop extends LinearOpMode {
             telemetry.addData("Left Trigger", gamepad1.left_trigger);
             telemetry.update();
 
+
+            // movement function
             sendPowerToMotor(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, speedMult);
 
-            //Auxiliary
-            //TODO: Add target positions for blocks.
 
+            // AUXILIARY FUNCTIONS
+            // TODO: Add target positions for blocks.
             extensionMotor.setPower(gamepad2.dpad_up ? 0.5 : gamepad2.dpad_down ? -0.5 : 0);
 
+
+            // claw functions
             if (gamepad2.x) closeClaw();
             if (gamepad2.y) openClaw();
 
+
+            // foundation functions
             //if (gamepad2.a) openFoundation();
             //if (gamepad2.b) closeFoundation();
 
+
+            // lift motor telemetry
             telemetry.addData("Status", "Run Time: " + runtime.toString());
 
             float raisePos = liftMotor.getCurrentPosition();
             telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
 
-            //Lift motor stuff.
+
+            // lift motor functions
             rightBumper = gamepad2.right_bumper;
             leftBumper = gamepad2.left_bumper;
 
@@ -178,57 +167,61 @@ public class NewTelop extends LinearOpMode {
             }
             targetBlock = Math.max(targetBlock, 0);
 
-            //Cap the lift motor to stop crashing
-            //NOTE! this allows targetBlock to increase to one more than the max value.
-            //in the case that it is above the max value it will round to the max value.
-            //the final increment will simply set it to the max height (probably less than oneBlock
+            // cap the lift motor to stop crashing
+            /** NOTE: allows targetBlock to increase to one more than the max value
+            * in the case that it is above the max value it will round to the max value
+            * the final increment will simply set it to the max height (probably less than oneBlock)
+            */
             if ((targetBlock-1) * oneBlock < -5500)
                 targetBlock--;
 
+            // raiseBlock telemetry
             telemetry.addData("Raiseblock", "going to: " + targetBlock);
             controlLiftMotor(targetBlock);
 
-            telemetry.update();
+            // other telemetry
             telemetry.addData("foundationFront:", foundationFront.getDirection());
             telemetry.addData("foundationBack:", foundationBack.getPosition());
-           // telemetry.addData("x:", gamepad1.left_stick_x);
-            //telemetry.addData("y:", gamepad1.left_stick_y);
-           // telemetry.addData("r:", gamepad1.right_stick_x);
-           // telemetry.addData("l:", gamepad2.right_stick_y);
-           // telemetry.addData("e:", gamepad2.left_stick_y);
+            // telemetry.addData("x:", gamepad1.left_stick_x);
+            // telemetry.addData("y:", gamepad1.left_stick_y);
+            // telemetry.addData("r:", gamepad1.right_stick_x);
+            // telemetry.addData("l:", gamepad2.right_stick_y);
+            // telemetry.addData("e:", gamepad2.left_stick_y);
             telemetry.update();
         }
     }
 
+    // movement code
     void sendPowerToMotor(double x, double y, double r, double speedMult) {
-        //Reduces sensitivity
-
+        // sensitivity
         if (Math.abs(x) < 0.1) {
             x = 0;
         }
+
         if (Math.abs(y) < 0.1) {
             y = 0;
         }
 
+
+        // motor speed variables
         double backLeftPower = x + y - r;
         double backRightPower = -y + x - r;
         double frontLeftPower = y - x - r;
         double frontRightPower = -y - x - r;
 
-        //Clipping.
+        // clip values from -1 to 1
         backLeftPower = Range.clip(backLeftPower, -1F, 1F);
         backRightPower = Range.clip(backRightPower, -1F, 1F);
         frontLeftPower = Range.clip(frontLeftPower, -1F, 1F);
         frontRightPower = Range.clip(frontRightPower, -1F, 1F);
 
-        //Triggers for speeding up and slowing down.
+        // triggers for speeding up and slowing down
         backLeftPower *= speedMult;
         backRightPower *= speedMult;
         frontLeftPower *= speedMult;
         frontRightPower *= speedMult;
 
-        //Acceleration.
-
+        // acceleration
         if (leftFrontDrive.getPower() != frontLeftPower) {
             if (backRightPower > leftFrontDrive.getPower()) {
                 for (double i = leftFrontDrive.getPower(); i < frontLeftPower; i += 0.25) {
@@ -241,6 +234,7 @@ public class NewTelop extends LinearOpMode {
             }
             leftFrontDrive.setPower(frontLeftPower);
         }
+
         if (leftBackDrive.getPower() != backLeftPower) {
             if (backLeftPower > leftBackDrive.getPower()) {
                 for (double i = leftBackDrive.getPower(); i < backLeftPower; i += 0.25) {
@@ -253,6 +247,7 @@ public class NewTelop extends LinearOpMode {
             }
             leftBackDrive.setPower(backLeftPower);
         }
+
         if (rightFrontDrive.getPower() != frontRightPower) {
             if (frontRightPower > rightFrontDrive.getPower()) {
                 for (double i = rightFrontDrive.getPower(); i < frontRightPower; i += 0.25) {
@@ -265,6 +260,7 @@ public class NewTelop extends LinearOpMode {
             }
             rightFrontDrive.setPower(frontRightPower);
         }
+
         if (rightBackDrive.getPower() != backRightPower) {
             if (backRightPower > rightBackDrive.getPower()) {
                 for (double i = rightBackDrive.getPower(); i < backRightPower; i += 0.25) {
@@ -280,6 +276,7 @@ public class NewTelop extends LinearOpMode {
     }
 
 
+    // lift motor code
     void controlLiftMotor(double targetBlock) {
         int targetPos = (int) Math.round(targetBlock * oneBlock);
         if (targetPos < -5500) {
@@ -295,25 +292,29 @@ public class NewTelop extends LinearOpMode {
         liftMotor.setTargetPosition(targetPos);
     }
 
+
+    // clawcode
     void openClaw() {
         leftClawServo.setPosition(1);
-        rightClawServo.setPosition(0);
+        rightClawServo.setPosition(1 - leftClawServo.getPosition());
     }
 
     void closeClaw() {
         leftClawServo.setPosition(.2);
-        rightClawServo.setPosition(.8);
+        rightClawServo.setPosition(1 - leftClawServo.getPosition());
     }
 
+    // lift initialization
     void setupLift() {
         liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         liftMotor.setPower(1);
     }
 
+    // foundation mover code
     void openFoundation() {
        //foundationFront.setPosition(0.1);
-        //foundationBack.setPosition(0.4);
+       // foundationBack.setPosition(0.4);
     }
 
     void closeFoundation() {
