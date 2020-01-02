@@ -34,8 +34,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ServoImpl;
-import com.qualcomm.robotcore.hardware.configuration.annotations.ServoType;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -297,12 +295,12 @@ public class NewTelop extends LinearOpMode {
 
     void openClaw() {
         leftClawServo.setPosition(1);
-        rightClawServo.setPosition(0);
+        rightClawServo.setPosition(1 - leftClawServo.getPosition());
     }
 
     void closeClaw() {
         leftClawServo.setPosition(.2);
-        rightClawServo.setPosition(.8);
+        rightClawServo.setPosition(1 - leftClawServo.getPosition());
     }
 
     void setupLift() {
@@ -313,7 +311,7 @@ public class NewTelop extends LinearOpMode {
 
     void openFoundation() {
        //foundationFront.setPosition(0.1);
-        //foundationBack.setPosition(0.4);
+       // foundationBack.setPosition(0.4);
     }
 
     void closeFoundation() {
