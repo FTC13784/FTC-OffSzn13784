@@ -85,8 +85,8 @@ public class NewTelop extends LinearOpMode {
     private CRServo foundationFront = null;
     private Servo foundationBack = null;
 
-    private Servo frontClawServo = null;
-    private Servo backClawServo = null;
+    private Servo leftClawServo = null;
+    private Servo rightClawServo = null;
     float oneBlock = -1900/2;
 
     @Override
@@ -118,8 +118,8 @@ public class NewTelop extends LinearOpMode {
         foundationFront = hardwareMap.get(CRServo.class, "ff");
         foundationBack = hardwareMap.get(Servo.class, "fb");
 
-        frontClawServo = hardwareMap.get(Servo.class, "cr");
-        backClawServo = hardwareMap.get(Servo.class, "cl");
+        rightClawServo = hardwareMap.get(Servo.class, "cr");
+        leftClawServo = hardwareMap.get(Servo.class, "cl");
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -296,14 +296,15 @@ public class NewTelop extends LinearOpMode {
     }
 
     void openClaw() {
-        frontClawServo.setPosition(1);
-        backClawServo.setPosition(0);
+        leftClawServo.setPosition(1);
+        rightClawServo.setPosition(0);
     }
 
     void closeClaw() {
-        frontClawServo.setPosition(.2);
-        backClawServo.setPosition(.8);
+        leftClawServo.setPosition(.2);
+        rightClawServo.setPosition(.8);
     }
+
     void setupLift() {
         liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
