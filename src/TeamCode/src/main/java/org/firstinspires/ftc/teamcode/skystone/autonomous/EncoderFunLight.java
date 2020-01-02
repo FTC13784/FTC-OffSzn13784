@@ -24,12 +24,12 @@ public class EncoderFunLight extends Encoder {
     Telemetry telemetry;
 
     // these are the measurements you need to change for a different tank drive robot
-    private final double TICKSPERREV = 1120;
+    /* private final double TICKSPERREV = 1120;
     private final double WHEELRADIUS = 2; // inches
 
     private double ticksPerIn;
     private double wheelCircumference;
-    private double ticksPerDegree;
+    private double ticksPerDegree;*/
 
     // EncoderFunLight object
     public EncoderFunLight(LinearOpMode opMode) {
@@ -42,9 +42,9 @@ public class EncoderFunLight extends Encoder {
         InitializeHardware();
 
         // math functions to calculate parameters based on final variables
-        wheelCircumference = WHEELRADIUS * Math.PI * 2;
+        /* wheelCircumference = WHEELRADIUS * Math.PI * 2;
         ticksPerIn = 2 * (TICKSPERREV / wheelCircumference);
-        ticksPerDegree = 2 * (TICKSPERREV / 130);
+        ticksPerDegree = 2 * (TICKSPERREV / 130); */
 
         // telemetry
         telemetry.addData("lf, lb, rf, rb", allDrive[0].getCurrentPosition() + ", " +
@@ -356,6 +356,7 @@ public class EncoderFunLight extends Encoder {
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    // TODO: CLAWCODE
     // currently not working
     /* public void clawPress() {
         servoClaw.setPosition(1);
@@ -366,6 +367,7 @@ public class EncoderFunLight extends Encoder {
         telemetry.addData("Claw", "Open");
     }*/
 
+    // LIGHT SENSOR CODE
     public void driveUntilAlpha (double threshold, double speed) {
         colorSensor.enableLed(true);
 
