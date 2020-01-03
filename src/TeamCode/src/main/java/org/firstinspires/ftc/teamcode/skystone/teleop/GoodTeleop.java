@@ -1,3 +1,8 @@
+/** Contributors:
+ * @author Edwardidk, FavouriteDragon
+ * @contributors RobertM3
+ */
+
 /**
  * Configuration:
  * <p>

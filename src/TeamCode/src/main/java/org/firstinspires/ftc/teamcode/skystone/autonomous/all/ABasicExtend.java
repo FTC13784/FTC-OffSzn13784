@@ -1,3 +1,9 @@
+/**
+ * Basic program that just extends arm across center line.
+ *
+ * @author Edwardidk
+ */
+
 package org.firstinspires.ftc.teamcode.skystone.autonomous.all;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;

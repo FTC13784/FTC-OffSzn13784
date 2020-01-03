@@ -1,3 +1,10 @@
+/**
+ * Program to contain universal constants and functions.
+ *
+ * @author FavouriteDragon
+ * @contributors Edwardidk
+ */
+
 package org.firstinspires.ftc.teamcode;
 
 public class FTCConstants {

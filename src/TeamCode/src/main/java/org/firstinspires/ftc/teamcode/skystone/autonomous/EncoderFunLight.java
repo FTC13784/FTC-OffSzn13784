@@ -1,4 +1,13 @@
 /**
+ * Base constructor for all autonomous programs.
+ *
+ * Contributors:
+ * @author Edwardidk
+ * @contributors FavouriteDragon
+ * @nothing Commandjoe
+ */
+
+/**
  * Configuration:
  * <p>
  * left front motor -> lf
@@ -15,7 +24,7 @@
  * left claw servo -> cl
  * right claw servo -> cr
  * <p>
- * left color sensor -> color (TBD)
+ * left color sensor -> color
  * right color sensor -> color2 (TBD)
  * Conversions:
  * driving forward - ticks = distance in cm / .03526
@@ -112,7 +121,7 @@ public class EncoderFunLight extends Encoder {
 
         // color sensor
         colorSensor = hardwareMap.colorSensor.get("color");
-        colorSensor2 = hardwareMap.colorSensor.get("color2");
+        // colorSensor2 = hardwareMap.colorSensor.get("color2");
 
         // doesn't work b/c we don't have fourth connector
         // colorSensor.enableLed(false);

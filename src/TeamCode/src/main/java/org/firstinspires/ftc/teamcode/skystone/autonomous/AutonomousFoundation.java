@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.skystone.autonomous
+package org.firstinspires.ftc.teamcode.skystone.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *
  * @author FavouriteDragon
  */
+
 @Autonomous(name = "AutonomousFoundation", group = "Autonomous")
 public class AutonomousFoundation extends LinearOpMode {
 
