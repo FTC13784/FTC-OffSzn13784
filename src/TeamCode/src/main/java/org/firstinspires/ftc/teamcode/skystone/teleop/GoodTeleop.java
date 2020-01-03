@@ -28,6 +28,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.teamcode.FTCConstants;
+
 
 // TeleOp declaration
 @TeleOp(name = "Good Teleop", group = "!tele")
@@ -38,8 +40,6 @@ import com.qualcomm.robotcore.util.Range;
 // GoodTeleop class
 public class GoodTeleop extends LinearOpMode {
     // TODO: Map all non-movement code to gamepad2, for a second auxiliary driver.
-    // variable for block size
-    final float ONEBLOCK = -1900 / 2;
 
     // declare OpMode members
     private ElapsedTime runtime = new ElapsedTime();
@@ -170,7 +170,7 @@ public class GoodTeleop extends LinearOpMode {
              * in the case that it is above the max value it will round to the max value
              * the final increment will simply set it to the max height (probably less than oneBlock)
              */
-            if ((targetBlock - 1) * ONEBLOCK < -5500)
+            if ((targetBlock - 1) * FTCConstants.ONE_BLOCK < -5500)
                 targetBlock--;
 
             // raiseBlock telemetry
@@ -276,7 +276,7 @@ public class GoodTeleop extends LinearOpMode {
 
     // lift motor code
     void controlLiftMotor(double targetBlock) {
-        int targetPos = (int) Math.round(targetBlock * ONEBLOCK);
+        int targetPos = (int) Math.round(targetBlock * FTCConstants.ONE_BLOCK);
         double positionPlus = liftMotor.getCurrentPosition() + 20;
         double positionMinus = liftMotor.getCurrentPosition() - 20;
 
@@ -293,7 +293,7 @@ public class GoodTeleop extends LinearOpMode {
 
         //Just makes the lift motor not go to the target position if it's close enough, so it stops
         //trying to run when it's one tick off.
-        if (positionPlus > targetPos + 20 && positionMinus < targetPos + 20 && (int) (liftMotor.getCurrentPosition() / ONEBLOCK) != targetBlock) {
+        if (positionPlus > targetPos + 20 && positionMinus < targetPos + 20 && (int) (liftMotor.getCurrentPosition() / FTCConstants.ONE_BLOCK) != targetBlock) {
             liftMotor.setTargetPosition(targetPos);
         }
 
