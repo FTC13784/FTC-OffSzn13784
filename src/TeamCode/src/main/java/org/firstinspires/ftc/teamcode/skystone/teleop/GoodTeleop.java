@@ -1,27 +1,28 @@
-/** Configuration:
-*
-* left front motor -> lf
-* right front motor -> rf
-* left back motor -> lb
-* right back motor -> rb
-*
-* lifter motor -> raise
-* extender motor -> extend
-*
-* foundation front motor -> ff
-* foundation back motor -> fb
-*
-* left claw servo -> cl
-* right claw servo -> cr
-*/
+/**
+ * Configuration:
+ * <p>
+ * left front motor -> lf
+ * right front motor -> rf
+ * left back motor -> lb
+ * right back motor -> rb
+ * <p>
+ * lifter motor -> raise
+ * extender motor -> extend
+ * <p>
+ * foundation front motor -> ff
+ * foundation back motor -> fb
+ * <p>
+ * left claw servo -> cl
+ * right claw servo -> cr
+ */
 
 // TeleOp package
 package org.firstinspires.ftc.teamcode.skystone.teleop;
 
 // import packages
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -39,24 +40,19 @@ public class GoodTeleop extends LinearOpMode {
 
     // TODO: Map all non-movement code to gamepad2, for a second auxiliary driver.
 
+    float oneBlock = -1900 / 2;
     // declare OpMode members
     private ElapsedTime runtime = new ElapsedTime();
-
     private DcMotor leftFrontDrive = null;
     private DcMotor rightFrontDrive = null;
     private DcMotor leftBackDrive = null;
     private DcMotor rightBackDrive = null;
-
     private DcMotor liftMotor = null;
     private DcMotor extensionMotor = null;
-
-    private CRServo foundationFront = null;
+    private Servo foundationFront = null;
     private Servo foundationBack = null;
-
     private Servo leftClawServo = null;
     private Servo rightClawServo = null;
-    float oneBlock = -1900/2;
-
 
     // run OpMode
     @Override
@@ -90,7 +86,7 @@ public class GoodTeleop extends LinearOpMode {
 
         liftMotor = hardwareMap.get(DcMotor.class, "raise");
         extensionMotor = hardwareMap.get(DcMotor.class, "extend");
-        foundationFront = hardwareMap.get(CRServo.class, "ff");
+        foundationFront = hardwareMap.get(Servo.class, "ff");
         foundationBack = hardwareMap.get(Servo.class, "fb");
 
         rightClawServo = hardwareMap.get(Servo.class, "cr");
@@ -105,7 +101,7 @@ public class GoodTeleop extends LinearOpMode {
         // initial position
         setupLift();
         openClaw();
-        foundationFront.setPower(0);
+        foundationFront.setPosition(0);
         foundationBack.setPosition(1);
         // openFoundation();
 
@@ -142,8 +138,10 @@ public class GoodTeleop extends LinearOpMode {
 
 
             // foundation functions
-            //if (gamepad2.a) openFoundation();
-            //if (gamepad2.b) closeFoundation();
+            if (gamepad2.a)
+                openFoundation();
+            else if (gamepad2.b)
+                closeFoundation();
 
 
             // lift motor telemetry
@@ -169,10 +167,10 @@ public class GoodTeleop extends LinearOpMode {
 
             // cap the lift motor to stop crashing
             /** NOTE: allows targetBlock to increase to one more than the max value
-            * in the case that it is above the max value it will round to the max value
-            * the final increment will simply set it to the max height (probably less than oneBlock)
-            */
-            if ((targetBlock-1) * oneBlock < -5500)
+             * in the case that it is above the max value it will round to the max value
+             * the final increment will simply set it to the max height (probably less than oneBlock)
+             */
+            if ((targetBlock - 1) * oneBlock < -5500)
                 targetBlock--;
 
             // raiseBlock telemetry
@@ -279,6 +277,9 @@ public class GoodTeleop extends LinearOpMode {
     // lift motor code
     void controlLiftMotor(double targetBlock) {
         int targetPos = (int) Math.round(targetBlock * oneBlock);
+        double positionPlus = liftMotor.getCurrentPosition() + 20;
+        double positionMinus = liftMotor.getCurrentPosition() - 20;
+
         if (targetPos < -5500) {
             telemetry.addData("Warning", "targetPos value is too low!");
             targetPos = -5500;
@@ -289,7 +290,15 @@ public class GoodTeleop extends LinearOpMode {
         }
 
         telemetry.addData("Raisepos", "going to: " + targetPos);
-        liftMotor.setTargetPosition(targetPos);
+
+        //Just makes the lift motor not go to the target position if it's close enough, so it stops
+        //trying to run when it's one tick off.
+        if (positionPlus > targetPos + 20 && positionMinus < targetPos + 20) {
+            if ((int) (liftMotor.getCurrentPosition() / oneBlock) != targetBlock) {
+                liftMotor.setTargetPosition(targetPos);
+            }
+        }
+
     }
 
 
@@ -313,13 +322,12 @@ public class GoodTeleop extends LinearOpMode {
 
     // foundation mover code
     void openFoundation() {
-       //foundationFront.setPosition(0.1);
-       // foundationBack.setPosition(0.4);
+        leftClawServo.setPosition(1);
+        rightClawServo.setPosition(1 - leftClawServo.getPosition());
     }
 
     void closeFoundation() {
-        //foundationFront.setPosition(0);
-        //foundationBack.setPosition(0);
-
+        leftClawServo.setPosition(.2);
+        rightClawServo.setPosition(1 - leftClawServo.getPosition());
     }
 }
