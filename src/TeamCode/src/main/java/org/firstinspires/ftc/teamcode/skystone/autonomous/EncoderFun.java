@@ -1,3 +1,5 @@
+// IMPORTANT: THIS PROGRAM HAS BEEN RETIRED - USE ENCODER FUN LIGHT INSTEAD
+
 package org.firstinspires.ftc.teamcode.skystone.autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
