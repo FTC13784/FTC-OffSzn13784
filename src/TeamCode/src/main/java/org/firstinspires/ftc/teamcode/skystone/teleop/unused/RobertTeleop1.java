@@ -5,7 +5,7 @@ TODO: servo initialize to 0, x --> 1, y --> 0
 */
 
 // team package
-package org.firstinspires.ftc.teamcode.skystone.teleop;
+package org.firstinspires.ftc.teamcode.skystone.teleop.unused;
 
 // import statement
 
@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-//import org.firstinspires.ftc.teamcode.skystone.SkyStoneUtils;
+//import org.firstinspires.ftc.teamcode.skystone.teleop.unused.SkyStoneUtils;
 
 // set teleop mode
 @TeleOp(name = "Robert1", group = "Linear Opmode")

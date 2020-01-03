@@ -1,3 +1,28 @@
+/** Configuration:
+ *
+ * left front motor -> lf
+ * right front motor -> rf
+ * left back motor -> lb
+ * right back motor -> rb
+ *
+ * lifter motor -> raise
+ * extender motor -> extend
+ *
+ * foundation front motor -> ff
+ * foundation back motor -> fb
+ *
+ * left claw servo -> cl
+ * right claw servo -> cr
+ *
+ * left color sensor -> color (TBD)
+ * right color sensor -> color2 (TBD)
+ */
+
+/** Conversions:
+ * driving forward - ticks = distance in cm / .03526
+ * turns - ticks = degrees * 1200 / 90
+ */
+
 // Autonomous package
 package org.firstinspires.ftc.teamcode.skystone.autonomous;
 
@@ -7,17 +32,23 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 // EncoderFunLight class
 public class EncoderFunLight extends Encoder {
+    // variable for block size
+    final float ONEBLOCK = -1900 / 2;
+
     // initialize variables
     DcMotor[] allDrive = new DcMotor[4];
     DcMotor[] leftDrive = new DcMotor[2];
     DcMotor[] rightDrive = new DcMotor[2];
 
-    ColorSensor colorSensor;
+    ColorSensor colorSensor, colorSensor2;
+    DcMotor liftMotor, extensionMotor;
+    Servo foundationFront, foundationBack, leftClawServo, rightClawServo;
 
     HardwareMap hardwareMap;
     LinearOpMode opMode;
@@ -57,6 +88,7 @@ public class EncoderFunLight extends Encoder {
         telemetry.update();
     }
 
+    // HARDWARE INITIALIZATION
     private void InitializeHardware() {
         // directional drive motor initialization
         leftDrive[0] = hardwareMap.dcMotor.get("lf");
@@ -75,11 +107,23 @@ public class EncoderFunLight extends Encoder {
 
         // color sensor
         colorSensor = hardwareMap.colorSensor.get("color");
+        colorSensor2 = hardwareMap.colorSensor.get("color2");
 
         // doesn't work b/c we don't have fourth connector
         // colorSensor.enableLed(false);
+
+        // other motors
+        liftMotor = hardwareMap.get(DcMotor.class, "raise");
+        extensionMotor = hardwareMap.get(DcMotor.class, "extend");
+        foundationFront = hardwareMap.get(Servo.class, "ff");
+        foundationBack = hardwareMap.get(Servo.class, "fb");
+
+        // claw servo
+        rightClawServo = hardwareMap.get(Servo.class, "cr");
+        leftClawServo = hardwareMap.get(Servo.class, "cl");
     }
 
+    // BASIC DRIVE FUNCTIONS
     private void setDirection(DcMotor[] motors, DcMotorSimple.Direction direction) {
         for (DcMotor motor : motors) {
             motor.setDirection(direction);
@@ -138,6 +182,7 @@ public class EncoderFunLight extends Encoder {
         setDirection(rightDrive, DcMotorSimple.Direction.FORWARD);
     }
 
+    // COMPLEX DRIVE FUNCTIONS
     public void driveCm(double distance, double speed) {
         // convert cm to ticks
         int ticks = (int) (distance / .03526);
@@ -356,16 +401,60 @@ public class EncoderFunLight extends Encoder {
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    // TODO: CLAWCODE
-    // currently not working
-    /* public void clawPress() {
-        servoClaw.setPosition(1);
-        telemetry.addData("Claw", "Close");
+    // AUXILIARY FUNCTIONS
+    // lift motor code
+    public void controlLiftMotor(double targetBlock) {
+        int targetPos = (int) Math.round(targetBlock * ONEBLOCK);
+        double positionPlus = liftMotor.getCurrentPosition() + 20;
+        double positionMinus = liftMotor.getCurrentPosition() - 20;
+
+        if (targetPos < -5500) {
+            telemetry.addData("Warning", "targetPos value is too low!");
+            targetPos = -5500;
+        }
+        if (targetPos > 0) {
+            telemetry.addData("Warning", "targetPos value is too high!");
+            targetPos = 0;
+        }
+
+        telemetry.addData("Raisepos", "going to: " + targetPos);
+
+        //Just makes the lift motor not go to the target position if it's close enough, so it stops
+        //trying to run when it's one tick off.
+        if (positionPlus > targetPos + 20 && positionMinus < targetPos + 20 && (int) (liftMotor.getCurrentPosition() / ONEBLOCK) != targetBlock) {
+            liftMotor.setTargetPosition(targetPos);
+        }
+
     }
-    public void clawDrop() {
-        servoClaw.setPosition(0);
-        telemetry.addData("Claw", "Open");
-    }*/
+
+    // clawcode
+    public void openClaw() {
+        leftClawServo.setPosition(1);
+        rightClawServo.setPosition(1 - leftClawServo.getPosition());
+    }
+
+    public void closeClaw() {
+        leftClawServo.setPosition(.2);
+        rightClawServo.setPosition(1 - leftClawServo.getPosition());
+    }
+
+    // lift initialization
+    public void setupLift() {
+        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        liftMotor.setPower(1);
+    }
+
+    // foundation mover code
+    public void openFoundation() {
+        foundationFront.setPosition(1);
+        foundationBack.setPosition(1 - leftClawServo.getPosition());
+    }
+
+    public void closeFoundation() {
+        foundationFront.setPosition(0.2);
+        foundationBack.setPosition(1 - leftClawServo.getPosition());
+    }
 
     // LIGHT SENSOR CODE
     public void driveUntilAlpha (double threshold, double speed) {

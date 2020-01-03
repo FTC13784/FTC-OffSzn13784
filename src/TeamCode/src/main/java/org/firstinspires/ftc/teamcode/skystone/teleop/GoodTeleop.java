@@ -30,17 +30,17 @@ import com.qualcomm.robotcore.util.Range;
 
 
 // TeleOp declaration
-@TeleOp(name = "Good Teleop", group = "Linear Opmode")
+@TeleOp(name = "Good Teleop", group = "!tele")
 
 // disable telemetry
 //@Disabled
 
 // GoodTeleop class
 public class GoodTeleop extends LinearOpMode {
-
     // TODO: Map all non-movement code to gamepad2, for a second auxiliary driver.
+    // variable for block size
+    final float ONEBLOCK = -1900 / 2;
 
-    float oneBlock = -1900 / 2;
     // declare OpMode members
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftFrontDrive = null;
@@ -66,7 +66,7 @@ public class GoodTeleop extends LinearOpMode {
         // declaration of variables
         boolean rightBumper;
         boolean leftBumper;
-        //float initialFrontRightPower, initialBackRightPower, initialFrontLeftPower, initialBackLeftPower;
+        // float initialFrontRightPower, initialBackRightPower, initialFrontLeftPower, initialBackLeftPower;
 
         double targetBlock = 0;
         double upCoolDown = -10;
@@ -170,7 +170,7 @@ public class GoodTeleop extends LinearOpMode {
              * in the case that it is above the max value it will round to the max value
              * the final increment will simply set it to the max height (probably less than oneBlock)
              */
-            if ((targetBlock - 1) * oneBlock < -5500)
+            if ((targetBlock - 1) * ONEBLOCK < -5500)
                 targetBlock--;
 
             // raiseBlock telemetry
@@ -276,7 +276,7 @@ public class GoodTeleop extends LinearOpMode {
 
     // lift motor code
     void controlLiftMotor(double targetBlock) {
-        int targetPos = (int) Math.round(targetBlock * oneBlock);
+        int targetPos = (int) Math.round(targetBlock * ONEBLOCK);
         double positionPlus = liftMotor.getCurrentPosition() + 20;
         double positionMinus = liftMotor.getCurrentPosition() - 20;
 
@@ -293,7 +293,7 @@ public class GoodTeleop extends LinearOpMode {
 
         //Just makes the lift motor not go to the target position if it's close enough, so it stops
         //trying to run when it's one tick off.
-        if (positionPlus > targetPos + 20 && positionMinus < targetPos + 20 && (int) (liftMotor.getCurrentPosition() / oneBlock) != targetBlock) {
+        if (positionPlus > targetPos + 20 && positionMinus < targetPos + 20 && (int) (liftMotor.getCurrentPosition() / ONEBLOCK) != targetBlock) {
             liftMotor.setTargetPosition(targetPos);
         }
 
@@ -321,11 +321,11 @@ public class GoodTeleop extends LinearOpMode {
     // foundation mover code
     void openFoundation() {
         foundationFront.setPosition(1);
-        foundationBack.setPosition(1 - leftClawServo.getPosition());
+        foundationBack.setPosition(1 - foundationFront.getPosition());
     }
 
     void closeFoundation() {
         foundationFront.setPosition(0.2);
-        foundationBack.setPosition(1 - leftClawServo.getPosition());
+        foundationBack.setPosition(1 - foundationFront.getPosition());
     }
 }
