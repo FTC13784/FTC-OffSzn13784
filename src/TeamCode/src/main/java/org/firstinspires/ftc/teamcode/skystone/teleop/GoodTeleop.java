@@ -293,10 +293,8 @@ public class GoodTeleop extends LinearOpMode {
 
         //Just makes the lift motor not go to the target position if it's close enough, so it stops
         //trying to run when it's one tick off.
-        if (positionPlus > targetPos + 20 && positionMinus < targetPos + 20) {
-            if ((int) (liftMotor.getCurrentPosition() / oneBlock) != targetBlock) {
-                liftMotor.setTargetPosition(targetPos);
-            }
+        if (positionPlus > targetPos + 20 && positionMinus < targetPos + 20 && (int) (liftMotor.getCurrentPosition() / oneBlock) != targetBlock) {
+            liftMotor.setTargetPosition(targetPos);
         }
 
     }
@@ -322,12 +320,12 @@ public class GoodTeleop extends LinearOpMode {
 
     // foundation mover code
     void openFoundation() {
-        leftClawServo.setPosition(1);
-        rightClawServo.setPosition(1 - leftClawServo.getPosition());
+        foundationFront.setPosition(1);
+        foundationBack.setPosition(1 - leftClawServo.getPosition());
     }
 
     void closeFoundation() {
-        leftClawServo.setPosition(.2);
-        rightClawServo.setPosition(1 - leftClawServo.getPosition());
+        foundationFront.setPosition(0.2);
+        foundationBack.setPosition(1 - leftClawServo.getPosition());
     }
 }
