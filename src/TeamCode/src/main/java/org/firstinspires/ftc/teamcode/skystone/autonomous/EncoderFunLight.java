@@ -84,7 +84,7 @@ public class EncoderFunLight extends Encoder {
         telemetry = opMode.telemetry;
 
         // initialize hardware
-        InitializeHardware();
+        initializeHardware();
 
         // math functions to calculate parameters based on final variables
         /* wheelCircumference = WHEELRADIUS * Math.PI * 2;
@@ -103,7 +103,7 @@ public class EncoderFunLight extends Encoder {
     }
 
     // HARDWARE INITIALIZATION
-    private void InitializeHardware() {
+    private void initializeHardware() {
         // directional drive motor initialization
         leftDrive[0] = hardwareMap.dcMotor.get("lf");
         leftDrive[1] = hardwareMap.dcMotor.get("lb");
@@ -463,12 +463,12 @@ public class EncoderFunLight extends Encoder {
     // foundation mover code
     public void openFoundation() {
         foundationFront.setPosition(1);
-        foundationBack.setPosition(1 - leftClawServo.getPosition());
+        foundationBack.setPosition(1 - foundationFront.getPosition());
     }
 
     public void closeFoundation() {
         foundationFront.setPosition(0.2);
-        foundationBack.setPosition(1 - leftClawServo.getPosition());
+        foundationBack.setPosition(1 - foundationFront.getPosition());
     }
 
     // LIGHT SENSOR CODE
