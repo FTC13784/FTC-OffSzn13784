@@ -1,21 +1,25 @@
-/** Configuration:
- *
+/**
+ * Configuration:
+ * <p>
  * left front motor -> lf
  * right front motor -> rf
  * left back motor -> lb
  * right back motor -> rb
- *
+ * <p>
  * lifter motor -> raise
  * extender motor -> extend
- *
+ * <p>
  * foundation front motor -> ff
  * foundation back motor -> fb
- *
+ * <p>
  * left claw servo -> cl
  * right claw servo -> cr
- *
+ * <p>
  * left color sensor -> color (TBD)
  * right color sensor -> color2 (TBD)
+ * Conversions:
+ * driving forward - ticks = distance in cm / .03526
+ * turns - ticks = degrees * 1200 / 90
  */
 
 /** Conversions:
@@ -27,6 +31,7 @@
 package org.firstinspires.ftc.teamcode.skystone.autonomous;
 
 // import packages
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -427,6 +432,7 @@ public class EncoderFunLight extends Encoder {
 
     }
 
+
     // clawcode
     public void openClaw() {
         leftClawServo.setPosition(1);
@@ -457,14 +463,13 @@ public class EncoderFunLight extends Encoder {
     }
 
     // LIGHT SENSOR CODE
-    public void driveUntilAlpha (double threshold, double speed) {
+    public void driveUntilAlpha(double threshold, double speed) {
         colorSensor.enableLed(true);
 
         while (colorSensor.argb() < threshold) {
             try {
                 driveTime(200, speed);
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 telemetry.addData("Interrupted!", "Exception");
                 telemetry.update();
             }
@@ -473,7 +478,7 @@ public class EncoderFunLight extends Encoder {
         colorSensor.enableLed(false);
     }
 
-    public void driveUntilPicture (double lumThreshold, double threshold, double speed) {
+    public void driveUntilPicture(double lumThreshold, double threshold, double speed) {
         boolean looping = true;
 
         while (looping) {
@@ -485,7 +490,7 @@ public class EncoderFunLight extends Encoder {
         }
     }
 
-    public void lightTele () {
+    public void lightTele() {
         while (true) {
             telemetry.addData("rgb", colorSensor.red() + ", " + colorSensor.green() + ", " + colorSensor.blue());
             telemetry.addData("luminosity, color total", colorSensor.alpha() + " " + colorSensor.argb());
@@ -493,7 +498,7 @@ public class EncoderFunLight extends Encoder {
         }
     }
 
-    public void lightTele (double blockThresh, double skyThresh) {
+    public void lightTele(double blockThresh, double skyThresh) {
         while (true) {
             telemetry.addData("rgb", colorSensor.red() + ", " + colorSensor.green() + ", " + colorSensor.blue());
             telemetry.addData("luminosity, color total", colorSensor.alpha() + " " + colorSensor.argb());
