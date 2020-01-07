@@ -54,8 +54,8 @@ public class AutonomousFoundationBlueRight extends LinearOpMode {
         bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 3, 0.35F);
         //Rotate to face the other direction
         bot.turnLeft(180, 0.25F);
-        //Drive back
-        bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 3, 0.35F);
+        //Drive back a little more to account for inaccuracies
+        bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 2.5, 0.35F);
         bot.extensionMotor.setTargetPosition(2);
     }
 }

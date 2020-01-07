@@ -124,9 +124,9 @@ public class GoodTeleop extends LinearOpMode {
             if (gamepad1.right_trigger > 0.5 || gamepad1.left_trigger > 0.5)
                 speedMult = 0.5;
 
-            telemetry.addData("Right Trigger", gamepad1.right_trigger);
-            telemetry.addData("Left Trigger", gamepad1.left_trigger);
-            telemetry.update();
+            // telemetry.addData("Right Trigger", gamepad1.right_trigger);
+            // telemetry.addData("Left Trigger", gamepad1.left_trigger);
+            // telemetry.update();
 
 
             // movement function
@@ -151,10 +151,10 @@ public class GoodTeleop extends LinearOpMode {
 
 
             // lift motor telemetry
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
+           //  telemetry.addData("Status", "Run Time: " + runtime.toString());
 
             float raisePos = liftMotor.getCurrentPosition();
-            telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
+            // telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
 
 
             // lift motor functions
@@ -180,17 +180,18 @@ public class GoodTeleop extends LinearOpMode {
                 targetBlock--;
 
             // raiseBlock telemetry
-            telemetry.addData("Raiseblock", "going to: " + targetBlock);
+            // telemetry.addData("Raiseblock", "going to: " + targetBlock);
             controlLiftMotor(targetBlock);
 
             // other telemetry
-            telemetry.addData("foundationFront:", foundationFront.getDirection());
-            telemetry.addData("foundationBack:", foundationBack.getPosition());
+            // telemetry.addData("foundationFront:", foundationFront.getDirection());
+            // telemetry.addData("foundationBack:", foundationBack.getPosition());
             // telemetry.addData("x:", gamepad1.left_stick_x);
             // telemetry.addData("y:", gamepad1.left_stick_y);
             // telemetry.addData("r:", gamepad1.right_stick_x);
             // telemetry.addData("l:", gamepad2.right_stick_y);
             // telemetry.addData("e:", gamepad2.left_stick_y);
+            telemetry.addData("Extension Motor:", extensionMotor.getCurrentPosition());
             telemetry.update();
         }
     }
