@@ -1,4 +1,5 @@
-/** Contributors:
+/**
+ * Contributors:
  * @author Edwardidk, FavouriteDragon
  * @contributors RobertM3
  */
