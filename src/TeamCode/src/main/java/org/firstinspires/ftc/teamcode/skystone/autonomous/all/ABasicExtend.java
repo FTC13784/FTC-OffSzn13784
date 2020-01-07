@@ -27,6 +27,7 @@ public class ABasicExtend extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+        ourBot.setupLift();
 
     }
 }

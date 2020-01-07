@@ -25,15 +25,88 @@
  * right claw servo -> cr
  * <p>
  * left color sensor -> color
- * right color sensor -> color2 (TBD)
+ * right color sensor -> color2 (retired - no second color sensor)
  * Conversions:
  * driving forward - ticks = distance in cm / .03526
  * turns - ticks = degrees * 1200 / 90
  */
 
-/** Conversions:
+/**
+ * Conversions:
  * driving forward - ticks = distance in cm / .03526
  * turns - ticks = degrees * 1200 / 90
+ */
+
+/**
+ * ===========
+ * ||METHODS||
+ * ===========
+ *
+ * BASIC METHODS
+ * -------------
+ *
+ * CONSTRUCTOR / INITIALIZATION
+ * EncoderFunLight (LinearOpMode opmode) - constructor, initializes robot
+ * void initializeHardware() - initializes hardware on robot, autoruns alongside constructor
+ *
+ * RAW DRIVE
+ * void setDirection(DcMotor[] motors, DcMotorSimple.Direction direction) - configure motors to correct directions
+ * void setMode(DcMotor[] motors, DcMotor.RunMode mode) - set movement mode for motors
+ * void setWheelTargetPosition(DcMotor[] motors, double distance) - set target position for motor
+ * boolean isBusy(DcMotor[] motors) - test if motors are currently running an action and return as boolean
+ * void setPower(DcMotor[] motors, double power) - set power for motors
+ * void stopDriving() - stop all motor actions
+ *
+ *
+ * USABLE METHODS
+ * --------------
+ *
+ * COMPLEX DRIVE
+ * Cardinal Direction Drive:
+ * void driveCm(double distance, double speed) - drive in forward direction for distance
+ *      in centimeters
+ * void driveBackCm(double distance, double speed) - driveCm in backwards direction
+ * void driveLeftCm(double distance, double speed) - driveCm in left direction
+ * void driveRightCm(double distance, double speed) - driveCm in right direction
+ *
+ * Diagonal Drive:
+ * (retired) void drive_lf(double ticks, double speed) - drive in left-front direction for ticks
+ * (retired) void drive_rf(double ticks, double speed) - drive in right-front direction for ticks
+ * (retired) void drive_lb(double ticks, double speed) - drive in left-back direction for ticks
+ * (retired) void drive_rb(double ticks, double speed) - drive in right-back direction for ticks
+ *
+ * Turn:
+ * void turnLeft(double degrees, double speed) - turn left for degrees
+ * void turnRight(double degrees, double speed) - turn right for degrees
+ *
+ * Timed:
+ * TODO: Double check whether driveTime function works
+ * void driveTime(double time, double speed) - drive forward? for time in seconds
+ *
+ *
+ * AUXILIARY
+ * Lift:
+ * TODO: Create method for extending lift
+ * void setupLift() - initialize lift
+ * void controlLiftMotor(double targetBlock) - change lift height to height in blocks
+ *
+ * Claw:
+ * void openClaw() - open front claw
+ * void closeClaw() - open back claw
+ *
+ * Foundation Mover:
+ * void openFoundation() - open foundation grabber
+ * void closeFoundation() - close foundation grabber
+ *
+ * Light Sensor:
+ * void driveUntilAlpha(double threshold, double speed) - drive until alpha threshold is reached
+ * void driveUntilPicture(double lumThreshold, double threshold, double speed) - drive until
+ *      threshold is between nothing and block threshold
+ *
+ * Testing:
+ * void lightTele() - permanent displays telemetry for light sensor
+ * void lightTele(double blockThresh, double skyThresh) - permanent loop, base lightTele + display
+ *      what program thinks its detecting
  */
 
 // Autonomous package
@@ -49,6 +122,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.skystone.autonomous.unused.Encoder;
 
 // EncoderFunLight class
 public class EncoderFunLight extends Encoder {
@@ -416,6 +490,13 @@ public class EncoderFunLight extends Encoder {
     }
 
     // AUXILIARY FUNCTIONS
+    // lift initialization
+    public void setupLift() {
+        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        liftMotor.setPower(1);
+    }
+
     // lift motor code
     public void controlLiftMotor(double targetBlock) {
         int targetPos = (int) Math.round(targetBlock * ONEBLOCK);
@@ -442,7 +523,7 @@ public class EncoderFunLight extends Encoder {
     }
 
 
-    // clawcode
+    // claw code
     public void openClaw() {
         leftClawServo.setPosition(1);
         rightClawServo.setPosition(1 - leftClawServo.getPosition());
@@ -453,12 +534,6 @@ public class EncoderFunLight extends Encoder {
         rightClawServo.setPosition(1 - leftClawServo.getPosition());
     }
 
-    // lift initialization
-    public void setupLift() {
-        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        liftMotor.setPower(1);
-    }
 
     // foundation mover code
     public void openFoundation() {
@@ -471,7 +546,8 @@ public class EncoderFunLight extends Encoder {
         foundationBack.setPosition(foundationFront.getPosition());
     }
 
-    // LIGHT SENSOR CODE
+
+    // light sensor code
     public void driveUntilAlpha(double threshold, double speed) {
         colorSensor.enableLed(true);
 

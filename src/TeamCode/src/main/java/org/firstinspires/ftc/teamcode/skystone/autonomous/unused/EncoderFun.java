@@ -1,6 +1,6 @@
 // IMPORTANT: THIS PROGRAM HAS BEEN RETIRED - USE ENCODER FUN LIGHT INSTEAD
 
-package org.firstinspires.ftc.teamcode.skystone.autonomous;
+package org.firstinspires.ftc.teamcode.skystone.autonomous.unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
