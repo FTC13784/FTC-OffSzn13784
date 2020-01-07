@@ -1,10 +1,11 @@
-package org.firstinspires.ftc.teamcode.skystone.autonomous;
+package org.firstinspires.ftc.teamcode.skystone.autonomous.red;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.FTCConstants;
+import org.firstinspires.ftc.teamcode.skystone.autonomous.EncoderFunLight;
 
 /**
  * Drives forward, grabs foundation, goes back, and parks ON THE LINE
@@ -13,8 +14,8 @@ import org.firstinspires.ftc.teamcode.FTCConstants;
  * @author FavouriteDragon
  */
 
-@Autonomous(name = "AutonomousFoundation", group = "Red Autonomous")
-public class AutonomousFoundation extends LinearOpMode {
+@Autonomous(name = "AutonomousFoundationRed1", group = "Red Autonomous")
+public class AutonomousFoundationRed1 extends LinearOpMode {
 
     EncoderFunLight bot;
     private ElapsedTime runTime = new ElapsedTime();
@@ -47,8 +48,15 @@ public class AutonomousFoundation extends LinearOpMode {
         bot.openFoundation();
 
         //Park
-        //Go past line on the left, extend motor
-        bot.driveBackCm(3 * FTCConstants.ONE_SQUARE, 0.35);
+        //Go one square the left
+        bot.driveBackCm(1 * FTCConstants.ONE_SQUARE, 0.35);
+        //Drive forward to allow room to rotate
+        bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 3, 0.35F);
+        //Rotate to face the other direction
+        bot.turnLeft(180, 0.25F);
+        //Drive back
+        bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 3, 0.35F);
+        //Exte d
         bot.extensionMotor.setTargetPosition(2);
     }
 }

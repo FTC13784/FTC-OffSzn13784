@@ -53,20 +53,20 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 // EncoderFunLight class
 public class EncoderFunLight extends Encoder {
     // variable for block size
-    final float ONEBLOCK = -1900 / 2;
+    public final float ONEBLOCK = -1900 / 2;
 
     // initialize variables
     DcMotor[] allDrive = new DcMotor[4];
     DcMotor[] leftDrive = new DcMotor[2];
     DcMotor[] rightDrive = new DcMotor[2];
 
-    ColorSensor colorSensor, colorSensor2;
-    DcMotor liftMotor, extensionMotor;
-    Servo foundationFront, foundationBack, leftClawServo, rightClawServo;
+    public ColorSensor colorSensor, colorSensor2;
+    public DcMotor liftMotor, extensionMotor;
+    public Servo foundationFront, foundationBack, leftClawServo, rightClawServo;
 
     HardwareMap hardwareMap;
-    LinearOpMode opMode;
-    Telemetry telemetry;
+    public LinearOpMode opMode;
+    public Telemetry telemetry;
 
     // these are the measurements you need to change for a different tank drive robot
     /* private final double TICKSPERREV = 1120;
