@@ -463,12 +463,12 @@ public class EncoderFunLight extends Encoder {
     // foundation mover code
     public void openFoundation() {
         foundationFront.setPosition(1);
-        foundationBack.setPosition(1 - foundationFront.getPosition());
+        foundationBack.setPosition(foundationFront.getPosition());
     }
 
     public void closeFoundation() {
         foundationFront.setPosition(0.2);
-        foundationBack.setPosition(1 - foundationFront.getPosition());
+        foundationBack.setPosition(foundationFront.getPosition());
     }
 
     // LIGHT SENSOR CODE

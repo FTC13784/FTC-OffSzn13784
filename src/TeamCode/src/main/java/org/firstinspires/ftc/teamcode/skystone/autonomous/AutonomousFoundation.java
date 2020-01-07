@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.FTCConstants;
  * @author FavouriteDragon
  */
 
-@Autonomous(name = "AutonomousFoundation", group = "Autonomous")
+@Autonomous(name = "AutonomousFoundation", group = "Red Autonomous")
 public class AutonomousFoundation extends LinearOpMode {
 
     EncoderFunLight bot;
@@ -35,19 +35,20 @@ public class AutonomousFoundation extends LinearOpMode {
         //Drive Left 45 cm
 
         //Drive Forward. 44 is roughly the width of the robot
-        bot.driveCm(2 * FTCConstants.ONE_SQUARE - 44, 0.35F);
+        bot.driveLeftCm(2 * FTCConstants.ONE_SQUARE - 44, 0.35F);
 
         //Grab foundation
         bot.closeFoundation();
 
         //Deliver Foundation
-        bot.driveBackCm(2 * FTCConstants.ONE_SQUARE - 44, 0.35F);
+        bot.driveRightCm(2 * FTCConstants.ONE_SQUARE - 44, 0.35F);
 
         //Release Foundation
         bot.openFoundation();
 
         //Park
         //Go past line on the left, extend motor
-        //bot.extensionMotor
+        bot.driveBackCm(3 * FTCConstants.ONE_SQUARE, 0.35);
+        bot.extensionMotor.setTargetPosition(2);
     }
 }

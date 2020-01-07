@@ -11,6 +11,7 @@ public class FTCConstants {
     public static final float ONE_BLOCK = -1900 / 2;
     //In centimetres
     public static final double ONE_SQUARE = 59;
+    public static final double ROBOT_WIDTH = 44;
 
     public static final int CM_TO_TICKS(double centimetres) {
         return (int) (centimetres / .03526);
