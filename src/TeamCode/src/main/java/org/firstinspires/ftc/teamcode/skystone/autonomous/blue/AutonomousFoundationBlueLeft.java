@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.skystone.autonomous.red;
+package org.firstinspires.ftc.teamcode.skystone.autonomous.blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.skystone.autonomous.EncoderFunLight;
  * @author FavouriteDragon
  */
 
-@Autonomous(name = "AutonomousFoundationRed2", group = "Red Autonomous")
-public class AutonomousFoundationRed2 extends LinearOpMode {
+@Autonomous(name = "AutonomousFoundationRedRight", group = "Blue Autonomous")
+public class AutonomousFoundationBlueLeft extends LinearOpMode {
 
     EncoderFunLight bot;
     private ElapsedTime runTime = new ElapsedTime();
@@ -48,8 +48,9 @@ public class AutonomousFoundationRed2 extends LinearOpMode {
         bot.openFoundation();
 
         //Park
-        //Go past line on the left, extend motor
-        bot.driveBackCm(3 * FTCConstants.ONE_SQUARE, 0.35);
+        //Go one square the right
+        bot.driveCm(1 * FTCConstants.ONE_SQUARE, 0.35);
+        //Extend
         bot.extensionMotor.setTargetPosition(2);
     }
 }
