@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.skystone.autonomous.EncoderFunLight;
  * @author FavouriteDragon
  */
 
-@Autonomous(name = "AutonomousFoundationRedRight", group = "Red Autonomous")
+@Autonomous(name = "AutonomousParkingRedRight", group = "Red Autonomous")
 public class AutonomousParkingRedRight extends LinearOpMode {
 
     EncoderFunLight bot;
@@ -28,6 +28,7 @@ public class AutonomousParkingRedRight extends LinearOpMode {
         waitForStart();
         runTime.reset();
         bot.closeFoundation();
+        bot.closeClaw();
 
         //Park
         //Go one square the left

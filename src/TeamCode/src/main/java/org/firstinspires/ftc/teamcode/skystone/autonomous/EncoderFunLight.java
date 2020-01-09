@@ -525,24 +525,24 @@ public class EncoderFunLight extends Encoder {
 
     // claw code
     public void openClaw() {
-        leftClawServo.setPosition(1);
+        leftClawServo.setPosition(0);
         rightClawServo.setPosition(1 - leftClawServo.getPosition());
     }
 
     public void closeClaw() {
-        leftClawServo.setPosition(.2);
+        leftClawServo.setPosition(1);
         rightClawServo.setPosition(1 - leftClawServo.getPosition());
     }
 
 
     // foundation mover code
     public void openFoundation() {
-        foundationFront.setPosition(1);
+        foundationFront.setPosition(0);
         foundationBack.setPosition(foundationFront.getPosition());
     }
 
     public void closeFoundation() {
-        foundationFront.setPosition(0.2);
+        foundationFront.setPosition(1);
         foundationBack.setPosition(foundationFront.getPosition());
     }
 

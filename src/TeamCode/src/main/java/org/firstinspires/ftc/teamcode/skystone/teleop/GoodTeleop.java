@@ -309,12 +309,12 @@ public class GoodTeleop extends LinearOpMode {
 
     // clawcode
     void openClaw() {
-        leftClawServo.setPosition(1);
+        leftClawServo.setPosition(0);
         rightClawServo.setPosition(1 - leftClawServo.getPosition());
     }
 
     void closeClaw() {
-        leftClawServo.setPosition(.2);
+        leftClawServo.setPosition(1);
         rightClawServo.setPosition(1 - leftClawServo.getPosition());
     }
 
@@ -327,12 +327,12 @@ public class GoodTeleop extends LinearOpMode {
 
     // foundation mover code
     void openFoundation() {
-        foundationFront.setPosition(1);
+        foundationFront.setPosition(0);
         foundationBack.setPosition(foundationFront.getPosition());
     }
 
     void closeFoundation() {
-        foundationFront.setPosition(0.2);
+        foundationFront.setPosition(1);
         foundationBack.setPosition(foundationFront.getPosition());
     }
 }
