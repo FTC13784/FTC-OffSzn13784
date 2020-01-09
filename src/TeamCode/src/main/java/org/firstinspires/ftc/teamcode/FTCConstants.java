@@ -25,6 +25,6 @@ public class FTCConstants {
     }
 
     public static final int degreesToTicks(double degrees) {
-        return (int) (degrees / 100 * 6);
+        return (int) (degrees / 0.06);
     }
 }

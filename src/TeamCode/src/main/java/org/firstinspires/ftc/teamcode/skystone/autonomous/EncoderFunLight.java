@@ -631,6 +631,7 @@ public class EncoderFunLight extends Encoder {
     public void turnLeft(double degrees, double speed) {
         // convert degrees to ticks
         double ticks = FTCConstants.degreesToTicks(degrees);
+        telemetry.addData("Ticks: ", ticks);
 
         setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
         setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
@@ -649,6 +650,7 @@ public class EncoderFunLight extends Encoder {
             // wait until target position in reached
         }
 
+        telemetry.update();
         stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
