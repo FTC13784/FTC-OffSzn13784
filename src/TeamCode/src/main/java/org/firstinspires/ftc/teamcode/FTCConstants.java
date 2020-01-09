@@ -20,11 +20,11 @@ public class FTCConstants {
     public static final double BLOCK_THRESHOLD = 0.0;
     public static final double SKYSTONE_THRESHOLD = 0.0;
 
-    public static final int CM_TO_TICKS(double centimetres) {
+    public static final int cmToTicks(double centimetres) {
         return (int) (centimetres / .03526);
     }
 
-    public static final int DEGREES_TO_TICKS(double degrees) {
+    public static final int degreesToTicks(double degrees) {
         return (int) (degrees * 1200 / 90);
     }
 }

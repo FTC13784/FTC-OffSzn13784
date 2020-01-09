@@ -1,7 +1,24 @@
 /**
  * Contributors:
+ *
  * @author Edwardidk, FavouriteDragon
  * @contributors RobertM3
+ * <p>
+ * Configuration:
+ * <p>
+ * left front motor -> lf
+ * right front motor -> rf
+ * left back motor -> lb
+ * right back motor -> rb
+ * <p>
+ * lifter motor -> raise
+ * extender motor -> extend
+ * <p>
+ * foundation front motor -> ff
+ * foundation back motor -> fb
+ * <p>
+ * left claw servo -> cl
+ * right claw servo -> cr
  */
 
 /**
@@ -151,11 +168,7 @@ public class GoodTeleop extends LinearOpMode {
 
 
             // lift motor telemetry
-           //  telemetry.addData("Status", "Run Time: " + runtime.toString());
-
-            float raisePos = liftMotor.getCurrentPosition();
-            telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
-
+            //  telemetry.addData("Status", "Run Time: " + runtime.toString());
 
             // lift motor functions
             rightBumper = gamepad2.right_bumper;
@@ -191,6 +204,7 @@ public class GoodTeleop extends LinearOpMode {
             // telemetry.addData("r:", gamepad1.right_stick_x);
             // telemetry.addData("l:", gamepad2.right_stick_y);
             // telemetry.addData("e:", gamepad2.left_stick_y);
+            telemetry.addData("Lift Motor", "raisePos: " + liftMotor.getCurrentPosition());
             telemetry.addData("Extension Motor:", extensionMotor.getCurrentPosition());
             telemetry.update();
         }
@@ -309,7 +323,7 @@ public class GoodTeleop extends LinearOpMode {
 
     // clawcode
     void openClaw() {
-        leftClawServo.setPosition(0);
+        leftClawServo.setPosition(0.3);
         rightClawServo.setPosition(1 - leftClawServo.getPosition());
     }
 
@@ -327,7 +341,7 @@ public class GoodTeleop extends LinearOpMode {
 
     // foundation mover code
     void openFoundation() {
-        foundationFront.setPosition(0);
+        foundationFront.setPosition(0.3);
         foundationBack.setPosition(foundationFront.getPosition());
     }
 

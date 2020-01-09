@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.skystone.autonomous.EncoderFunLight;
  * @author FavouriteDragon
  */
 
-@Autonomous(name = "AutonomousFoundationRedLeft", group = "Blue Autonomous")
+@Autonomous(name = "AutonomousFoundationRedLeft", group = "Red Autonomous")
 public class AutonomousFoundationRedLeft extends LinearOpMode {
 
     EncoderFunLight bot;
@@ -31,9 +31,8 @@ public class AutonomousFoundationRedLeft extends LinearOpMode {
         bot.openFoundation();
         bot.closeClaw();
 
-        //Drive right until wall
-
-        //Drive Left 45 cm
+        //Drive right one square
+        bot.driveCm(FTCConstants.ONE_SQUARE, 0.35F);
 
         //Drive Forward. 44 is roughly the width of the robot
         bot.driveLeftCm(2 * FTCConstants.ONE_SQUARE - 44, 0.35F);
@@ -50,6 +49,6 @@ public class AutonomousFoundationRedLeft extends LinearOpMode {
         //Park
         //Go past line on the left, extend motor
         bot.driveBackCm(3 * FTCConstants.ONE_SQUARE, 0.35);
-        bot.extensionMotor.setTargetPosition(2);
+        bot.extendCM(20, 0.5);
     }
 }

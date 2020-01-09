@@ -38,7 +38,6 @@ public class AutonomousParkingRedRight extends LinearOpMode {
         bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 2.5, 0.35F);
         //Extend
         bot.extensionMotor.setPower(1.0F);
-        if (bot.extensionMotor.getCurrentPosition() > 3)
-            bot.extensionMotor.setPower(0);
+        //Timer for extension
     }
 }

@@ -122,6 +122,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.FTCConstants;
 import org.firstinspires.ftc.teamcode.skystone.autonomous.unused.Encoder;
 
 // EncoderFunLight class
@@ -364,6 +365,14 @@ public class EncoderFunLight extends Encoder {
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    public void extendCM(double centimetres, double power) {
+        int ticks = FTCConstants.cmToTicks(centimetres);
+        while (extensionMotor.isBusy() && ticks > 0) {
+            ticks--;
+            extensionMotor.setPower(power);
+        }
+        extensionMotor.setPower(0);
+    }
     public void drive_lf(double ticks, double speed) {
         leftDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
         rightDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
@@ -536,7 +545,7 @@ public class EncoderFunLight extends Encoder {
 
     // foundation mover code
     public void openFoundation() {
-        foundationFront.setPosition(0);
+        foundationFront.setPosition(0.3);
         foundationBack.setPosition(foundationFront.getPosition());
     }
 
