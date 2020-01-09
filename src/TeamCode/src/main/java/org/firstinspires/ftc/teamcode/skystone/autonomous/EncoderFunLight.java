@@ -1,236 +1,40 @@
 /**
  * Base constructor for all autonomous programs.
- * <p>
- * Contributors:
  *
+ * Contributors:
  * @author Edwardidk
  * @contributors FavouriteDragon
  * @nothing Commandjoe
- * <p>
+ *
+ *
+ *
  * Configuration:
- * <p>
+ *
  * left front motor -> lf
  * right front motor -> rf
  * left back motor -> lb
  * right back motor -> rb
- * <p>
+ *
  * lifter motor -> raise
  * extender motor -> extend
- * <p>
+ *
  * foundation front motor -> ff
  * foundation back motor -> fb
- * <p>
+ *
  * left claw servo -> cl
  * right claw servo -> cr
- * <p>
+ *
  * left color sensor -> color
  * right color sensor -> color2 (retired - no second color sensor)
+ *
+ *
+ *
  * Conversions:
  * driving forward - ticks = distance in cm / .03526
  * turns - ticks = degrees * 1200 / 90
- * <p>
- * Conversions:
- * driving forward - ticks = distance in cm / .03526
- * turns - ticks = degrees * 1200 / 90
- * <p>
- * ===========
- * ||METHODS||
- * ===========
- * <p>
- * BASIC METHODS
- * -------------
- * <p>
- * CONSTRUCTOR / INITIALIZATION
- * EncoderFunLight (LinearOpMode opmode) - constructor, initializes robot
- * void initializeHardware() - initializes hardware on robot, autoruns alongside constructor
- * <p>
- * RAW DRIVE
- * void setDirection(DcMotor[] motors, DcMotorSimple.Direction direction) - configure motors to correct directions
- * void setMode(DcMotor[] motors, DcMotor.RunMode mode) - set movement mode for motors
- * void setWheelTargetPosition(DcMotor[] motors, double distance) - set target position for motor
- * boolean isBusy(DcMotor[] motors) - test if motors are currently running an action and return as boolean
- * void setPower(DcMotor[] motors, double power) - set power for motors
- * void stopDriving() - stop all motor actions
- * <p>
- * <p>
- * USABLE METHODS
- * --------------
- * <p>
- * COMPLEX DRIVE
- * Cardinal Direction Drive:
- * void driveCm(double distance, double speed) - drive in forward direction for distance
- * in centimeters
- * void driveBackCm(double distance, double speed) - driveCm in backwards direction
- * void driveLeftCm(double distance, double speed) - driveCm in left direction
- * void driveRightCm(double distance, double speed) - driveCm in right direction
- * <p>
- * Diagonal Drive:
- * (retired) void drive_lf(double ticks, double speed) - drive in left-front direction for ticks
- * (retired) void drive_rf(double ticks, double speed) - drive in right-front direction for ticks
- * (retired) void drive_lb(double ticks, double speed) - drive in left-back direction for ticks
- * (retired) void drive_rb(double ticks, double speed) - drive in right-back direction for ticks
- * <p>
- * Turn:
- * void turnLeft(double degrees, double speed) - turn left for degrees
- * void turnRight(double degrees, double speed) - turn right for degrees
- * <p>
- * Timed:
- * TODO: Double check whether driveTime function works
- * void driveTime(double time, double speed) - drive forward? for time in seconds
- * <p>
- * <p>
- * AUXILIARY
- * Lift:
- * TODO: Create method for extending lift
- * void setupLift() - initialize lift
- * void controlLiftMotor(double targetBlock) - change lift height to height in blocks
- * <p>
- * Claw:
- * void openClaw() - open front claw
- * void closeClaw() - open back claw
- * <p>
- * Foundation Mover:
- * void openFoundation() - open foundation grabber
- * void closeFoundation() - close foundation grabber
- * <p>
- * Light Sensor:
- * void driveUntilAlpha(double threshold, double speed) - drive until alpha threshold is reached
- * void driveUntilPicture(double lumThreshold, double threshold, double speed) - drive until
- * threshold is between nothing and block threshold
- * <p>
- * Testing:
- * void lightTele() - permanent displays telemetry for light sensor
- * void lightTele(double blockThresh, double skyThresh) - permanent loop, base lightTele + display
- * what program thinks its detecting
- * <p>
- * Configuration:
- * <p>
- * left front motor -> lf
- * right front motor -> rf
- * left back motor -> lb
- * right back motor -> rb
- * <p>
- * lifter motor -> raise
- * extender motor -> extend
- * <p>
- * foundation front motor -> ff
- * foundation back motor -> fb
- * <p>
- * left claw servo -> cl
- * right claw servo -> cr
- * <p>
- * left color sensor -> color
- * right color sensor -> color2 (retired - no second color sensor)
- * Conversions:
- * driving forward - ticks = distance in cm / .03526
- * turns - ticks = degrees * 1200 / 90
- * <p>
- * Conversions:
- * driving forward - ticks = distance in cm / .03526
- * turns - ticks = degrees * 1200 / 90
- * <p>
- * ===========
- * ||METHODS||
- * ===========
- * <p>
- * BASIC METHODS
- * -------------
- * <p>
- * CONSTRUCTOR / INITIALIZATION
- * EncoderFunLight (LinearOpMode opmode) - constructor, initializes robot
- * void initializeHardware() - initializes hardware on robot, autoruns alongside constructor
- * <p>
- * RAW DRIVE
- * void setDirection(DcMotor[] motors, DcMotorSimple.Direction direction) - configure motors to correct directions
- * void setMode(DcMotor[] motors, DcMotor.RunMode mode) - set movement mode for motors
- * void setWheelTargetPosition(DcMotor[] motors, double distance) - set target position for motor
- * boolean isBusy(DcMotor[] motors) - test if motors are currently running an action and return as boolean
- * void setPower(DcMotor[] motors, double power) - set power for motors
- * void stopDriving() - stop all motor actions
- * <p>
- * <p>
- * USABLE METHODS
- * --------------
- * <p>
- * COMPLEX DRIVE
- * Cardinal Direction Drive:
- * void driveCm(double distance, double speed) - drive in forward direction for distance
- * in centimeters
- * void driveBackCm(double distance, double speed) - driveCm in backwards direction
- * void driveLeftCm(double distance, double speed) - driveCm in left direction
- * void driveRightCm(double distance, double speed) - driveCm in right direction
- * <p>
- * Diagonal Drive:
- * (retired) void drive_lf(double ticks, double speed) - drive in left-front direction for ticks
- * (retired) void drive_rf(double ticks, double speed) - drive in right-front direction for ticks
- * (retired) void drive_lb(double ticks, double speed) - drive in left-back direction for ticks
- * (retired) void drive_rb(double ticks, double speed) - drive in right-back direction for ticks
- * <p>
- * Turn:
- * void turnLeft(double degrees, double speed) - turn left for degrees
- * void turnRight(double degrees, double speed) - turn right for degrees
- * <p>
- * Timed:
- * TODO: Double check whether driveTime function works
- * void driveTime(double time, double speed) - drive forward? for time in seconds
- * <p>
- * <p>
- * AUXILIARY
- * Lift:
- * TODO: Create method for extending lift
- * void setupLift() - initialize lift
- * void controlLiftMotor(double targetBlock) - change lift height to height in blocks
- * <p>
- * Claw:
- * void openClaw() - open front claw
- * void closeClaw() - open back claw
- * <p>
- * Foundation Mover:
- * void openFoundation() - open foundation grabber
- * void closeFoundation() - close foundation grabber
- * <p>
- * Light Sensor:
- * void driveUntilAlpha(double threshold, double speed) - drive until alpha threshold is reached
- * void driveUntilPicture(double lumThreshold, double threshold, double speed) - drive until
- * threshold is between nothing and block threshold
- * <p>
- * Testing:
- * void lightTele() - permanent displays telemetry for light sensor
- * void lightTele(double blockThresh, double skyThresh) - permanent loop, base lightTele + display
- * what program thinks its detecting
- */
-
-/**
- * Configuration:
- * <p>
- * left front motor -> lf
- * right front motor -> rf
- * left back motor -> lb
- * right back motor -> rb
- * <p>
- * lifter motor -> raise
- * extender motor -> extend
- * <p>
- * foundation front motor -> ff
- * foundation back motor -> fb
- * <p>
- * left claw servo -> cl
- * right claw servo -> cr
- * <p>
- * left color sensor -> color
- * right color sensor -> color2 (retired - no second color sensor)
- * Conversions:
- * driving forward - ticks = distance in cm / .03526
- * turns - ticks = degrees * 1200 / 90
- */
-
-/**
- * Conversions:
- * driving forward - ticks = distance in cm / .03526
- * turns - ticks = degrees * 1200 / 90
- */
-
-/**
+ *
+ *
+ *
  * ===========
  * ||METHODS||
  * ===========
@@ -274,14 +78,15 @@
  *
  * Timed:
  * TODO: Double check whether driveTime function works
- * void driveTime(double time, double speed) - drive forward? for time in seconds
+ * void driveTime(double time, double speed) - drive forward for time in seconds - ONLY WORKS FOR
+ *      WHOLE SECONDS
  *
  *
  * AUXILIARY
  * Lift:
- * TODO: Create method for extending lift
  * void setupLift() - initialize lift
  * void controlLiftMotor(double targetBlock) - change lift height to height in blocks
+ * void extendCM(double centimetres, double power) - extend lift to distance in centimeters
  *
  * Claw:
  * void openClaw() - open front claw
@@ -557,9 +362,13 @@ public class EncoderFunLight extends Encoder {
 
     public void extendCM(double centimetres, double power) {
         int ticks = FTCConstants.cmToTicks(centimetres);
+
+        extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        extensionMotor.setDirection(power < 0 ? DcMotorSimple.Direction.REVERSE : DcMotorSimple.Direction.FORWARD);
+        extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        extensionMotor.setTargetPosition(Math.round(ticks));
         extensionMotor.setPower(power);
-        while (opMode.opModeIsActive() && extensionMotor.isBusy() && ticks > 0) {
-            ticks--;
+        while (opMode.opModeIsActive() && extensionMotor.isBusy()) {
             //Wait until it's done
         }
         extensionMotor.setPower(0);
@@ -700,8 +509,8 @@ public class EncoderFunLight extends Encoder {
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void driveTime(double time, double speed) throws InterruptedException {
-        double i = time;
+    public void driveTime(int time, double speed) throws InterruptedException {
+        int i = time;
         setPower(allDrive, speed);
         while (i > 0) {
             setPower(allDrive, speed);
@@ -745,6 +554,20 @@ public class EncoderFunLight extends Encoder {
 
     }
 
+    public void extendCM(double centimetres, double power) {
+        int ticks = FTCConstants.cmToTicks(centimetres);
+
+        extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        extensionMotor.setDirection(power < 0 ? DcMotorSimple.Direction.REVERSE : DcMotorSimple.Direction.FORWARD);
+        extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        extensionMotor.setTargetPosition(Math.round(ticks));
+        extensionMotor.setPower(power);
+        while (opMode.opModeIsActive() && extensionMotor.isBusy()) {
+            //Wait until it's done
+        }
+        extensionMotor.setPower(0);
+    }
+
 
     // claw code
     public void openClaw() {
@@ -760,18 +583,18 @@ public class EncoderFunLight extends Encoder {
 
     // foundation mover code
     public void openFoundation() {
-        foundationFront.setPosition(1);
+        foundationFront.setPosition(0.3);
         foundationBack.setPosition(foundationFront.getPosition());
     }
 
     public void closeFoundation() {
-        foundationFront.setPosition(0.5);
+        foundationFront.setPosition(1);
         foundationBack.setPosition(foundationFront.getPosition());
     }
 
 
     // light sensor code
-    public void driveUntilAlpha(double threshold, double speed) {
+    public int driveUntilAlpha(double threshold, double speed) {
         colorSensor.enableLed(true);
 
         while (colorSensor.argb() < threshold) {
@@ -786,7 +609,7 @@ public class EncoderFunLight extends Encoder {
         colorSensor.enableLed(false);
     }
 
-    public void driveUntilPicture(double lumThreshold, double threshold, double speed) {
+    public int driveUntilPicture(double lumThreshold, double threshold, double speed) {
         boolean looping = true;
 
         while (looping) {
