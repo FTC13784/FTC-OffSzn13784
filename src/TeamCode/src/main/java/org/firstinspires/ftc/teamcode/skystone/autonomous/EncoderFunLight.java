@@ -557,13 +557,9 @@ public class EncoderFunLight extends Encoder {
 
     public void extendCM(double centimetres, double power) {
         int ticks = FTCConstants.cmToTicks(centimetres);
-
-        extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        extensionMotor.setDirection(power < 0 ? DcMotorSimple.Direction.REVERSE : DcMotorSimple.Direction.FORWARD);
-        extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        extensionMotor.setTargetPosition(Math.round(ticks));
         extensionMotor.setPower(power);
-        while (opMode.opModeIsActive() && extensionMotor.isBusy()) {
+        while (opMode.opModeIsActive() && extensionMotor.isBusy() && ticks > 0) {
+            ticks--;
             //Wait until it's done
         }
         extensionMotor.setPower(0);
@@ -634,8 +630,31 @@ public class EncoderFunLight extends Encoder {
 
     public void turnLeft(double degrees, double speed) {
         // convert degrees to ticks
-        double ticks = degrees * 1200 / 90;
+        double ticks = FTCConstants.degreesToTicks(degrees);
 
+        setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
+        setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
+
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        setWheelTargetPosition(allDrive, ticks);
+
+        setMode(allDrive, DcMotor.RunMode.RUN_TO_POSITION);
+
+        // set drive power
+        setPower(allDrive, speed);
+
+
+        while (isBusy(allDrive) && opMode.opModeIsActive()) {
+            // wait until target position in reached
+        }
+
+        stopDriving();
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    //Used for debugging
+    public void turnLeftTicks(double ticks, double speed) {
         setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
         setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
 
@@ -659,7 +678,7 @@ public class EncoderFunLight extends Encoder {
 
     public void turnRight(double degrees, double speed) {
         // convert degrees to ticks
-        double ticks = degrees * 1200 / 90;
+        double ticks = FTCConstants.degreesToTicks(degrees);
 
         setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
         setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);

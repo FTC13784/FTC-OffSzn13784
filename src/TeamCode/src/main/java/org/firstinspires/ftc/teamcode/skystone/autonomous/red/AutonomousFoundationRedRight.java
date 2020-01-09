@@ -58,6 +58,6 @@ public class AutonomousFoundationRedRight extends LinearOpMode {
         //Drive back a little further to account for inaccuracies
         bot.driveLeftCm(FTCConstants.ROBOT_WIDTH, 0.35F);
         //Extend
-        bot.extensionMotor.setTargetPosition(2);
+        bot.extendCM(20, 0.35F);
     }
 }
