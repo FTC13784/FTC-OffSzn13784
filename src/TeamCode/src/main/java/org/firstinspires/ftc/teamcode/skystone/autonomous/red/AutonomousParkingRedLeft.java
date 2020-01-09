@@ -28,10 +28,11 @@ public class AutonomousParkingRedLeft extends LinearOpMode {
         waitForStart();
         runTime.reset();
         bot.closeFoundation();
+        bot.closeClaw();
 
         //Park
         //Go past line on the left, extend motor
         bot.driveBackCm(3 * FTCConstants.ONE_SQUARE, 0.35);
-        bot.extensionMotor.setTargetPosition(2);
+        bot.extendCM(20, 0.5);
     }
 }

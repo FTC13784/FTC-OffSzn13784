@@ -28,6 +28,7 @@ public class AutonomousParkingBlueLeft extends LinearOpMode {
         waitForStart();
         runTime.reset();
         bot.closeFoundation();
+        bot.closeClaw();
 
         //Park
         //Go one square the right

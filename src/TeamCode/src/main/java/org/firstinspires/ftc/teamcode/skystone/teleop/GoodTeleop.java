@@ -123,7 +123,7 @@ public class GoodTeleop extends LinearOpMode {
 
         // initial position
         setupLift();
-        openClaw();
+        closeClaw();
         foundationFront.setPosition(0);
         foundationBack.setPosition(1);
         // openFoundation();
@@ -346,7 +346,7 @@ public class GoodTeleop extends LinearOpMode {
     }
 
     void closeFoundation() {
-        foundationFront.setPosition(0);
+        foundationFront.setPosition(0.5);
         foundationBack.setPosition(foundationFront.getPosition());
     }
 }
