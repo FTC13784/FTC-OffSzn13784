@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.skystone.autonomous.EncoderFunLight;
  * @author FavouriteDragon
  */
 
-@Autonomous(name = "AutonomousFoundationRedRight", group = "Blue Autonomous")
+@Autonomous(name = "AutonomousFoundationBlueLeft", group = "Blue Autonomous")
 public class AutonomousFoundationBlueLeft extends LinearOpMode {
 
     EncoderFunLight bot;
