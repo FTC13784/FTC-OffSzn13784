@@ -31,7 +31,8 @@ public class AutonomousFoundationRedRight extends LinearOpMode {
         bot.openFoundation();
         bot.closeClaw();
 
-        //Drive right until wall
+        //Drive right one square
+        bot.driveCm(1 * FTCConstants.ONE_SQUARE, 0.35F);
 
         //Drive Left 45 cm
 

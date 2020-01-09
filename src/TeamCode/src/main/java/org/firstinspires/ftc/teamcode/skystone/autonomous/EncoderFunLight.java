@@ -227,7 +227,6 @@ public class EncoderFunLight extends Encoder {
     // set target position in # of ticks
     private void setWheelTargetPosition(DcMotor[] motors, double distance) {
         double targetPosition;
-
         for (DcMotor motor : motors) {
             targetPosition = Math.round(distance);
             motor.setTargetPosition((int) targetPosition);
@@ -247,11 +246,11 @@ public class EncoderFunLight extends Encoder {
         for (DcMotor motor : motors) {
             if (motor.getPower() != power) {
                 if (motor.getPower() > power) {
-                    for (double i = motor.getPower(); i > power; i -= 0.25) {
+                    for (double i = motor.getPower(); i > power; i -= 0.20) {
                         motor.setPower(i);
                     }
                 } else {
-                    for (double i = motor.getPower(); i < power; i += 0.25) {
+                    for (double i = motor.getPower(); i < power; i += 0.20) {
                         motor.setPower(i);
                     }
                 }
@@ -289,13 +288,13 @@ public class EncoderFunLight extends Encoder {
         setPower(allDrive, speed);
 
         // unused telemetry
-        /* while (isBusy(allDrive) && opMode.opModeIsActive()) {
+         while (isBusy(allDrive) && opMode.opModeIsActive() && ticks > 0) {
             // wait until target position in reached
-            telemetry.addData("Forwards Power", drivePower);
+          //  telemetry.addData("Forwards Power", drivePower);
             telemetry.addData("Ticks", ticks);
             telemetry.update();
             ticks--;
-        } */
+        }
 
         stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);

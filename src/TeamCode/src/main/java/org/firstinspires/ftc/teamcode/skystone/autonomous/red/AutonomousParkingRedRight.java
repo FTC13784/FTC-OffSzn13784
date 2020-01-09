@@ -30,9 +30,6 @@ public class AutonomousParkingRedRight extends LinearOpMode {
         bot.closeFoundation();
         bot.closeClaw();
 
-        //Park
-        //Go one square the left
-        bot.driveBackCm(1 * FTCConstants.ONE_SQUARE, 0.35);
         //Drive forward to allow room to rotate
         bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 3, 0.35F);
         //Rotate to face the other direction
@@ -40,6 +37,8 @@ public class AutonomousParkingRedRight extends LinearOpMode {
         //Drive back
         bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 2.5, 0.35F);
         //Extend
-        bot.extensionMotor.setTargetPosition(2);
+        bot.extensionMotor.setPower(1.0F);
+        if (bot.extensionMotor.getCurrentPosition() > 3)
+            bot.extensionMotor.setPower(0);
     }
 }

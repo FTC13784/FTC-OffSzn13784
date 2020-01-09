@@ -154,7 +154,7 @@ public class GoodTeleop extends LinearOpMode {
            //  telemetry.addData("Status", "Run Time: " + runtime.toString());
 
             float raisePos = liftMotor.getCurrentPosition();
-            // telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
+            telemetry.addData("ENCODER(r)", "raisePos: " + raisePos);
 
 
             // lift motor functions
@@ -180,7 +180,7 @@ public class GoodTeleop extends LinearOpMode {
                 targetBlock--;
 
             // raiseBlock telemetry
-            // telemetry.addData("Raiseblock", "going to: " + targetBlock);
+            telemetry.addData("Raiseblock", "going to: " + targetBlock);
             controlLiftMotor(targetBlock);
 
             // other telemetry
