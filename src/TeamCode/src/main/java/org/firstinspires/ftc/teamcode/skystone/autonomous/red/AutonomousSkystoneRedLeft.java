@@ -31,9 +31,16 @@ public class AutonomousSkystoneRedLeft extends LinearOpMode {
         bot.openFoundation();
         bot.closeClaw();
 
+        int blocks = 0;
+
         // drive up to wall to reset orientation
         bot.driveLeftCm(ONE_SQUARE + 2, 0.35F);
 
         // drive up to skystones
+        bot.driveCm(ONE_SQUARE, 0.35F);
+
+        // drive until skystone detected
+
+
     }
 }

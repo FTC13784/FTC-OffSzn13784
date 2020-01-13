@@ -14,6 +14,10 @@ public class FTCConstants {
     // in centimetres
     public static final double ONE_SQUARE = 59;
     public static final double ROBOT_WIDTH = 44;
+    public static final double BLOCK_LENGTH = 20;
+
+    // power constant
+    public static final double TURN_POWER = 0.2F;
 
     // TODO: figure out thresholds for blocks
     // thresholds for light sensor
