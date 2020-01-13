@@ -24,6 +24,8 @@ public class FTCConstants {
     public static final double BLOCK_THRESHOLD = 0.0;
     public static final double SKYSTONE_THRESHOLD = 0.0;
 
+    //Turning Power/Power Constants
+    public static final float TURNING_POWER = 0.2F;
     public static final int cmToTicks(double centimetres) {
         return (int) (centimetres / .03526);
     }

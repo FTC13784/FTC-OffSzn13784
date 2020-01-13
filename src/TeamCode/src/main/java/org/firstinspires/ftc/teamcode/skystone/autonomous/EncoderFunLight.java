@@ -360,20 +360,6 @@ public class EncoderFunLight extends Encoder {
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void extendCM(double centimetres, double power) {
-        int ticks = FTCConstants.cmToTicks(centimetres);
-
-        extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        extensionMotor.setDirection(power < 0 ? DcMotorSimple.Direction.REVERSE : DcMotorSimple.Direction.FORWARD);
-        extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        extensionMotor.setTargetPosition(Math.round(ticks));
-        extensionMotor.setPower(power);
-        while (opMode.opModeIsActive() && extensionMotor.isBusy()) {
-            //Wait until it's done
-        }
-        extensionMotor.setPower(0);
-    }
-
     public void drive_lf(double ticks, double speed) {
         leftDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
         rightDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
