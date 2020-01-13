@@ -560,8 +560,9 @@ public class EncoderFunLight extends Encoder {
         extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         extensionMotor.setTargetPosition(Math.round(ticks));
         extensionMotor.setPower(power);
-        while (opMode.opModeIsActive() && extensionMotor.isBusy()) {
+        while (opMode.opModeIsActive() && extensionMotor.isBusy() && ticks > 0) {
             //Wait until it's done
+            ticks--;
         }
         extensionMotor.setPower(0);
     }
