@@ -592,7 +592,7 @@ public class EncoderFunLight extends Encoder {
 
 
     // light sensor code
-    public int driveUntilAlpha(double threshold, double speed, Direction direction) {
+    public int driveUntilAlpha(double threshold, Direction direction) {
         int blocks = 0;
         colorSensor.enableLed(true);
 
@@ -615,12 +615,12 @@ public class EncoderFunLight extends Encoder {
         return blocks;
     }
 
-    public int driveUntilPicture(double lumThreshold, double threshold, double speed, Direction direction) {
+    public int driveUntilPicture(double lumThreshold, double threshold, Direction direction) {
         int blocks = 0;
         boolean looping = true;
 
         while (looping) {
-            blocks += driveUntilAlpha(threshold, speed, direction);
+            blocks += driveUntilAlpha(threshold, direction);
 
             if (colorSensor.alpha() < lumThreshold) {
                 looping = false;
