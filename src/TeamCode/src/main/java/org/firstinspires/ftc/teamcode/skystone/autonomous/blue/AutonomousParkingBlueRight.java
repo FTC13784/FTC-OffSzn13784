@@ -36,7 +36,7 @@ public class AutonomousParkingBlueRight extends LinearOpMode {
         //Drive forward to allow room to rotate
         bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 2, 0.35F);
         //Rotate to face the other direction
-        bot.turnLeft(180, 0.25F);
+        bot.turnLeft(180, FTCConstants.TURNING_POWER);
         //Drive back a little more to account for inaccuracies
         bot.driveLeftCm(FTCConstants.ROBOT_WIDTH, 0.35F);
         bot.extensionMotor.setTargetPosition(2);
