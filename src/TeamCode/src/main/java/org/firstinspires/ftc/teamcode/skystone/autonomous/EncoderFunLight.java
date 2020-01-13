@@ -47,10 +47,12 @@
  * void initializeHardware() - initializes hardware on robot, autoruns alongside constructor
  *
  * RAW DRIVE
- * void setDirection(DcMotor[] motors, DcMotorSimple.Direction direction) - configure motors to correct directions
+ * void setDirection(DcMotor[] motors, DcMotorSimple.Direction direction) - configure motors to
+ *      correct directions
  * void setMode(DcMotor[] motors, DcMotor.RunMode mode) - set movement mode for motors
  * void setWheelTargetPosition(DcMotor[] motors, double distance) - set target position for motor
- * boolean isBusy(DcMotor[] motors) - test if motors are currently running an action and return as boolean
+ * boolean isBusy(DcMotor[] motors) - test if motors are currently running an action and return
+ *      as boolean
  * void setPower(DcMotor[] motors, double power) - set power for motors
  * void stopDriving() - stop all motor actions
  *
@@ -77,9 +79,8 @@
  * void turnRight(double degrees, double speed) - turn right for degrees
  *
  * Timed:
- * TODO: Double check whether driveTime function works
- * void driveTime(double time, double speed) - drive forward for time in seconds - ONLY WORKS FOR
- *      WHOLE SECONDS
+ * (retired) void driveTime(double time, double speed) - drive forward for time in seconds - ONLY
+ *      WORKS FOR WHOLE SECONDS
  *
  *
  * AUXILIARY
@@ -123,6 +124,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.FTCConstants;
 import org.firstinspires.ftc.teamcode.skystone.autonomous.unused.Encoder;
 
+import static org.firstinspires.ftc.teamcode.FTCConstants.BLOCK_LENGTH;
+
 // EncoderFunLight class
 public class EncoderFunLight extends Encoder {
     // variable for block size
@@ -132,6 +135,7 @@ public class EncoderFunLight extends Encoder {
     public Servo foundationFront, foundationBack, leftClawServo, rightClawServo;
     public LinearOpMode opMode;
     public Telemetry telemetry;
+
     // initialize variables
     DcMotor[] allDrive = new DcMotor[4];
     DcMotor[] leftDrive = new DcMotor[2];
@@ -145,6 +149,10 @@ public class EncoderFunLight extends Encoder {
     private double ticksPerIn;
     private double wheelCircumference;
     private double ticksPerDegree;*/
+
+    enum Direction {
+        LEFT, RIGHT;
+    }
 
     // EncoderFunLight object
     public EncoderFunLight(LinearOpMode opMode) {
@@ -450,7 +458,8 @@ public class EncoderFunLight extends Encoder {
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    //Used for debugging
+    // used for debugging
+    /*
     public void turnLeftTicks(double ticks, double speed) {
         setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
         setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
@@ -472,6 +481,7 @@ public class EncoderFunLight extends Encoder {
         stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
+    */
 
     public void turnRight(double degrees, double speed) {
         // convert degrees to ticks
@@ -582,31 +592,42 @@ public class EncoderFunLight extends Encoder {
 
 
     // light sensor code
-    public int driveUntilAlpha(double threshold, double speed) {
+    public int driveUntilAlpha(double threshold, Direction direction) {
+        int blocks = 0;
         colorSensor.enableLed(true);
 
+        // TODO: make fallback case if no blocks were detected
         while (colorSensor.argb() < threshold) {
-            try {
-                driveTime(200, speed);
-            } catch (InterruptedException e) {
-                telemetry.addData("Interrupted!", "Exception");
-                telemetry.update();
+            switch (direction) {
+                case LEFT:
+                    driveCm(BLOCK_LENGTH, 0.35F);
+                    break;
+                case RIGHT:
+                    driveRightCm(BLOCK_LENGTH, 0.35F);
+                    break;
             }
+
+            blocks++;
         }
 
         colorSensor.enableLed(false);
+
+        return blocks;
     }
 
-    public int driveUntilPicture(double lumThreshold, double threshold, double speed) {
+    public int driveUntilPicture(double lumThreshold, double threshold, Direction direction) {
+        int blocks = 0;
         boolean looping = true;
 
         while (looping) {
-            driveUntilAlpha(threshold, speed);
+            blocks += driveUntilAlpha(threshold, direction);
 
             if (colorSensor.alpha() < lumThreshold) {
                 looping = false;
             }
         }
+
+        return blocks;
     }
 
     public void lightTele() {
