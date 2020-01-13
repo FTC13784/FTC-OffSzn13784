@@ -341,12 +341,14 @@ public class GoodTeleop extends LinearOpMode {
 
     // foundation mover code
     void openFoundation() {
-        foundationFront.setPosition(1);
+        //Originally 1
+        foundationFront.setPosition(0);
         foundationBack.setPosition(foundationFront.getPosition());
     }
 
     void closeFoundation() {
-        foundationFront.setPosition(0.5);
+        //Originally 0.5
+        foundationFront.setPosition(0.8);
         foundationBack.setPosition(foundationFront.getPosition());
     }
 }
