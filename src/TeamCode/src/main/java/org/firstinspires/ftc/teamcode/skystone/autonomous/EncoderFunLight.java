@@ -546,9 +546,8 @@ public class EncoderFunLight extends Encoder {
 
         //Just makes the lift motor not go to the target position if it's close enough, so it stops
         //trying to run when it's one tick off.
-        if (positionPlus > targetPos + 20 && positionMinus < targetPos + 20 && (int) (liftMotor.getCurrentPosition() / ONEBLOCK) != targetBlock) {
-            liftMotor.setTargetPosition(targetPos);
-        }
+        liftMotor.setTargetPosition(targetPos);
+
 
     }
 
