@@ -606,6 +606,9 @@ public class EncoderFunLight extends Encoder {
                     break;
             }
 
+            telemetry.addData("RGB, B || Y?", colorSensor.argb() +
+                    ((colorSensor.argb() < threshold) ? "black" : "yellow"));
+
             blocks++;
         }
 
