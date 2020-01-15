@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.skystone.autonomous.blue;
 
+import com.qualcomm.ftccommon.FtcAboutActivity;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -34,10 +35,10 @@ public class AutonomousFoundationBlueRight extends LinearOpMode {
         //Drive right until wall
 
         //Drive Left 45 cm
-        bot.driveBackCm(FTCConstants.ONE_SQUARE + 5, 0.3F);
+        bot.driveBackCm(2 * FTCConstants.ONE_SQUARE, 0.3F);
 
         //Drive Forward. 44 is roughly the width of the robot
-        bot.driveLeftCm(2 * FTCConstants.ONE_SQUARE - 44, 0.3F);
+        bot.driveLeftCm(2 * FTCConstants.ONE_SQUARE - 40, 0.3F);
 
         //Grab foundation
         bot.closeFoundation();
@@ -49,6 +50,8 @@ public class AutonomousFoundationBlueRight extends LinearOpMode {
         bot.openFoundation();
 
         //Park
+        //Original Position
+        bot.driveCm(2 * FTCConstants.ONE_SQUARE, 0.3);
         //Go past line on the right, extend motor
         bot.driveCm(2 * FTCConstants.ONE_SQUARE, 0.3);
         //Drive forward to allow room to rotate
