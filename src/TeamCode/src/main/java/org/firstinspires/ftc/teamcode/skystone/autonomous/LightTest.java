@@ -23,7 +23,7 @@ public class LightTest extends LinearOpMode {
         telemetry.addData("Status", "Start received");
         telemetry.update();
 
-        ourBot.driveUntilAlpha(500, EncoderFunLight.Direction.LEFT);
+        // ourBot.driveUntilAlpha(500, EncoderFunLight.Direction.LEFT);
 
         ourBot.lightTele();
 

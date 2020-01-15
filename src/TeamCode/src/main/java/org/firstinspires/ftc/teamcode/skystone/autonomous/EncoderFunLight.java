@@ -432,8 +432,8 @@ public class EncoderFunLight extends Encoder {
         double ticks = FTCConstants.degreesToTicks(degrees);
         telemetry.addData("Ticks: ", ticks);
 
-        setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
-        setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
+        setDirection(leftDrive, DcMotorSimple.Direction.FORWARD);
+        setDirection(rightDrive, DcMotorSimple.Direction.FORWARD);
 
         setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 

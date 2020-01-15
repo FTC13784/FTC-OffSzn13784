@@ -16,6 +16,7 @@ import org.firstinspires.ftc.teamcode.skystone.autonomous.EncoderFunLight;
 
 import static org.firstinspires.ftc.teamcode.FTCConstants.BLOCK_LENGTH;
 import static org.firstinspires.ftc.teamcode.FTCConstants.ONE_SQUARE;
+import static org.firstinspires.ftc.teamcode.FTCConstants.TURNING_POWER;
 
 @Autonomous(name = "AutonomousSkystoneRedLeft", group = "Red Autonomous")
 public class AutonomousSkystoneRedLeft extends LinearOpMode {
@@ -24,37 +25,47 @@ public class AutonomousSkystoneRedLeft extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        FTCConstants.DIRECTION direction = FTCConstants.DIRECTION.LEFT;
-
         bot = new EncoderFunLight(this);
 
         // wait for the game to start (driver presses PLAY)
         waitForStart();
         runTime.reset();
 
+        bot.setupLift();
         bot.openFoundation();
         bot.closeClaw();
 
-        int blocks = 0;
+        int blocks;
 
         // drive up to wall to reset orientation
         bot.driveLeftCm(ONE_SQUARE + 2, 0.35F);
 
-        // drive up to skystones
-        bot.driveCm(ONE_SQUARE, 0.35F);
-
-        // drive until skystone detected
-        blocks = bot.driveUntilPicture(800, direction);
-
-        bot.closeClaw();
-
-        bot.driveBackCm(ONE_SQUARE, 0.35F);
-
-        bot.turnRight(90, FTCConstants.TURNING_POWER);
-
-        bot.driveCm(4.5 * ONE_SQUARE - blocks * BLOCK_LENGTH, 0.35F);
-
         bot.openClaw();
 
+        // drive up to skystones
+        bot.driveCm(1.3 * ONE_SQUARE, 0.35F);
+
+        // drive until skystone detected
+        blocks = bot.driveUntilPicture(800, FTCConstants.DIRECTION.RIGHT);
+
+        // grab block
+        bot.closeClaw();
+
+        // drive back and orient so robot can move under bridge
+        bot.driveBackCm(0.6 * ONE_SQUARE, 0.35F);
+
+        bot.turnRight(90, TURNING_POWER);
+
+        // drive to moved foundation
+        bot.driveCm(3.5 * ONE_SQUARE - blocks * BLOCK_LENGTH, 0.35F);
+
+        // let go of block onto moved foundation
+        bot.openClaw();
+
+        bot.turnLeft(180, TURNING_POWER);
+
+        bot.driveCm(ONE_SQUARE, 0.35F);
+
+        bot.extendCM(20, 0.2F, getRuntime());
     }
 }
