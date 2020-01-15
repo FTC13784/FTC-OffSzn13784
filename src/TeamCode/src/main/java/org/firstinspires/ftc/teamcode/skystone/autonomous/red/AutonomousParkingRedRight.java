@@ -30,14 +30,16 @@ public class AutonomousParkingRedRight extends LinearOpMode {
         bot.closeFoundation();
         bot.closeClaw();
 
+        //Drive left half a square
+        bot.driveBackCm(0.5 * FTCConstants.ROBOT_WIDTH, 0.35F);
         //Drive forward to allow room to rotate
-        bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 2, 0.35F);
-        //Rotate to face the other direction
-        bot.turnLeft(180, FTCConstants.TURNING_POWER);
-        //Drive back
-        bot.driveLeftCm(FTCConstants.ROBOT_WIDTH, 0.35F);
-        //Extend
-        bot.extendCM(20, 0.5F, getRuntime());
+//        bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 2, 0.35F);
+//        //Rotate to face the other direction
+//        bot.turnLeft(179, FTCConstants.TURNING_POWER);
+//        //Drive back
+//        bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 2, 0.35F);
+//        //Extend
+//        bot.extendCM(20, 0.5F, getRuntime());
         bot.stop();
         bot.stopDriving();
     }
