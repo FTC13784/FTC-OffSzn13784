@@ -17,15 +17,19 @@ public class FTCConstants {
     public static final double BLOCK_LENGTH = 20;
 
     // power constant
-    public static final double TURN_POWER = 0.2F;
+    public static final float TURNING_POWER = 0.2F;
 
     // TODO: figure out thresholds for blocks
     // thresholds for light sensor
     public static final double BLOCK_THRESHOLD = 0.0;
     public static final double SKYSTONE_THRESHOLD = 0.0;
 
+    // direction enumeration
+    public enum DIRECTION {
+        LEFT, RIGHT
+    }
+
     //Turning Power/Power Constants
-    public static final float TURNING_POWER = 0.2F;
     public static final int cmToTicks(double centimetres) {
         return (int) (centimetres / .03526);
     }
