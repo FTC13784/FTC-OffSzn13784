@@ -60,7 +60,7 @@ public class AutonomousFoundationBlueRight extends LinearOpMode {
         bot.turnLeft(180, FTCConstants.TURNING_POWER);
         //Drive back a little more to account for inaccuracies
         bot.driveLeftCm(FTCConstants.ROBOT_WIDTH, 0.3F);
-        bot.extendCM(20, 0.5F);
+        bot.extendCM(20, 0.5F, getRuntime());
         bot.stop();
         bot.stopDriving();
     }

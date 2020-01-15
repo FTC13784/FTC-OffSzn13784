@@ -55,7 +55,7 @@ public class AutonomousFoundationBlueLeft extends LinearOpMode {
         //Go one square the right
         bot.driveCm(1 * FTCConstants.ONE_SQUARE, 0.35);
         //Extend
-        bot.extendCM(20, 0.5F);
+        bot.extendCM(20, 0.5F, getRuntime());
         bot.stop();
         bot.stopDriving();
     }
