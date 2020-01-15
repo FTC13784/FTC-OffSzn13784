@@ -289,11 +289,7 @@ public class EncoderFunLight extends Encoder {
 
         // unused telemetry
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
-            // wait until target position in reached
-            //  telemetry.addData("Forwards Power", drivePower);
-            telemetry.addData("Ticks", ticks);
-            telemetry.update();
-            //ticks--;
+
         }
 
         stopDriving();

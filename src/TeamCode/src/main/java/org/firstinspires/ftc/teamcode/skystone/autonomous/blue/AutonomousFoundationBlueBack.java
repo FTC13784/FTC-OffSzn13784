@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.skystone.autonomous.red;
+package org.firstinspires.ftc.teamcode.skystone.autonomous.blue;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.skystone.autonomous.EncoderFunLight;
  * @author FavouriteDragon
  */
 
-@Autonomous(name = "AutonomousFoundationRedRight", group = "Red Autonomous")
-public class AutonomousFoundationRedRight extends LinearOpMode {
+@Autonomous(name = "AutonomousFoundationBlueBack", group = "Blue Autonomous")
+public class AutonomousFoundationBlueBack extends LinearOpMode {
 
     EncoderFunLight bot;
     private ElapsedTime runTime = new ElapsedTime();
@@ -31,37 +31,33 @@ public class AutonomousFoundationRedRight extends LinearOpMode {
         bot.openFoundation();
         bot.closeClaw();
 
-        //Drive right
-        bot.driveCm(1.75 * FTCConstants.ONE_SQUARE, 0.4F);
+        //Drive right until wall
 
         //Drive Left 45 cm
+        //Drive right one square
+        bot.driveBackCm(2 * FTCConstants.ONE_SQUARE, 0.35);
 
         //Drive Forward. 44 is roughly the width of the robot
-        bot.driveLeftCm(2 * FTCConstants.ONE_SQUARE - 43, 0.4F);
+        bot.driveLeftCm(2 * FTCConstants.ONE_SQUARE - 47, 0.35F);
 
         //Grab foundation
         bot.closeFoundation();
 
+        bot.driveBackCm(1 * FTCConstants.ONE_SQUARE - FTCConstants.ROBOT_WIDTH / 2, 0.35F);
         //Deliver Foundation
-        bot.driveRightCm(2 * FTCConstants.ONE_SQUARE - 39, 0.4F);
+        bot.driveRightCm(2 * FTCConstants.ONE_SQUARE - 35, 0.35F);
 
         //Release Foundation
         bot.openFoundation();
 
         //Park
-        // Go to the line
-        bot.driveBackCm(2.5 * FTCConstants.ONE_SQUARE, 0.4);
-        bot.driveLeftCm(1 * FTCConstants.ONE_SQUARE, 0.4);
-        //For extending the arm, unused
-//        //Drive forward to allow room to rotate
-//        bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 2, 0.35F);
-//        //Rotate to face the other direction
-//        bot.turnLeft(180, FTCConstants.TURNING_POWER);
-//        //Drive back a little further to account for inaccuracies
-//        bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 2, 0.35F);
-//        //Extend
-//        bot.extendCM(20, 0.5F, getRuntime());
-        bot.closeFoundation();
+        //Reset position
+        bot.driveCm(2 * FTCConstants.ONE_SQUARE, 0.35);
+        //Go one square the right
+        bot.driveCm(1 * FTCConstants.ONE_SQUARE, 0.35);
+        //Extend
+       //bot.extendCM(20, 0.5F, getRuntime());
         bot.stop();
+        bot.stopDriving();
     }
 }

@@ -17,8 +17,8 @@ import org.firstinspires.ftc.teamcode.skystone.autonomous.EncoderFunLight;
  * @author FavouriteDragon
  */
 
-@Autonomous(name = "AutonomousParkingBlueRight", group = "Blue Autonomous")
-public class AutonomousParkingBlueRight extends LinearOpMode {
+@Autonomous(name = "AutonomousParkingBlueForward", group = "Blue Autonomous")
+public class AutonomousParkingBlueForward extends LinearOpMode {
 
     EncoderFunLight bot;
     private ElapsedTime runTime = new ElapsedTime();
@@ -35,7 +35,7 @@ public class AutonomousParkingBlueRight extends LinearOpMode {
 
         //Park
         //Go past line on the right, extend motor
-        bot.driveCm(0.5 * FTCConstants.ONE_SQUARE, 0.4F);
+        bot.driveCm(1 * FTCConstants.ONE_SQUARE, 0.4F);
         bot.driveLeftCm(1 * FTCConstants.ONE_SQUARE, 0.4F);
 //        //Drive forward to allow room to rotate
 //        bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 2, 0.4F);

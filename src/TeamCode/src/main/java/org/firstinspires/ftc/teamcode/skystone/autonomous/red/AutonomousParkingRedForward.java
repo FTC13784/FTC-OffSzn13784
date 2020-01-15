@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.skystone.autonomous.EncoderFunLight;
  * @author FavouriteDragon
  */
 
-@Autonomous(name = "AutonomousParkingRedLeft", group = "Red Autonomous")
-public class AutonomousParkingRedLeft extends LinearOpMode {
+@Autonomous(name = "AutonomousParkingRedForward", group = "Red Autonomous")
+public class AutonomousParkingRedForward extends LinearOpMode {
 
     EncoderFunLight bot;
     private ElapsedTime runTime = new ElapsedTime();
