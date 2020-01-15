@@ -129,7 +129,6 @@ import static org.firstinspires.ftc.teamcode.FTCConstants.BLOCK_LENGTH;
 // EncoderFunLight class
 public class EncoderFunLight extends Encoder {
     // variable for block size
-    public final float ONEBLOCK = -1900 / 2;
     public ColorSensor colorSensor, colorSensor2;
     public DcMotor liftMotor, extensionMotor;
     public Servo foundationFront, foundationBack, leftClawServo, rightClawServo;
@@ -150,9 +149,6 @@ public class EncoderFunLight extends Encoder {
     private double wheelCircumference;
     private double ticksPerDegree;*/
 
-    enum Direction {
-        LEFT, RIGHT;
-    }
 
     // EncoderFunLight object
     public EncoderFunLight(LinearOpMode opMode) {
@@ -529,7 +525,7 @@ public class EncoderFunLight extends Encoder {
 
     // lift motor code
     public void controlLiftMotor(double targetBlock) {
-        int targetPos = (int) Math.round(targetBlock * ONEBLOCK);
+        int targetPos = (int) Math.round(targetBlock * FTCConstants.ONE_BLOCK);
         double positionPlus = liftMotor.getCurrentPosition() + 20;
         double positionMinus = liftMotor.getCurrentPosition() - 20;
 
@@ -592,12 +588,15 @@ public class EncoderFunLight extends Encoder {
 
 
     // light sensor code
-    public int driveUntilAlpha(double threshold, Direction direction) {
+    public int driveUntilPicture(double threshold, FTCConstants.DIRECTION direction) {
         int blocks = 0;
+
+        // TODO: make robot more efficient
+
         colorSensor.enableLed(true);
 
-        // TODO: make fallback case if no blocks were detected
-        while (colorSensor.argb() < threshold) {
+        // drive until falls under yellow threshold or reaches last block
+        while (colorSensor.argb() > threshold && blocks < 5) {
             switch (direction) {
                 case LEFT:
                     driveCm(BLOCK_LENGTH, 0.35F);
@@ -611,21 +610,6 @@ public class EncoderFunLight extends Encoder {
         }
 
         colorSensor.enableLed(false);
-
-        return blocks;
-    }
-
-    public int driveUntilPicture(double lumThreshold, double threshold, Direction direction) {
-        int blocks = 0;
-        boolean looping = true;
-
-        while (looping) {
-            blocks += driveUntilAlpha(threshold, direction);
-
-            if (colorSensor.alpha() < lumThreshold) {
-                looping = false;
-            }
-        }
 
         return blocks;
     }
