@@ -43,7 +43,7 @@ public class AutonomousFoundationRedRight extends LinearOpMode {
         bot.closeFoundation();
 
         //Deliver Foundation
-        bot.driveRightCm(2 * FTCConstants.ONE_SQUARE - 40, 0.4F);
+        bot.driveRightCm(2 * FTCConstants.ONE_SQUARE - 39, 0.4F);
 
         //Release Foundation
         bot.openFoundation();
@@ -51,6 +51,7 @@ public class AutonomousFoundationRedRight extends LinearOpMode {
         //Park
         // Go to the line
         bot.driveBackCm(2.5 * FTCConstants.ONE_SQUARE, 0.4);
+        bot.driveLeftCm(1 * FTCConstants.ONE_SQUARE, 0.4);
         //For extending the arm, unused
 //        //Drive forward to allow room to rotate
 //        bot.driveLeftCm(FTCConstants.ROBOT_WIDTH / 2, 0.35F);

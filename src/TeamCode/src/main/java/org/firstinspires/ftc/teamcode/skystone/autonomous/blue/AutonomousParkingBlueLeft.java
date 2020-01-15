@@ -31,6 +31,7 @@ public class AutonomousParkingBlueLeft extends LinearOpMode {
         bot.closeClaw();
 
         bot.driveCm(0.5 * FTCConstants.ONE_SQUARE, 0.4F);
+        bot.driveLeftCm(1 * FTCConstants.ONE_SQUARE, 0.4F);
         //Just extend the motor
       //  bot.extendCM(20, 0.5F, getRuntime());
         bot.stop();

@@ -33,6 +33,7 @@ public class AutonomousParkingRedLeft extends LinearOpMode {
         //Park
         //Go past line on the left, extend motor
         bot.driveBackCm(1 * FTCConstants.ONE_SQUARE, 0.35);
+        bot.driveLeftCm(1 * FTCConstants.ONE_SQUARE, 0.35F);
       //  bot.extendCM(20, 0.5, getRuntime());
     }
 }

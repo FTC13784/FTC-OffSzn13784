@@ -53,6 +53,7 @@ public class AutonomousFoundationRedLeft extends LinearOpMode {
         bot.driveBackCm(1 * FTCConstants.ONE_SQUARE, 0.35F);
         //Not extending for now
         //bot.extendCM(20, 0.5, getRuntime());
+        bot.driveLeftCm(1 * FTCConstants.ONE_SQUARE, 0.4F);
         bot.stop();
         bot.closeFoundation();
     }
