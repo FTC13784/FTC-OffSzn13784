@@ -35,15 +35,15 @@ public class AutonomousFoundationBlueForward extends LinearOpMode {
         //Drive right until wall
 
         //Drive Left 45 cm
-        bot.driveBackCm(FTCConstants.ONE_SQUARE / 2, 0.35F);
+        bot.driveBackCm(FTCConstants.ONE_SQUARE / 2 + 4, 0.35F);
 
         //Drive Forward. 44 is roughly the width of the robot
-        bot.driveLeftCm(2 * FTCConstants.ONE_SQUARE - 47, 0.35F);
+        bot.driveLeftCm(2 * FTCConstants.ONE_SQUARE - 46, 0.35F);
 
         //Grab foundation
         bot.closeFoundation();
         //Deliver Foundation
-        bot.driveRightCm(2 * FTCConstants.ONE_SQUARE - 35, 0.4F);
+        bot.driveRightCm(2 * FTCConstants.ONE_SQUARE - 33, 0.4F);
 
         //Release Foundation
         bot.openFoundation();
