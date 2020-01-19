@@ -543,7 +543,7 @@ public class EncoderFunLight extends Encoder {
 
     }
 
-    public void extendCM(double centimetres, double power, double runTime) {
+    public void extendCM(double centimetres, double power) {
         int ticks = FTCConstants.cmToTicks(centimetres);
 
         extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -551,7 +551,7 @@ public class EncoderFunLight extends Encoder {
         extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         extensionMotor.setTargetPosition(Math.round(ticks));
         extensionMotor.setPower(power);
-        while (opMode.opModeIsActive() && extensionMotor.isBusy() && getRuntime() < runTime + ticks) {
+        while (opMode.opModeIsActive() && extensionMotor.isBusy()) {
             //Wait until it's done
         }
         extensionMotor.setPower(0);
@@ -586,8 +586,8 @@ public class EncoderFunLight extends Encoder {
     // light sensor code
     public int driveUntilPicture(double threshold, FTCConstants.DIRECTION direction) {
         int blocks = 0;
-
         // TODO: make robot more efficient
+
 
         colorSensor.enableLed(true);
 

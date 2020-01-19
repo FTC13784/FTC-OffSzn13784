@@ -17,8 +17,8 @@ import org.firstinspires.ftc.teamcode.skystone.autonomous.EncoderFunLight;
 import static org.firstinspires.ftc.teamcode.FTCConstants.BLOCK_LENGTH;
 import static org.firstinspires.ftc.teamcode.FTCConstants.ONE_SQUARE;
 
-@Autonomous(name = "AutonomousSkystoneRedLeft", group = "Red Autonomous")
-public class  AutonomousSkystoneRedLeft extends LinearOpMode {
+@Autonomous(name = "AutonomousNormalStoneRedForward", group = "Red Autonomous")
+public class AutonomousNormalStoneRedForward extends LinearOpMode {
     EncoderFunLight bot;
     private ElapsedTime runTime = new ElapsedTime();
 
@@ -40,14 +40,14 @@ public class  AutonomousSkystoneRedLeft extends LinearOpMode {
         bot.driveLeftCm(ONE_SQUARE + 2, 0.35F);
 
         bot.openClaw();
-        bot.extendCM(10, 0.3F, getRuntime());
+
         // drive up to skystones
         bot.driveCm(1.3 * ONE_SQUARE, 0.35F);
 
         bot.driveLeftCm(0.2 * ONE_SQUARE, 0.35F);
 
         // drive until skystone detected
-        blocks = bot.driveUntilPicture(1000, FTCConstants.DIRECTION.RIGHT);
+        blocks = bot.driveUntilPicture(800, FTCConstants.DIRECTION.RIGHT);
 
         // grab block
         bot.closeClaw();
@@ -56,11 +56,11 @@ public class  AutonomousSkystoneRedLeft extends LinearOpMode {
         bot.driveBackCm(0.6 * ONE_SQUARE, 0.35F);
 
         // drive to moved foundation
-        bot.driveRightCm(3.5 * ONE_SQUARE - blocks * BLOCK_LENGTH, 0.50F);
+        bot.driveRightCm(3.5 * ONE_SQUARE - blocks * BLOCK_LENGTH, 0.35F);
 
         // let go of block onto moved foundation
         bot.openClaw();
 
-        bot.driveLeftCm(1.5 * ONE_SQUARE, 0.35F);
+        bot.driveLeftCm(2.3 * ONE_SQUARE, 0.35F);
     }
 }
