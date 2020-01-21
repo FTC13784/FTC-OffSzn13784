@@ -139,7 +139,7 @@ public class GoodTeleop extends LinearOpMode {
 
             // triggers for better motion control
             if (gamepad1.right_trigger > 0.5 || gamepad1.left_trigger > 0.5)
-                speedMult = 0.5;
+                speedMult = 0.3;
 
             // telemetry.addData("Right Trigger", gamepad1.right_trigger);
             // telemetry.addData("Left Trigger", gamepad1.left_trigger);

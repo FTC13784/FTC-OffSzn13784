@@ -32,16 +32,16 @@ public class AutonomousFoundationRedBack extends LinearOpMode {
         bot.closeClaw();
 
         //Drive right
-        bot.driveCm(2 * FTCConstants.ONE_SQUARE - FTCConstants.ROBOT_WIDTH / 3 , 0.4F);
+        bot.driveCm(1.67521F * FTCConstants.ONE_SQUARE, 0.4F);
 
         //Drive Forward. 44 is roughly the width of the robot
-        bot.driveLeftCm(2 * FTCConstants.ONE_SQUARE - 43, 0.4F);
+        bot.driveLeftCm(2 * FTCConstants.ONE_SQUARE - 40, 0.4F);
 
         //Grab foundation
         bot.closeFoundation();
 
         //Deliver Foundation
-        bot.driveRightCm(2 * FTCConstants.ONE_SQUARE - 40, 0.4F);
+        bot.driveRightCm(2 * FTCConstants.ONE_SQUARE - 31, 0.4F);
 
         //Release Foundation
         bot.openFoundation();
