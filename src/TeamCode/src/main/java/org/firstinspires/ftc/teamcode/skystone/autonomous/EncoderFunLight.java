@@ -121,6 +121,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.FTCConstants;
 import org.firstinspires.ftc.teamcode.skystone.autonomous.unused.Encoder;
 
@@ -159,6 +160,7 @@ public class EncoderFunLight extends Encoder {
 
         // initialize hardware
         initializeHardware();
+        AutoTransitioner.transitionOnStop(opMode, "Good Teleop");
 
         // math functions to calculate parameters based on final variables
         /* wheelCircumference = WHEELRADIUS * Math.PI * 2;
@@ -258,6 +260,12 @@ public class EncoderFunLight extends Encoder {
 
             motor.setPower(power);
         }
+    }
+
+    public void transitionToTeleop() {
+        stop();
+        stopDriving();
+
     }
 
     public void stopDriving() {
