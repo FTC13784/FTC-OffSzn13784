@@ -123,7 +123,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.FTCConstants;
-import org.firstinspires.ftc.teamcode.skystone.autonomous.unused.Encoder;
 
 import static org.firstinspires.ftc.teamcode.FTCConstants.BLOCK_LENGTH;
 
