@@ -37,4 +37,8 @@ public class FTCConstants {
     public static final int degreesToTicks(double degrees) {
         return (int) (degrees / 0.06);
     }
+
+
+    /*** Foundation Constants***/
+        public static float rightFromLine;
 }

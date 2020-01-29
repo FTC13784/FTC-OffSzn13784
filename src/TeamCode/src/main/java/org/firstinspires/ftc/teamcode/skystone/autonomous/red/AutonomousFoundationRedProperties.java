@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.skystone.autonomous.red;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.FtcRobotControllerServiceState;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -37,28 +38,28 @@ public class AutonomousFoundationRedProperties extends LinearOpMode {
         /*** Test Properties Code **/
 
         //Drive right
-        bot.driveCm(loader.getFloatProperty("driveRight"), loader.getFloatProperty("drivePower"));
+        bot.driveCm(loader.getFloatProperty("driveRight") * FTCConstants.ONE_SQUARE, loader.getFloatProperty("drivePower"));
 
         //Drive Forward
-        bot.driveLeftCm(loader.getFloatProperty("driveForward"), loader.getFloatProperty("drivePower"));
+        bot.driveLeftCm(loader.getFloatProperty("driveForward") * FTCConstants.ONE_SQUARE, loader.getFloatProperty("drivePower"));
 
         //Grab the foundation
         bot.closeFoundation();
 
         //Drive back
-        bot.driveRightCm(loader.getFloatProperty("driveBack"), loader.getFloatProperty("drivePower"));
+        bot.driveRightCm(loader.getFloatProperty("driveBack") * FTCConstants.ONE_SQUARE, loader.getFloatProperty("drivePower"));
 
         //Release the foundation
         bot.openFoundation();
 
         //Drive to the line
-        bot.driveBackCm(loader.getFloatProperty("driveLeft"), loader.getFloatProperty("drivePower"));
+        bot.driveBackCm(loader.getFloatProperty("driveLeft") * FTCConstants.ONE_SQUARE, loader.getFloatProperty("drivePower"));
 
         //Drive up to the bridge
-        bot.driveLeftCm(loader.getFloatProperty("driveForwardToBridge"), loader.getFloatProperty("drivePower"));
+        bot.driveLeftCm(loader.getFloatProperty("driveForwardToBridge") * FTCConstants.ONE_SQUARE, loader.getFloatProperty("drivePower"));
 
         /*** Test Properties End **/
-        
+
         bot.stop();
         bot.closeFoundation();
     }

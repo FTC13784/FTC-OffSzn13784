@@ -54,13 +54,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.FTCConstants;
 
 
-// TeleOp declaration
 @TeleOp(name = "Good Teleop", group = "!tele")
-
-// disable telemetry
-//@Disabled
-
-// GoodTeleop class
 public class GoodTeleop extends LinearOpMode {
     // TODO: Map all non-movement code to gamepad2, for a second auxiliary driver.
 
