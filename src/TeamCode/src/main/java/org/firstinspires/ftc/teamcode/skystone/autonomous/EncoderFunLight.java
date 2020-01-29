@@ -265,7 +265,6 @@ public class EncoderFunLight extends Encoder {
     public void transitionToTeleop() {
         stop();
         stopDriving();
-
     }
 
     public void stopDriving() {

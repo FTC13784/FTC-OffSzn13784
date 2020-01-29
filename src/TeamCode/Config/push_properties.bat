@@ -1,0 +1,1 @@
+adb push "*.properties" /sdcard/Config

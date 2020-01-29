@@ -19,6 +19,22 @@
  * <p>
  * left claw servo -> cl
  * right claw servo -> cr
+ * <p>
+ * Configuration:
+ * <p>
+ * left front motor -> lf
+ * right front motor -> rf
+ * left back motor -> lb
+ * right back motor -> rb
+ * <p>
+ * lifter motor -> raise
+ * extender motor -> extend
+ * <p>
+ * foundation front motor -> ff
+ * foundation back motor -> fb
+ * <p>
+ * left claw servo -> cl
+ * right claw servo -> cr
  */
 
 /**
@@ -55,14 +71,14 @@ import org.firstinspires.ftc.teamcode.FTCConstants;
 
 
 // TeleOp declaration
-@TeleOp(name = "Good Teleop", group = "!tele")
+@TeleOp(name = "Better Teleop", group = "!tele")
 
 // disable telemetry
 //@Disabled
 
 // GoodTeleop class
-public class GoodTeleop extends LinearOpMode {
-    // TODO: Map all non-movement code to gamepad2, for a second auxiliary driver.
+public class BetterTeleop extends LinearOpMode {
+
 
     // declare OpMode members
     private ElapsedTime runtime = new ElapsedTime();
@@ -89,6 +105,10 @@ public class GoodTeleop extends LinearOpMode {
         // declaration of variables
         boolean rightBumper;
         boolean leftBumper;
+        boolean rightTrigger = false;
+        boolean leftTrigger = false;
+        boolean foundationOpen = true;
+        boolean clawOpen = false;
         // float initialFrontRightPower, initialBackRightPower, initialFrontLeftPower, initialBackLeftPower;
 
         double targetBlock = 0;
@@ -138,41 +158,49 @@ public class GoodTeleop extends LinearOpMode {
 
 
             // triggers for better motion control
-            if (gamepad1.right_trigger > 0.5 || gamepad1.left_trigger > 0.5)
-                speedMult = 0.3;
+            if (gamepad1.left_stick_button) speedMult = 0.5;
 
-            // telemetry.addData("Right Trigger", gamepad1.right_trigger);
-            // telemetry.addData("Left Trigger", gamepad1.left_trigger);
-            // telemetry.update();
-
-
-            // movement function
             sendPowerToMotor(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, speedMult);
 
 
             // AUXILIARY FUNCTIONS
             // TODO: Add target positions for blocks.
-            extensionMotor.setPower(gamepad2.dpad_up ? 0.5 : gamepad2.dpad_down ? -0.5 : 0);
+            extensionMotor.setPower(gamepad1.dpad_up ? 0.5 : gamepad1.dpad_down ? -0.5 : 0);
 
 
             // claw functions
-            if (gamepad2.x) closeClaw();
-            if (gamepad2.y) openClaw();
+            if (gamepad1.right_trigger < .5 && !rightTrigger) {
+                if (clawOpen) {
+                    clawOpen = false;
+                    closeClaw();
+                } else {
+                    clawOpen = true;
+                    openClaw();
+                }
+            }
 
-
+            rightTrigger = gamepad1.right_trigger < .5;
             // foundation functions
-            if (gamepad2.a)
-                openFoundation();
-            else if (gamepad2.b)
-                closeFoundation();
+
+            if (gamepad1.left_trigger < .5 && !leftTrigger) {
+                if (foundationOpen) {
+                    foundationOpen = false;
+                    closeFoundation();
+                } else {
+                    foundationOpen = true;
+                    openFoundation();
+                }
+            }
+
+            leftTrigger = gamepad1.left_trigger < .5;
 
 
             // lift motor telemetry
             //  telemetry.addData("Status", "Run Time: " + runtime.toString());
 
             // lift motor functions
-            rightBumper = gamepad2.right_bumper;
-            leftBumper = gamepad2.left_bumper;
+            rightBumper = gamepad1.right_bumper;
+            leftBumper = gamepad1.left_bumper;
 
             if (rightBumper && getRuntime() > upCoolDown) {
                 targetBlock++;
@@ -213,11 +241,11 @@ public class GoodTeleop extends LinearOpMode {
     // movement code
     void sendPowerToMotor(double x, double y, double r, double speedMult) {
         // sensitivity
-        if (Math.abs(x) < 0.1) {
+        if (Math.abs(x) < 0.025) {
             x = 0;
         }
 
-        if (Math.abs(y) < 0.1) {
+        if (Math.abs(y) < 0.025) {
             y = 0;
         }
 
@@ -253,6 +281,7 @@ public class GoodTeleop extends LinearOpMode {
             }
             leftFrontDrive.setPower(frontLeftPower);
         }
+
 
         if (leftBackDrive.getPower() != backLeftPower) {
             if (backLeftPower > leftBackDrive.getPower()) {
