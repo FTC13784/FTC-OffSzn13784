@@ -14,7 +14,7 @@ public class AutonomousSkystoneRed extends LinearOpMode {
          * @coloured True or false boolean for whether to go after the special skystones or whether
          * to just get the first couple.
          * @amount The amount of skystones to get. Coloured skystones auto-cap at two
-         * @parkWall Boolean for whether to park at the wall (bottom) or at the bridhe (top)
+         * @parkWall Boolean for whether to park at the wall (bottom) or at the bridge (top)
          */
     }
 }

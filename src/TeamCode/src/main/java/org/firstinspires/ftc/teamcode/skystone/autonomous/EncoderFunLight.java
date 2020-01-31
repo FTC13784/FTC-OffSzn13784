@@ -119,6 +119,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.AutoTransitioner;
@@ -134,6 +135,7 @@ public class EncoderFunLight extends Encoder {
     public Servo foundationFront, foundationBack, leftClawServo, rightClawServo;
     public LinearOpMode opMode;
     public Telemetry telemetry;
+    public TouchSensor touchSensor;
 
     // initialize variables
     DcMotor[] allDrive = new DcMotor[4];
@@ -201,6 +203,8 @@ public class EncoderFunLight extends Encoder {
         // doesn't work b/c we don't have fourth connector
         // colorSensor.enableLed(false);
 
+        //touch sensor
+        touchSensor = hardwareMap.get(TouchSensor.class, "ts");
         // other motors
         liftMotor = hardwareMap.get(DcMotor.class, "raise");
         extensionMotor = hardwareMap.get(DcMotor.class, "extend");

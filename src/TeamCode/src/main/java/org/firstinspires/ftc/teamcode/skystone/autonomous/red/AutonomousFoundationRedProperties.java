@@ -36,12 +36,14 @@ public class AutonomousFoundationRedProperties extends LinearOpMode {
         bot.closeClaw();
 
         /*** Test Properties Code **/
+        //Change code to use a touch sensor once a touch sensor has been implemented in the build
 
         //Drive right
         bot.driveCm(loader.getFloatProperty("driveRight") * FTCConstants.ONE_SQUARE, loader.getFloatProperty("drivePower"));
 
         //Drive Forward
-        bot.driveLeftCm(loader.getFloatProperty("driveForward") * FTCConstants.ONE_SQUARE, loader.getFloatProperty("drivePower"));
+        while(!bot.touchSensor.isPressed())
+            bot.driveLeftCm(loader.getFloatProperty("driveForward") * FTCConstants.ONE_SQUARE, loader.getFloatProperty("drivePower"));
 
         //Grab the foundation
         bot.closeFoundation();

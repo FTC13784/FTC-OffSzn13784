@@ -10,9 +10,11 @@ public class TouchSensorTelemetry  extends LinearOpMode {
     TouchSensor sensor;
     @Override
     public void runOpMode() throws InterruptedException {
-        sensor = hardwareMap.get(TouchSensor.class, "touch_sensor");
+        sensor = hardwareMap.get(TouchSensor.class, "ts");
 
-        telemetry.addData("Touch Sensor Push: ", sensor.getValue());
-        telemetry.update();
+        while (opModeIsActive()) {
+            telemetry.addData("Touch Sensor Push: ", sensor.getValue());
+            telemetry.update();
+        }
     }
 }
