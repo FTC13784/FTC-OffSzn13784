@@ -13,7 +13,7 @@ gen/
 local.properties
 
 # Windows thumbnail db
-Thumbs.db
+.db
 
 # OSX files
 .DS_Store
@@ -21,7 +21,7 @@ Thumbs.db
 # Android Studio
 *.iml
 *.xml
-.idea
+.idea/
 .gradle
 build/
 
