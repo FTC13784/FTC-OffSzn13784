@@ -36,8 +36,8 @@ public class AutonomousFoundationRedForward extends LinearOpMode {
 
         //Drive Left 45 cm
 
-        //Drive Forward. 44 is roughly the width of the robot
-        bot.driveLeftCm(2 * FTCConstants.ONE_SQUARE - 40, 0.4F);
+        while(!bot.touchSensor.isPressed())
+            bot.driveLeftCm(2, 0.4);
 
         //Grab foundation
         bot.closeFoundation();

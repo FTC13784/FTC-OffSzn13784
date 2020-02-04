@@ -1,4 +1,4 @@
-package sample_camera_opmodes;
+package camera;
 
 import android.graphics.Bitmap;
 
