@@ -11,8 +11,8 @@ public class PropertiesLoader {
     private Properties properties;
 
     public PropertiesLoader(String fileName) {
-        File sdcard = Environment.getDataDirectory();
-        File config = new File(sdcard, "ftc/autonomous" + fileName + ".properties");
+        File sdcard = Environment.getRootDirectory();
+        File config = new File(sdcard, "ftc/autonomous/" + fileName + ".properties");
         properties = new Properties();
         try {
             properties.load(new FileInputStream(config));

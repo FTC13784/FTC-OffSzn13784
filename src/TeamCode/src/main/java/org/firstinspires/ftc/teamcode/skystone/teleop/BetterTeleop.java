@@ -151,11 +151,11 @@ public class BetterTeleop extends LinearOpMode {
             // TODO: cleanup lift code into a separate method
 
             // MOTION FUNCTIONS
-            double speedMult = 1;
+            double speedMult = 0.75;
 
 
             // triggers for better motion control
-            if (gamepad1.left_stick_button) speedMult = 0.5;
+            if (gamepad1.left_stick_button) speedMult = 0.25;
 
             sendPowerToMotor(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, speedMult);
 
@@ -373,13 +373,13 @@ public class BetterTeleop extends LinearOpMode {
     // foundation mover code
     void openFoundation() {
         //Originally 1
-        foundationFront.setPosition(0.8);
+        foundationFront.setPosition(0.3);
         foundationBack.setPosition(1 - foundationFront.getPosition());
     }
 
     void closeFoundation() {
         //Originally 0.5
-        foundationFront.setPosition(0.5);
-        foundationBack.setPosition(foundationFront.getPosition());
+        foundationFront.setPosition(1);
+        foundationBack.setPosition(1 - foundationFront.getPosition());
     }
 }
