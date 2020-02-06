@@ -1,4 +1,4 @@
-adb push source.properties /sdcard/Config
+adb push source.properties /ftc/autonomous
 
-adb push foundation.properties /sdcard/Config
-adb push skystone.properties /sdcard/Config
+adb push foundation.properties /ftc/autonomous
+adb push skystone.properties /ftc/autonomous

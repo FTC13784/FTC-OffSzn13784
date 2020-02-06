@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 date
-adb push *.properties /sdcard/Config
+adb push *.properties /ftc/autonomous
