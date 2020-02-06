@@ -144,10 +144,7 @@ public class BetterTeleop extends LinearOpMode {
         // initial position
         setupLift();
         closeClaw();
-        foundationFront.setPosition(0);
-        foundationBack.setPosition(1);
-        // openFoundation();
-
+        closeFoundation();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -219,6 +216,11 @@ public class BetterTeleop extends LinearOpMode {
              */
             if ((targetBlock - 1) * FTCConstants.ONE_BLOCK < -5500)
                 targetBlock--;
+
+            if (gamepad1.a)
+                openFoundation();
+            else if (gamepad1.b)
+                closeFoundation();
 
             // raiseBlock telemetry
             telemetry.addData("Raiseblock", "going to: " + targetBlock);
@@ -371,13 +373,13 @@ public class BetterTeleop extends LinearOpMode {
     // foundation mover code
     void openFoundation() {
         //Originally 1
-        foundationFront.setPosition(0);
+        foundationFront.setPosition(1);
         foundationBack.setPosition(foundationFront.getPosition());
     }
 
     void closeFoundation() {
         //Originally 0.5
-        foundationFront.setPosition(0.8);
+        foundationFront.setPosition(0.2);
         foundationBack.setPosition(foundationFront.getPosition());
     }
 }
