@@ -12,7 +12,7 @@ import for_camera_opmodes.OpModeCamera;
  * Enables control of the robot via the gamepad
  */
 
-@TeleOp(name = "DetectColor", group = "ZZOpModeCameraPackage")
+@TeleOp(name = "DetectColorTest", group = "ZZOpModeCameraPackage")
 //@Disabled
 public class DetectColor extends OpModeCamera {
 
