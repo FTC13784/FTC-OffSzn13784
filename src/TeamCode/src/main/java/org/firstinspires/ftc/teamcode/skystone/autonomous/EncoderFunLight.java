@@ -1,111 +1,112 @@
 /**
  * Base constructor for all autonomous programs.
- *
+ * <p>
  * Contributors:
+ *
  * @author Edwardidk
  * @contributors FavouriteDragon
  * @nothing Commandjoe
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
  * Configuration:
- *
+ * <p>
  * left front motor -> lf
  * right front motor -> rf
  * left back motor -> lb
  * right back motor -> rb
- *
+ * <p>
  * lifter motor -> raise
  * extender motor -> extend
- *
+ * <p>
  * foundation front motor -> ff
  * foundation back motor -> fb
- *
+ * <p>
  * left claw servo -> cl
  * right claw servo -> cr
- *
+ * <p>
  * left color sensor -> color
  * right color sensor -> color2 (retired - no second color sensor)
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
  * Conversions:
  * driving forward - ticks = distance in cm / .03526
  * turns - ticks = degrees * 1200 / 90
- *
- *
- *
+ * <p>
+ * <p>
+ * <p>
  * ===========
  * ||METHODS||
  * ===========
- *
+ * <p>
  * BASIC METHODS
  * -------------
- *
+ * <p>
  * CONSTRUCTOR / INITIALIZATION
  * EncoderFunLight (LinearOpMode opmode) - constructor, initializes robot
  * void initializeHardware() - initializes hardware on robot, autoruns alongside constructor
- *
+ * <p>
  * RAW DRIVE
  * void setDirection(DcMotor[] motors, DcMotorSimple.Direction direction) - configure motors to
- *      correct directions
+ * correct directions
  * void setMode(DcMotor[] motors, DcMotor.RunMode mode) - set movement mode for motors
  * void setWheelTargetPosition(DcMotor[] motors, double distance) - set target position for motor
  * boolean isBusy(DcMotor[] motors) - test if motors are currently running an action and return
- *      as boolean
+ * as boolean
  * void setPower(DcMotor[] motors, double power) - set power for motors
  * void stopDriving() - stop all motor actions
- *
- *
+ * <p>
+ * <p>
  * USABLE METHODS
  * --------------
- *
+ * <p>
  * COMPLEX DRIVE
  * Cardinal Direction Drive:
  * void driveCm(double distance, double speed) - drive in forward direction for distance
- *      in centimeters
+ * in centimeters
  * void driveBackCm(double distance, double speed) - driveCm in backwards direction
  * void driveLeftCm(double distance, double speed) - driveCm in left direction
  * void driveRightCm(double distance, double speed) - driveCm in right direction
- *
+ * <p>
  * Diagonal Drive:
  * (retired) void drive_lf(double ticks, double speed) - drive in left-front direction for ticks
  * (retired) void drive_rf(double ticks, double speed) - drive in right-front direction for ticks
  * (retired) void drive_lb(double ticks, double speed) - drive in left-back direction for ticks
  * (retired) void drive_rb(double ticks, double speed) - drive in right-back direction for ticks
- *
+ * <p>
  * Turn:
  * void turnLeft(double degrees, double speed) - turn left for degrees
  * void turnRight(double degrees, double speed) - turn right for degrees
- *
+ * <p>
  * Timed:
  * (retired) void driveTime(double time, double speed) - drive forward for time in seconds - ONLY
- *      WORKS FOR WHOLE SECONDS
- *
- *
+ * WORKS FOR WHOLE SECONDS
+ * <p>
+ * <p>
  * AUXILIARY
  * Lift:
  * void setupLift() - initialize lift
  * void controlLiftMotor(double targetBlock) - change lift height to height in blocks
  * void extendCM(double centimetres, double power) - extend lift to distance in centimeters
- *
+ * <p>
  * Claw:
  * void openClaw() - open front claw
  * void closeClaw() - open back claw
- *
+ * <p>
  * Foundation Mover:
  * void openFoundation() - open foundation grabber
  * void closeFoundation() - close foundation grabber
- *
+ * <p>
  * Light Sensor:
  * void driveUntilAlpha(double threshold, double speed) - drive until alpha threshold is reached
  * void driveUntilPicture(double lumThreshold, double threshold, double speed) - drive until
- *      threshold is between nothing and block threshold
- *
+ * threshold is between nothing and block threshold
+ * <p>
  * Testing:
  * void lightTele() - permanent displays telemetry for light sensor
  * void lightTele(double blockThresh, double skyThresh) - permanent loop, base lightTele + display
- *      what program thinks its detecting
+ * what program thinks its detecting
  */
 
 // Autonomous package
@@ -153,6 +154,7 @@ public class EncoderFunLight extends Encoder {
 
 
     // EncoderFunLight object
+    //TODO: Remove stopDriving from all programs and make people call it manually
     public EncoderFunLight(LinearOpMode opMode) {
         // setup opMode
         this.opMode = opMode;
@@ -265,11 +267,6 @@ public class EncoderFunLight extends Encoder {
         }
     }
 
-    public void transitionToTeleop() {
-        stop();
-        stopDriving();
-    }
-
     public void stopDriving() {
         // stop all motors
         setPower(allDrive, 0);
@@ -302,7 +299,7 @@ public class EncoderFunLight extends Encoder {
 
         }
 
-        stopDriving();
+       // stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
@@ -325,7 +322,7 @@ public class EncoderFunLight extends Encoder {
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
             //wait until target position in reached
         }
-        stopDriving();
+        // stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
@@ -349,7 +346,7 @@ public class EncoderFunLight extends Encoder {
             telemetry.update();
             ticks--;*/
         }
-        stopDriving();
+        // stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
@@ -366,7 +363,7 @@ public class EncoderFunLight extends Encoder {
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
             // wait until target position in reached
         }
-        stopDriving();
+        //  stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
@@ -396,7 +393,7 @@ public class EncoderFunLight extends Encoder {
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
             // wait until target position in reached
         }
-        stopDriving();
+        // stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
@@ -413,7 +410,7 @@ public class EncoderFunLight extends Encoder {
         while (isBusy(allDrive) && opMode.opModeIsActive()) {
             // wait until target position in reached
         }
-        stopDriving();
+        // stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
@@ -429,7 +426,7 @@ public class EncoderFunLight extends Encoder {
             // wait until target position in reached
         }
 
-        stopDriving();
+        //  stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
@@ -505,7 +502,7 @@ public class EncoderFunLight extends Encoder {
             // wait until target position in reached
         }
 
-        stopDriving();
+        //  stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 

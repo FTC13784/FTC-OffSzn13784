@@ -14,6 +14,7 @@ public class TouchSensorTelemetry  extends LinearOpMode {
 
         while (opModeIsActive()) {
             telemetry.addData("Touch Sensor Push: ", sensor.getValue());
+            telemetry.addData("Touch Sensor State: ", sensor.isPressed());
             telemetry.update();
         }
     }

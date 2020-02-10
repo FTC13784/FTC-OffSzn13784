@@ -32,7 +32,7 @@ public class AutonomousFoundationRedForward extends LinearOpMode {
         bot.closeClaw();
 
         //Drive right
-        bot.driveCm(1.675 * FTCConstants.ONE_SQUARE, 0.4F);
+        bot.driveCm(1 * FTCConstants.ONE_SQUARE, 0.4F);
 
         //Drive Left 45 cm
 
@@ -62,6 +62,6 @@ public class AutonomousFoundationRedForward extends LinearOpMode {
 //        //Extend
 //        bot.extendCM(20, 0.5F, getRuntime());
         bot.closeFoundation();
-        bot.stop();
+        bot.stopDriving();
     }
 }
