@@ -12,7 +12,7 @@ public class PropertiesLoader {
 
     public PropertiesLoader(String fileName) {
        // File sdcard = Environment.DIR;
-        File config = new File("system/Android", "data/ftc/autonomous/" + fileName + ".properties");
+        File config = new File(fileName + ".properties");
         properties = new Properties();
         try {
             properties.load(new FileInputStream(config));

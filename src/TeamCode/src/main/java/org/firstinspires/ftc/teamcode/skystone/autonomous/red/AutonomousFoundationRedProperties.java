@@ -10,6 +10,9 @@ import org.firstinspires.ftc.teamcode.FTCConstants;
 import org.firstinspires.ftc.teamcode.skystone.autonomous.EncoderFunLight;
 import org.firstinspires.ftc.teamcode.util.PropertiesLoader;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Drives forward, grabs foundation, goes back, and parks ON THE LINE
  * for points.
@@ -26,6 +29,7 @@ public class AutonomousFoundationRedProperties extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         bot = new EncoderFunLight(this);
+
         PropertiesLoader loader = new PropertiesLoader("foundation");
 
         // wait for the game to start (driver presses PLAY)
@@ -42,7 +46,7 @@ public class AutonomousFoundationRedProperties extends LinearOpMode {
         bot.driveCm(loader.getFloatProperty("driveRight") * FTCConstants.ONE_SQUARE, loader.getFloatProperty("drivePower"));
 
         //Drive Forward
-        while(!bot.touchSensor.isPressed())
+        while (!bot.touchSensor.isPressed())
             bot.driveLeftCm(loader.getFloatProperty("driveForward") * FTCConstants.ONE_SQUARE, loader.getFloatProperty("drivePower"));
 
         //Grab the foundation
@@ -62,7 +66,8 @@ public class AutonomousFoundationRedProperties extends LinearOpMode {
 
         /*** Test Properties End **/
 
-        bot.stop();
+
         bot.closeFoundation();
+        bot.stopDriving();
     }
 }

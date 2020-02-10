@@ -163,7 +163,7 @@ public class EncoderFunLight extends Encoder {
 
         // initialize hardware
         initializeHardware();
-        AutoTransitioner.transitionOnStop(opMode, "Good Teleop");
+        AutoTransitioner.transitionOnStop(opMode, "Better Teleop");
 
         // math functions to calculate parameters based on final variables
         /* wheelCircumference = WHEELRADIUS * Math.PI * 2;
@@ -240,6 +240,19 @@ public class EncoderFunLight extends Encoder {
         }
     }
 
+    private void setWheelPower(DcMotor[] motors, double power) {
+        for (DcMotor motor : motors) {
+            if (motor.getPower() > power) {
+                for (double i = motor.getPower(); i > power; i -= 0.20)
+                    motor.setPower(i);
+                motor.setPower(power);
+            } else if (motor.getPower() < power) {
+                for (double i = motor.getPower(); i < power; i += 0.20)
+                    motor.setPower(i);
+                motor.setPower(power);
+            }
+        }
+    }
     private boolean isBusy(DcMotor[] motors) {
         for (DcMotor motor : motors) {
             if (motor.isBusy()) {
@@ -299,7 +312,7 @@ public class EncoderFunLight extends Encoder {
 
         }
 
-       // stopDriving();
+        // stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
@@ -324,6 +337,25 @@ public class EncoderFunLight extends Encoder {
         }
         // stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    //TODO: Continuous method for driving right, and a predicate
+
+    public void driveContinuousLeftCm(double speed) {
+        //double distance = 5;
+        //int ticks = (int) (distance / .03526);
+        leftDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
+        leftDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
+        rightDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
+        rightDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setWheelPower(allDrive, speed);
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+        setPower(allDrive, speed);
+
+        while (isBusy(allDrive) && opMode.opModeIsActive() && !touchSensor.isPressed()) {
+        }
+        setPower(allDrive, 0);
     }
 
     public void driveLeftCm(double distance, double speed) {
