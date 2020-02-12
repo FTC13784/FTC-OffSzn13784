@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="307d415e-2851-44d1-a5d7-01da93a642d9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/skystone/teleop/MovementTicksTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/skystone/teleop/TurningTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/skystone/autonomous/EncoderFunLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/skystone/autonomous/EncoderFunLight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/skystone/autonomous/red/AutonomousFoundationRedBack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/skystone/autonomous/red/AutonomousFoundationRedBack.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="FTC-OffSzn13784" type="1abcf292:AndroidViewProjectNode" />
+              <item name="FTC-OffSzn13784" type="e9137016:NonAndroidModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="-1" width="1366" height="768" extended-state="6" />
+    <layout>
+      <window_info id="Captures" order="0" weight="0.25" />
+    </layout>
+  </component>
+</project>
