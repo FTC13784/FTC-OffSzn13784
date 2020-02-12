@@ -289,6 +289,29 @@ public class EncoderFunLight extends Encoder {
         setDirection(rightDrive, DcMotorSimple.Direction.FORWARD);
     }
 
+    public void driveTicks(int ticks, double speed) {
+
+        // ensure directions are correct
+        setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
+        setDirection(rightDrive, DcMotorSimple.Direction.FORWARD);
+
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        setWheelTargetPosition(allDrive, ticks);
+
+        setMode(allDrive, DcMotor.RunMode.RUN_TO_POSITION);
+
+        // set drive power
+        setPower(allDrive, speed);
+
+        // unused telemetry
+        while (isBusy(allDrive) && opMode.opModeIsActive()) {
+
+        }
+
+        // stopDriving();
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+    }
     // COMPLEX DRIVE FUNCTIONS
     public void driveCm(double distance, double speed) {
         // convert cm to ticks
@@ -462,6 +485,27 @@ public class EncoderFunLight extends Encoder {
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    public void turnLeftTicks(int ticks, double speed) {
+        setDirection(leftDrive, DcMotorSimple.Direction.FORWARD);
+        setDirection(rightDrive, DcMotorSimple.Direction.FORWARD);
+
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        setWheelTargetPosition(allDrive, ticks);
+
+        setMode(allDrive, DcMotor.RunMode.RUN_TO_POSITION);
+
+        // set drive power
+        setPower(allDrive, speed);
+
+
+        while (isBusy(allDrive) && opMode.opModeIsActive()) {
+            // wait until target position in reached
+        }
+
+        telemetry.update();
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+    }
     public void turnLeft(double degrees, double speed) {
         // convert degrees to ticks
         double ticks = FTCConstants.degreesToTicks(degrees);
@@ -485,7 +529,6 @@ public class EncoderFunLight extends Encoder {
         }
 
         telemetry.update();
-        stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 

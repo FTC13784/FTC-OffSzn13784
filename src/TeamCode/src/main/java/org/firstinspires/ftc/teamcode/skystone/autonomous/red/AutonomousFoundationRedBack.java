@@ -50,9 +50,6 @@ public class AutonomousFoundationRedBack extends LinearOpMode {
         //Go back to the original position
         bot.driveBackCm(2 * FTCConstants.ONE_SQUARE, 0.3);
         //Go past line on the left, extend motor
-        bot.driveBackCm(1 * FTCConstants.ONE_SQUARE, 0.35F);
-        //Not extending for now
-        //bot.extendCM(20, 0.5, getRuntime());
         bot.closeFoundation();
     }
 }
