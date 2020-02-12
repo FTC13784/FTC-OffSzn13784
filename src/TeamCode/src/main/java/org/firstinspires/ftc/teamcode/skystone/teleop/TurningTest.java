@@ -14,11 +14,15 @@ public class TurningTest extends LinearOpMode {
         waitForStart();
 
         bot.turnLeftTicks(1000, 0.2F);
+        bot.stopDriving();
         bot.sleep(1000);
         bot.turnLeftTicks(2000, 0.2F);
+        bot.stopDriving();
         bot.sleep(1000);
         bot.turnLeftTicks(5000, 0.2F);
+        bot.stopDriving();
         bot.sleep(1000);
         bot.turnLeftTicks(10000, 0.2F);
+        bot.stopDriving();
     }
 }
