@@ -13,11 +13,11 @@ public class MovementTicksTest extends LinearOpMode {
         waitForStart();
 
         bot.driveTicks(1000, 0.4F);
-        bot.stopDriving();
+        bot.sleep(1000);
         bot.driveTicks(2000, 0.4F);
-        bot.stopDriving();
+        bot.sleep(1000);
         bot.driveTicks(5000, 0.4F);
-        bot.stopDriving();
+        bot.sleep(1000);
         bot.driveTicks(10000, 0.4F);
     }
 }
