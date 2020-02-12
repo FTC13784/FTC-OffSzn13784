@@ -34,8 +34,8 @@ public class AutonomousFoundationRedBack extends LinearOpMode {
         //Drive right
         bot.driveCm(1 * FTCConstants.ONE_SQUARE, 0.4F);
 
-        while (!bot.touchSensor.isPressed())
-            bot.driveLeftCm(2, 0.4);
+        bot.driveContinuousLeftCm(0.4F);
+
 
         //Grab foundation
         bot.closeFoundation();
