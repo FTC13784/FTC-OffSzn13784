@@ -134,7 +134,7 @@ public class EncoderFunLight extends Encoder {
     // variable for block size
     public ColorSensor colorSensor, colorSensor2;
     public DcMotor liftMotor, extensionMotor;
-    public Servo foundationFront, foundationBack, leftClawServo, rightClawServo;
+    public Servo foundationFront, foundationBack, clawClampServo, raiseClawServo;
     public LinearOpMode opMode;
     public Telemetry telemetry;
     public TouchSensor touchSensor;
@@ -215,8 +215,8 @@ public class EncoderFunLight extends Encoder {
         foundationBack = hardwareMap.get(Servo.class, "fb");
 
         // claw servo
-        rightClawServo = hardwareMap.get(Servo.class, "cr");
-        leftClawServo = hardwareMap.get(Servo.class, "cl");
+        raiseClawServo = hardwareMap.get(Servo.class, "cr");
+        clawClampServo = hardwareMap.get(Servo.class, "cc");
     }
 
     // BASIC DRIVE FUNCTIONS
@@ -243,7 +243,7 @@ public class EncoderFunLight extends Encoder {
 
     private void setWheelPower(DcMotor[] motors, double power) {
         for (DcMotor motor : motors) {
-            if (motor.getPower() > power) {
+            /*if (motor.getPower() > power) {
                 for (double i = motor.getPower(); i > power; i -= 0.20)
                     motor.setPower(i);
                 motor.setPower(power);
@@ -251,7 +251,8 @@ public class EncoderFunLight extends Encoder {
                 for (double i = motor.getPower(); i < power; i += 0.20)
                     motor.setPower(i);
                 motor.setPower(power);
-            }
+            }**/
+            motor.setPower(power);
         }
     }
 
@@ -504,7 +505,7 @@ public class EncoderFunLight extends Encoder {
     }
 
 
-    public void driveContinuousCm(double speed, Predicate<EncoderFunLight> filter) {
+    public void driveContinuousCm(float speed, Predicate<EncoderFunLight> filter) {
         // ensure directions are correct
         setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
         setDirection(rightDrive, DcMotorSimple.Direction.FORWARD);
@@ -519,7 +520,7 @@ public class EncoderFunLight extends Encoder {
 
     }
 
-    public void driveContinuousRightCm(double speed, Predicate<EncoderFunLight> filter) {
+    public void driveContinuousRightCm(float speed, Predicate<EncoderFunLight> filter) {
         leftDrive[0].setDirection(DcMotorSimple.Direction.REVERSE);
         leftDrive[1].setDirection(DcMotorSimple.Direction.FORWARD);
         rightDrive[0].setDirection(DcMotorSimple.Direction.REVERSE);
@@ -535,7 +536,7 @@ public class EncoderFunLight extends Encoder {
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void driveContinuousLeftCm(double speed, Predicate<EncoderFunLight> filter) {
+    public void driveContinuousLeftCm(float speed, Predicate<EncoderFunLight> filter) {
         leftDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
         leftDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
         rightDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
@@ -550,7 +551,7 @@ public class EncoderFunLight extends Encoder {
         setPower(allDrive, 0);
     }
 
-    public void driveBackCm(double speed, Predicate<EncoderFunLight> filter) {
+    public void driveBackCm(float speed, Predicate<EncoderFunLight> filter) {
         setDirection(leftDrive, DcMotorSimple.Direction.FORWARD);
         setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
         setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -626,13 +627,19 @@ public class EncoderFunLight extends Encoder {
 
     // claw code
     public void openClaw() {
-        leftClawServo.setPosition(0);
-        rightClawServo.setPosition(1 - leftClawServo.getPosition());
+        clawClampServo.setPosition(0.5);
     }
 
     public void closeClaw() {
-        leftClawServo.setPosition(1);
-        rightClawServo.setPosition(1 - leftClawServo.getPosition());
+        clawClampServo.setPosition(1);
+    }
+
+    public void lowerClaw() {
+        raiseClawServo.setPosition(0);
+    }
+
+    public void raiseClaw() {
+        raiseClawServo.setPosition(0.5);
     }
 
 
