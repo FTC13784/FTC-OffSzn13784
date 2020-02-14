@@ -114,8 +114,6 @@ package org.firstinspires.ftc.teamcode.skystone.autonomous;
 
 // import packages
 
-import android.os.Build;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -256,6 +254,7 @@ public class EncoderFunLight extends Encoder {
             }
         }
     }
+
     private boolean isBusy(DcMotor[] motors) {
         for (DcMotor motor : motors) {
             if (motor.isBusy()) {
@@ -315,6 +314,7 @@ public class EncoderFunLight extends Encoder {
         // stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
     // COMPLEX DRIVE FUNCTIONS
     public void driveCm(double distance, double speed) {
         // convert cm to ticks
@@ -365,26 +365,6 @@ public class EncoderFunLight extends Encoder {
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    //TODO: Continuous method for driving right, and a predicate
-
-    //@android.support.annotation.RequiresApi(api = Build.VERSION_CODES.N)
-    public void driveContinuousLeftCm(double speed, Predicate<EncoderFunLight> filter) {
-        //double distance = 5;
-        //int ticks = (int) (distance / .03526);
-        leftDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
-        leftDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
-        rightDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
-        rightDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
-        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setWheelPower(allDrive, speed);
-        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
-        setPower(allDrive, speed);
-
-        while (isBusy(allDrive) && opMode.opModeIsActive() && !filter.test(this)) {
-        }
-        setPower(allDrive, 0);
-    }
-
     public void driveLeftCm(double distance, double speed) {
         // convert cm to ticks
         int ticks = (int) (distance / .03526);
@@ -426,69 +406,6 @@ public class EncoderFunLight extends Encoder {
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void drive_lf(double ticks, double speed) {
-        leftDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
-        rightDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
-        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setWheelTargetPosition(allDrive, ticks);
-        leftDrive[1].setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightDrive[0].setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        setPower(allDrive, speed);
-        while (isBusy(allDrive) && opMode.opModeIsActive()) {
-            //wait until target position in reached
-        }
-        stopDriving();
-        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
-    public void drive_rf(double ticks, double speed) {
-        leftDrive[0].setDirection(DcMotorSimple.Direction.REVERSE);
-        rightDrive[1].setDirection(DcMotorSimple.Direction.FORWARD);
-        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setWheelTargetPosition(allDrive, ticks);
-        leftDrive[0].setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightDrive[1].setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        setPower(allDrive, speed);
-        while (isBusy(allDrive) && opMode.opModeIsActive()) {
-            // wait until target position in reached
-        }
-        // stopDriving();
-        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
-    public void drive_lb(double ticks, double speed) {
-        leftDrive[1].setDirection(DcMotorSimple.Direction.FORWARD);
-        rightDrive[0].setDirection(DcMotorSimple.Direction.REVERSE);
-        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setWheelTargetPosition(allDrive, ticks);
-        leftDrive[1].setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightDrive[0].setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        // leftDrive[1].setPower(speed);
-        // rightDrive[0].setPower(speed);
-        setPower(allDrive, speed);
-        while (isBusy(allDrive) && opMode.opModeIsActive()) {
-            // wait until target position in reached
-        }
-        // stopDriving();
-        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
-    public void drive_rb(double ticks, double speed) {
-        leftDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
-        rightDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
-        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setWheelTargetPosition(allDrive, ticks);
-        leftDrive[0].setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightDrive[1].setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        setPower(allDrive, speed);
-        while (isBusy(allDrive) && opMode.opModeIsActive()) {
-            // wait until target position in reached
-        }
-
-        //  stopDriving();
-        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
     public void turnLeftTicks(int ticks, double speed) {
         setDirection(leftDrive, DcMotorSimple.Direction.FORWARD);
         setDirection(rightDrive, DcMotorSimple.Direction.FORWARD);
@@ -510,6 +427,7 @@ public class EncoderFunLight extends Encoder {
         telemetry.update();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
     public void turnLeft(double degrees, double speed) {
         // convert degrees to ticks
         double ticks = FTCConstants.degreesToTicks(degrees);
@@ -584,6 +502,67 @@ public class EncoderFunLight extends Encoder {
         //  stopDriving();
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
+
+    public void driveContinuousCm(double speed, Predicate<EncoderFunLight> filter) {
+        // ensure directions are correct
+        setDirection(leftDrive, DcMotorSimple.Direction.REVERSE);
+        setDirection(rightDrive, DcMotorSimple.Direction.FORWARD);
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setWheelPower(allDrive, speed);
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+        setPower(allDrive, speed);
+
+        while (isBusy(allDrive) && opMode.opModeIsActive() && !filter.test(this)) {
+        }
+        setPower(allDrive, 0);
+
+    }
+
+    public void driveContinuousRightCm(double speed, Predicate<EncoderFunLight> filter) {
+        leftDrive[0].setDirection(DcMotorSimple.Direction.REVERSE);
+        leftDrive[1].setDirection(DcMotorSimple.Direction.FORWARD);
+        rightDrive[0].setDirection(DcMotorSimple.Direction.REVERSE);
+        rightDrive[1].setDirection(DcMotorSimple.Direction.FORWARD);
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setWheelTargetPosition(allDrive, ticks);
+        setMode(allDrive, DcMotor.RunMode.RUN_TO_POSITION);
+        setPower(allDrive, speed);
+        while (isBusy(allDrive) && opMode.opModeIsActive() && !filter.test(this)) {
+            // wait until target position in reached
+        }
+        //  stopDriving();
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void driveContinuousLeftCm(double speed, Predicate<EncoderFunLight> filter) {
+        leftDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
+        leftDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
+        rightDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
+        rightDrive[1].setDirection(DcMotorSimple.Direction.REVERSE);
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setWheelPower(allDrive, speed);
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+        setPower(allDrive, speed);
+
+        while (isBusy(allDrive) && opMode.opModeIsActive() && !filter.test(this)) {
+        }
+        setPower(allDrive, 0);
+    }
+
+    public void driveBackCm(double speed, Predicate<EncoderFunLight> filter) {
+        setDirection(leftDrive, DcMotorSimple.Direction.FORWARD);
+        setDirection(rightDrive, DcMotorSimple.Direction.REVERSE);
+        setMode(allDrive, DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setWheelPower(allDrive, speed);
+        setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
+        setPower(allDrive, speed);
+
+        while (isBusy(allDrive) && opMode.opModeIsActive() && !filter.test(this)) {
+        }
+        setPower(allDrive, 0);
+    }
+
 
     public void driveTime(int time, double speed) throws InterruptedException {
         int i = time;
