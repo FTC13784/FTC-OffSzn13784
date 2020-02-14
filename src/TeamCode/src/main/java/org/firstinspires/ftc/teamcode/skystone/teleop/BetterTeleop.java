@@ -132,8 +132,8 @@ public class BetterTeleop extends LinearOpMode {
         foundationFront = hardwareMap.get(Servo.class, "ff");
         foundationBack = hardwareMap.get(Servo.class, "fb");
 
-        rightClawServo = hardwareMap.get(Servo.class, "cr");
-        leftClawServo = hardwareMap.get(Servo.class, "cl");
+        //rightClawServo = hardwareMap.get(Servo.class, "cr");
+       //leftClawServo = hardwareMap.get(Servo.class, "cl");
 
 
         // wait for the game to start (driver presses PLAY)
