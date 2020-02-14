@@ -37,7 +37,12 @@ public class AutonomousFoundationRedForward extends LinearOpMode {
 
         //Drive Left 45 cm
 
-        bot.driveContinuousLeftCm(0.385F, encoderFunLight -> encoderFunLight.touchSensor.isPressed());
+        bot.driveContinuousLeftCm(0.385F, new Predicate<EncoderFunLight>() {
+            @Override
+            public boolean test(EncoderFunLight encoderFunLight) {
+                return encoderFunLight.touchSensor.isPressed();
+            }
+        });
         //Grab foundation
         bot.closeFoundation();
 
