@@ -627,7 +627,7 @@ public class EncoderFunLight extends Encoder {
 
     // claw code
     public void openClaw() {
-        clawClampServo.setPosition(0.5);
+        clawClampServo.setPosition(0.9);
     }
 
     public void closeClaw() {
@@ -635,11 +635,11 @@ public class EncoderFunLight extends Encoder {
     }
 
     public void lowerClaw() {
-        raiseClawServo.setPosition(0);
+        raiseClawServo.setPosition(1);
     }
 
     public void raiseClaw() {
-        raiseClawServo.setPosition(0.5);
+        raiseClawServo.setPosition(0.1);
     }
 
 
