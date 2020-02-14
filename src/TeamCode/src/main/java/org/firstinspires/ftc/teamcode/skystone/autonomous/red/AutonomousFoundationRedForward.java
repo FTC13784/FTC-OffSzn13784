@@ -36,7 +36,7 @@ public class AutonomousFoundationRedForward extends LinearOpMode {
 
         //Drive Left 45 cm
 
-        bot.driveContinuousLeftCm(0.385F);
+        bot.driveContinuousLeftCm(0.385F, bot1 -> bot1.touchSensor.isPressed());
         //Grab foundation
         bot.closeFoundation();
 

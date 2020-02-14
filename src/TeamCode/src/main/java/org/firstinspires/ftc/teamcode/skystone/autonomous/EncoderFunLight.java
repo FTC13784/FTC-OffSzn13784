@@ -114,6 +114,8 @@ package org.firstinspires.ftc.teamcode.skystone.autonomous;
 
 // import packages
 
+import android.os.Build;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -122,6 +124,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
+import org.firstinspires.ftc.robotcore.external.Predicate;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.AutoTransitioner;
 import org.firstinspires.ftc.teamcode.FTCConstants;
@@ -364,7 +367,8 @@ public class EncoderFunLight extends Encoder {
 
     //TODO: Continuous method for driving right, and a predicate
 
-    public void driveContinuousLeftCm(double speed) {
+    //@android.support.annotation.RequiresApi(api = Build.VERSION_CODES.N)
+    public void driveContinuousLeftCm(double speed, Predicate<EncoderFunLight> filter) {
         //double distance = 5;
         //int ticks = (int) (distance / .03526);
         leftDrive[0].setDirection(DcMotorSimple.Direction.FORWARD);
@@ -376,7 +380,7 @@ public class EncoderFunLight extends Encoder {
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
         setPower(allDrive, speed);
 
-        while (isBusy(allDrive) && opMode.opModeIsActive() && !touchSensor.isPressed()) {
+        while (isBusy(allDrive) && opMode.opModeIsActive() && !filter.test(this)) {
         }
         setPower(allDrive, 0);
     }
