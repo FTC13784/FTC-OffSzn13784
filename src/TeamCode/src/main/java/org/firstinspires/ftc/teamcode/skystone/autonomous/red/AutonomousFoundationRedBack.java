@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Predicate;
 import org.firstinspires.ftc.teamcode.FTCConstants;
 import org.firstinspires.ftc.teamcode.skystone.autonomous.EncoderFunLight;
 
@@ -34,7 +35,12 @@ public class AutonomousFoundationRedBack extends LinearOpMode {
         //Drive right
         bot.driveCm(1 * FTCConstants.ONE_SQUARE, 0.4F);
 
-        bot.driveContinuousLeftCm(0.375F);
+        bot.driveContinuousLeftCm(0.375F, new Predicate<EncoderFunLight>() {
+            @Override
+            public boolean test(EncoderFunLight encoderFunLight) {
+                return encoderFunLight.touchSensor.isPressed();
+            }
+        });
 
 
         //Grab foundation
