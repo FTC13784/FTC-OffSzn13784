@@ -32,6 +32,7 @@ public class AutonomousFoundationRedBack extends LinearOpMode {
         bot.openFoundation();
         bot.closeClaw();
 
+<<<<<<< HEAD
         //Drive right
         bot.driveCm(1 * FTCConstants.ONE_SQUARE, 0.4F);
 
@@ -41,20 +42,31 @@ public class AutonomousFoundationRedBack extends LinearOpMode {
                 return encoderFunLight.touchSensor.isPressed();
             }
         });
+=======
+         //Drive right
+        bot.driveCm(1F * FTCConstants.ONE_SQUARE, 0.4F);
+>>>>>>> master
 
+        //Drive Left 45 cm
 
+        bot.driveContinuousLeftCm(0.385F, new Predicate<EncoderFunLight>() {
+            @Override
+            public boolean test(EncoderFunLight encoderFunLight) {
+                return encoderFunLight.touchSensor.isPressed();
+            }
+        });
         //Grab foundation
         bot.closeFoundation();
 
         //Deliver Foundation
-        bot.driveRightCm(2 * FTCConstants.ONE_SQUARE, 0.3F);
+        bot.driveRightCm(2 * FTCConstants.ONE_SQUARE, 0.325F);
 
         //Release Foundation
         bot.openFoundation();
 
         //Park
         //Go back to the original position
-        bot.driveBackCm(2 * FTCConstants.ONE_SQUARE, 0.3);
+        bot.driveBackCm(1.5 * FTCConstants.ONE_SQUARE, 0.385F);
         //Go past line on the left, extend motor
         bot.closeFoundation();
     }

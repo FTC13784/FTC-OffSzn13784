@@ -31,36 +31,37 @@ public class AutonomousFoundationBlueBack extends LinearOpMode {
         bot.openFoundation();
         bot.closeClaw();
 
-        //Drive right until wall
 
-        //Drive Left 45 cm
-        //Drive right one square
-        bot.driveBackCm(FTCConstants.ONE_SQUARE / 2 + 10, 0.35);
+        //Drive left one square (drive a little less due to the robot's jank)
+        bot.driveBackCm(FTCConstants.ONE_SQUARE - 5, 0.4F);
 
-
-        //Drive Forward. 44 is roughly the width of the robot
-        bot.driveLeftCm(2 * FTCConstants.ONE_SQUARE - 40, 0.35F);
-
+        //Drive up to the foundation
+        bot.driveContinuousLeftCm(0.385F, new Predicate<EncoderFunLight>() {
+            @Override
+            public boolean test(EncoderFunLight encoderFunLight) {
+                return encoderFunLight.touchSensor.isPressed();
+            }
+        });
+        
         //Grab foundation
         bot.closeFoundation();
-        //Deliver Foundation
-        bot.driveRightCm(2 * FTCConstants.ONE_SQUARE - 43, 0.35F);
 
+        //Deliver Foundation
+        bot.driveRightCm(2 * FTCConstants.ONE_SQUARE, 0.325F);
+
+        //I'll uncomment this in class once I've tested code without turning; if I need to turn, I'll make 
+        //it turn 90 degrees then push it into the corner.
+        /*
         bot.turnLeft(120, 0.35F);
 
-        bot.driveBackCm(FTCConstants.ONE_SQUARE / 4, 0.35F);
+        bot.driveBackCm(FTCConstants.ONE_SQUARE / 4, 0.35F);**/
 
         //Release Foundation
         bot.openFoundation();
 
         //Park
-        //Reset position
-        bot.driveRightCm(1 * FTCConstants.ONE_SQUARE / 2, 0.35F);
-        //Go one square the right
-        bot.driveRightCm(1 * FTCConstants.ONE_SQUARE, 0.35);
-        //Extend
-       //bot.extendCM(20, 0.5F, getRuntime());
-        bot.stop();
+        bot.driveRightCm(2.175 * FTCConstants.ONE_SQUARE, 0.35F);
+        bot.closeFoundation();
         bot.stopDriving();
     }
 }
