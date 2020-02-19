@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.skystone.autonomous.red;
+package org.firstinspires.ftc.teamcode.skystone.autonomous.blue;
 
 /**
  * Bot uses CV to detect skystones and move them across the bridge
@@ -33,7 +33,7 @@ import java.util.List;
 
 // autonomous declaration
 @Autonomous(group = "Autonomous", name = "SkystoneGeneralRed")
-public class AutonomousSkystoneRed extends LinearOpMode {
+public class AutonomousSkystoneBlue extends LinearOpMode {
     // bot initialization
     EncoderFunLight bot;
     private ElapsedTime runTime = new ElapsedTime();
@@ -129,44 +129,44 @@ public class AutonomousSkystoneRed extends LinearOpMode {
             }
 
             // grab block
-            bot.driveRightCm(FTCConstants.ONE_SQUARE * 1.1, 40);
+            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 1.1, 40);
             bot.closeClaw();
 
             bot.raiseClaw();
 
             // code for driving blocks down and crap
-            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
-            bot.driveCm(FTCConstants.ONE_SQUARE * 4, 40);
-
             bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
+            bot.driveBackCm(FTCConstants.ONE_SQUARE * 4, 40);
+
+            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
 
             bot.lowerClaw();
             bot.openClaw();
 
             bot.raiseClaw();
 
-            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
-            bot.driveBackCm(FTCConstants.ONE_SQUARE * 3, 40);
+            bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
+            bot.driveCm(FTCConstants.ONE_SQUARE * 3, 40);
 
 
             // code for grabbing second block
-            bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
+            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
             bot.closeClaw();
 
             bot.raiseClaw();
 
 
             // drop second block off
-            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
-            bot.driveCm(FTCConstants.ONE_SQUARE * 3.5, 40);
-
             bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
+            bot.driveBackCm(FTCConstants.ONE_SQUARE * 3.5, 40);
+
+            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
 
             bot.lowerClaw();
             bot.openClaw();
 
             bot.raiseClaw();
-            
+
 
 
 
