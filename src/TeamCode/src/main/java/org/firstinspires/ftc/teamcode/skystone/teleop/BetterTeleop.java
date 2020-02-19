@@ -87,7 +87,8 @@ public class BetterTeleop extends LinearOpMode {
     private DcMotor leftBackDrive = null;
     private DcMotor rightBackDrive = null;
     private DcMotor liftMotor = null;
-    private DcMotor extensionMotor = null;
+    private DcMotor leftIntakeMotor = null, rightIntakeMotor = null;
+    private DcMotor intakeMotorLift = null;
     private Servo foundationFront = null;
     private Servo foundationBack = null;
     private Servo leftClawServo = null;
@@ -128,12 +129,15 @@ public class BetterTeleop extends LinearOpMode {
         rightBackDrive = hardwareMap.get(DcMotor.class, "rb");
 
         liftMotor = hardwareMap.get(DcMotor.class, "raise");
-        extensionMotor = hardwareMap.get(DcMotor.class, "extend");
         foundationFront = hardwareMap.get(Servo.class, "ff");
         foundationBack = hardwareMap.get(Servo.class, "fb");
 
+        leftIntakeMotor = hardwareMap.get(DcMotor.class, "li");
+        rightIntakeMotor = hardwareMap.get(DcMotor.class, "ri");
+        intakeServo = hardwareMap.get(Servo.class, "il");
+
         //rightClawServo = hardwareMap.get(Servo.class, "cr");
-       //leftClawServo = hardwareMap.get(Servo.class, "cl");
+        //leftClawServo = hardwareMap.get(Servo.class, "cl");
 
 
         // wait for the game to start (driver presses PLAY)
@@ -161,8 +165,14 @@ public class BetterTeleop extends LinearOpMode {
 
 
             // AUXILIARY FUNCTIONS
-            // TODO: Add target positions for blocks.
-            extensionMotor.setPower(gamepad1.dpad_up ? 0.5 : gamepad1.dpad_down ? -0.5 : 0);
+             if (gamepad1.right_bumper || gamepad1.left_bumper)
+                powerIntake();
+            else stopIntake();
+
+            if (gamepad1.y)
+                liftIntake();
+            if (gamepad1.x)
+                lowerIntake();
 
 
             // claw functions
@@ -235,7 +245,6 @@ public class BetterTeleop extends LinearOpMode {
             // telemetry.addData("l:", gamepad2.right_stick_y);
             // telemetry.addData("e:", gamepad2.left_stick_y);
             telemetry.addData("Lift Motor", "raisePos: " + liftMotor.getCurrentPosition());
-            telemetry.addData("Extension Motor:", extensionMotor.getCurrentPosition());
             telemetry.update();
         }
     }
@@ -381,5 +390,23 @@ public class BetterTeleop extends LinearOpMode {
         //Originally 0.5
         foundationFront.setPosition(1);
         foundationBack.setPosition(1 - foundationFront.getPosition());
+    }
+
+    void powerIntake() {
+        leftIntakeMotor.setPower(0.5);
+        rightIntakeMotor.setPower(-0.5);
+    }
+
+    void stopIntake() {
+        leftIntakeMotor.setPower(0);
+        rightIntakeMotor.setPower(0);
+    }
+
+    void liftIntake() {
+        intakeMotorLift.setPower(0.5);
+    }
+
+    void lowerIntake() {
+        intakeMotorLift.setPower(-0.5);
     }
 }
