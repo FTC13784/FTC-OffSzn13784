@@ -2,7 +2,8 @@ package org.firstinspires.ftc.teamcode.skystone.autonomous.red;
 
 /**
  * Bot uses CV to detect skystones and move them across the bridge
- * Bot's forward face should be pointing toward skystones, bot should be aligned next to quarry
+ * Bot's arm face should be pointing toward skystones, bot should be aligned next to quarry
+ * Back faces toward audience
  *
  * @author Edwardidk
  */
@@ -51,8 +52,8 @@ public class AutonomousSkystoneRed extends LinearOpMode {
     private static float rectHeight = .6f / 8f;
     private static float rectWidth = 1.5f / 8f;
 
-    private static float offsetX = 0f / 8f;//changing this moves the three rects and the three circles left or right, range : (-2, 2) not inclusive
-    private static float offsetY = 0f / 8f;//changing this moves the three rects and circles up or down, range: (-4, 4) not inclusive
+    private static float offsetX = 0f / 8f; //changing this moves the three rects and the three circles left or right, range : (-2, 2) not inclusive
+    private static float offsetY = 0f / 8f; //changing this moves the three rects and circles up or down, range: (-4, 4) not inclusive
 
     private static float[] midPos = {4f / 8f + offsetX, 4f / 8f + offsetY};//0 = col, 1 = row
     private static float[] leftPos = {2f / 8f + offsetX, 4f / 8f + offsetY};
@@ -63,11 +64,9 @@ public class AutonomousSkystoneRed extends LinearOpMode {
     private final int cols = 480;
 
 
-    // array for skystone locations - audience --> building zone
-    public boolean skystoneLocations[] = {false, false, false, false, false, false};
-
-    // if numTrue = 2 after first detection, kill second half program b/c both blocks in first 3
-    int numTrue = 0;
+    // skystone location variable - FIGURE OUT ORDER
+    // TODO: location
+    public int skystoneLocations;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -96,57 +95,86 @@ public class AutonomousSkystoneRed extends LinearOpMode {
         while (opModeIsActive()) {
             updateTelemetryData(telemetry);
 
-            // align against audience wall
-            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 1.1, 40);
+            // align against audience wall (TBD)
+            // bot.driveLeftCm(FTCConstants.ONE_SQUARE * 1.1, 40);
 
             // orient in CV location
-            bot.driveCm(FTCConstants.ONE_SQUARE, 40);
+            // TODO: Find CV location
+            // bot.driveCm(FTCConstants.ONE_SQUARE, 40);
             updateTelemetryData(telemetry);
 
             // test for first three blocks
             if (valLeft == 0) {
-                skystoneLocations[0] = true;
-                numTrue++;
-            }
-
-            if (valMid == 0) {
-                skystoneLocations[1] = true;
-                numTrue++;
-            }
-
-            if (valRight == 0) {
-                skystoneLocations[2] = true;
-                numTrue++;
+                skystoneLocations = 0;
+            } else if (valMid == 0) {
+                skystoneLocations = 1;
+            } else if (valRight == 0) {
+                skystoneLocations = 2;
             }
 
             bot.openClaw();
 
-            // test cases
-            if (numTrue == 0) {
-                bot.driveCm(FTCConstants.ONE_SQUARE, 40);
+            switch(skystoneLocations) {
+                case 0:
 
-                if (valLeft == 0) {
-                    skystoneLocations[3] = true;
-                    numTrue++;
-                }
+                    break;
+                case 1:
 
-                if (valMid == 0) {
-                    skystoneLocations[4] = true;
-                    numTrue++;
-                }
+                    break;
+                case 2:
 
-                if (valRight == 0) {
-                    skystoneLocations[5] = true;
-                    numTrue++;
-                }
-
-
-            } else if (numTrue == 1) {
-
-            } else {
-
+                    break;
+                default:
+                    // TODO: copypaste furthest code
             }
 
+            // grab block
+            bot.driveRightCm(FTCConstants.ONE_SQUARE * 1.1, 40);
+            bot.closeClaw();
+
+            bot.raiseClaw();
+
+            // code for driving blocks down and crap
+            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
+            bot.driveCm(FTCConstants.ONE_SQUARE * 4, 40);
+
+            bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
+
+            bot.lowerClaw();
+            bot.openClaw();
+
+            bot.raiseClaw();
+
+            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
+            bot.driveBackCm(FTCConstants.ONE_SQUARE * 3, 40);
+
+
+            // code for grabbing second block
+            bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
+            bot.closeClaw();
+
+            bot.raiseClaw();
+
+
+            // code for driving blocks down and crap
+            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
+            bot.driveCm(FTCConstants.ONE_SQUARE * 3.5, 40);
+
+            bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
+
+            bot.lowerClaw();
+            bot.openClaw();
+
+            bot.raiseClaw();
+
+
+
+            // drop second block off
+
+
+
+            // code for dragging foundation
+            // TODO
 
         }
     }
