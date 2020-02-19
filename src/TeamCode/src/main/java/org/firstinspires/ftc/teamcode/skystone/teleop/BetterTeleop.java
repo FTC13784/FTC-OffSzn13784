@@ -147,7 +147,6 @@ public class BetterTeleop extends LinearOpMode {
 
         // initial position
         setupLift();
-        closeClaw();
         closeFoundation();
 
         // run until the end of the match (driver presses STOP)
@@ -174,17 +173,6 @@ public class BetterTeleop extends LinearOpMode {
             if (gamepad1.x)
                 lowerIntake();
 
-
-            // claw functions
-            if (gamepad1.right_trigger < .5 && !rightTrigger) {
-                if (clawOpen) {
-                    clawOpen = false;
-                    closeClaw();
-                } else {
-                    clawOpen = true;
-                    openClaw();
-                }
-            }
 
             rightTrigger = gamepad1.right_trigger < .5;
             // foundation functions
@@ -360,17 +348,6 @@ public class BetterTeleop extends LinearOpMode {
 
     }
 
-
-    // clawcode
-    void openClaw() {
-        leftClawServo.setPosition(0.3);
-        rightClawServo.setPosition(1 - leftClawServo.getPosition());
-    }
-
-    void closeClaw() {
-        leftClawServo.setPosition(1);
-        rightClawServo.setPosition(1 - leftClawServo.getPosition());
-    }
 
     // lift initialization
     void setupLift() {
