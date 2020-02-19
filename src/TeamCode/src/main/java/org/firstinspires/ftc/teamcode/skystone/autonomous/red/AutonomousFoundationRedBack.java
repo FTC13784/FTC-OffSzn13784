@@ -31,7 +31,9 @@ public class AutonomousFoundationRedBack extends LinearOpMode {
 
         bot.openFoundation();
         bot.closeClaw();
-        
+        telemetry.addData("Claw Raise: ",  bot.raiseClawServo.getPosition());
+        telemetry.update();
+
          //Drive right
         bot.driveCm(1F * FTCConstants.ONE_SQUARE, 0.4F);
 

@@ -30,7 +30,6 @@ public class  AutonomousSkystoneRedLeft extends LinearOpMode {
         waitForStart();
         runTime.reset();
 
-        bot.setupLift();
         bot.openFoundation();
         bot.closeClaw();
 
@@ -40,8 +39,7 @@ public class  AutonomousSkystoneRedLeft extends LinearOpMode {
         bot.driveLeftCm(ONE_SQUARE + 2, 0.35F);
 
         bot.openClaw();
-        bot.extendCM(10, 0.3F);
-        // drive up to skystones
+         // drive up to skystones
         bot.driveCm(1.3 * ONE_SQUARE, 0.35F);
 
         bot.driveLeftCm(0.2 * ONE_SQUARE, 0.35F);

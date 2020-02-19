@@ -133,7 +133,6 @@ import static org.firstinspires.ftc.teamcode.FTCConstants.BLOCK_LENGTH;
 public class EncoderFunLight extends Encoder {
     // variable for block size
     public ColorSensor colorSensor, colorSensor2;
-    public DcMotor liftMotor, extensionMotor;
     public Servo foundationFront, foundationBack, clawClampServo, raiseClawServo;
     public LinearOpMode opMode;
     public Telemetry telemetry;
@@ -209,8 +208,6 @@ public class EncoderFunLight extends Encoder {
         //touch sensor
         touchSensor = hardwareMap.get(TouchSensor.class, "ts");
         // other motors
-        liftMotor = hardwareMap.get(DcMotor.class, "raise");
-        extensionMotor = hardwareMap.get(DcMotor.class, "extend");
         foundationFront = hardwareMap.get(Servo.class, "ff");
         foundationBack = hardwareMap.get(Servo.class, "fb");
 
@@ -577,53 +574,6 @@ public class EncoderFunLight extends Encoder {
         setMode(allDrive, DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    // AUXILIARY FUNCTIONS
-    // lift initialization
-    public void setupLift() {
-        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        liftMotor.setPower(1);
-    }
-
-    // lift motor code
-    public void controlLiftMotor(double targetBlock) {
-        int targetPos = (int) Math.round(targetBlock * FTCConstants.ONE_BLOCK);
-        double positionPlus = liftMotor.getCurrentPosition() + 20;
-        double positionMinus = liftMotor.getCurrentPosition() - 20;
-
-        if (targetPos < -5500) {
-            telemetry.addData("Warning", "targetPos value is too low!");
-            targetPos = -5500;
-        }
-        if (targetPos > 0) {
-            telemetry.addData("Warning", "targetPos value is too high!");
-            targetPos = 0;
-        }
-
-        telemetry.addData("Raisepos", "going to: " + targetPos);
-
-        //Just makes the lift motor not go to the target position if it's close enough, so it stops
-        //trying to run when it's one tick off.
-        liftMotor.setTargetPosition(targetPos);
-
-
-    }
-
-    public void extendCM(double centimetres, double power) {
-        int ticks = FTCConstants.cmToTicks(centimetres);
-
-        extensionMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        extensionMotor.setDirection(power < 0 ? DcMotorSimple.Direction.REVERSE : DcMotorSimple.Direction.FORWARD);
-        extensionMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        extensionMotor.setTargetPosition(Math.round(ticks));
-        extensionMotor.setPower(power);
-        while (opMode.opModeIsActive() && extensionMotor.isBusy()) {
-            //Wait until it's done
-        }
-        extensionMotor.setPower(0);
-        extensionMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
 
     // claw code
     public void openClaw() {
@@ -631,7 +581,7 @@ public class EncoderFunLight extends Encoder {
     }
 
     public void closeClaw() {
-        clawClampServo.setPosition(1);
+        clawClampServo.setPosition(0);
     }
 
     public void lowerClaw() {
@@ -644,12 +594,12 @@ public class EncoderFunLight extends Encoder {
 
 
     // foundation mover code
-    public void openFoundation() {
+    public void closeFoundation() {
         foundationFront.setPosition(0.3);
         foundationBack.setPosition(1 - foundationFront.getPosition());
     }
 
-    public void closeFoundation() {
+    public void openFoundation() {
         foundationFront.setPosition(1);
         foundationBack.setPosition(1 - foundationFront.getPosition());
     }

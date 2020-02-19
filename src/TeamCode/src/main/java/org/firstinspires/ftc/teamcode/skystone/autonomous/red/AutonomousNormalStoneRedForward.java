@@ -30,7 +30,6 @@ public class AutonomousNormalStoneRedForward extends LinearOpMode {
         waitForStart();
         runTime.reset();
 
-        bot.setupLift();
         bot.openFoundation();
         bot.closeClaw();
 
