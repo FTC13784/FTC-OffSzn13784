@@ -134,7 +134,7 @@ public class BetterTeleop extends LinearOpMode {
 
         leftIntakeMotor = hardwareMap.get(DcMotor.class, "li");
         rightIntakeMotor = hardwareMap.get(DcMotor.class, "ri");
-        intakeServo = hardwareMap.get(Servo.class, "il");
+        intakeMotorLift = hardwareMap.get(DcMotor.class, "il");
 
         //rightClawServo = hardwareMap.get(Servo.class, "cr");
         //leftClawServo = hardwareMap.get(Servo.class, "cl");

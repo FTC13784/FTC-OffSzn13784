@@ -709,4 +709,6 @@ public class EncoderFunLight extends Encoder {
             telemetry.update();
         }
     }
+
+    //TODO: Add initialisation positions for intake
 }
