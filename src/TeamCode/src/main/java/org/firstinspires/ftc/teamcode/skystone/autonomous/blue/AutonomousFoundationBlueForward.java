@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Predicate;
 import org.firstinspires.ftc.teamcode.FTCConstants;
 import org.firstinspires.ftc.teamcode.skystone.autonomous.EncoderFunLight;
 

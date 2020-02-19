@@ -31,21 +31,9 @@ public class AutonomousFoundationRedBack extends LinearOpMode {
 
         bot.openFoundation();
         bot.closeClaw();
-
-<<<<<<< HEAD
-        //Drive right
-        bot.driveCm(1 * FTCConstants.ONE_SQUARE, 0.4F);
-
-        bot.driveContinuousLeftCm(0.375F, new Predicate<EncoderFunLight>() {
-            @Override
-            public boolean test(EncoderFunLight encoderFunLight) {
-                return encoderFunLight.touchSensor.isPressed();
-            }
-        });
-=======
+        
          //Drive right
         bot.driveCm(1F * FTCConstants.ONE_SQUARE, 0.4F);
->>>>>>> master
 
         //Drive Left 45 cm
 
