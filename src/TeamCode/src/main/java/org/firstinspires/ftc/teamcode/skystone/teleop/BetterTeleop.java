@@ -86,7 +86,7 @@ public class BetterTeleop extends LinearOpMode {
     private DcMotor rightFrontDrive = null;
     private DcMotor leftBackDrive = null;
     private DcMotor rightBackDrive = null;
-    private DcMotor liftMotor = null;
+
     private DcMotor leftIntakeMotor = null, rightIntakeMotor = null;
     private DcMotor intakeMotorLift = null;
     private Servo foundationFront = null;
@@ -104,17 +104,12 @@ public class BetterTeleop extends LinearOpMode {
 
 
         // declaration of variables
-        boolean rightBumper;
-        boolean leftBumper;
-        boolean rightTrigger = false;
-        boolean leftTrigger = false;
-        boolean foundationOpen = true;
-        boolean clawOpen = false;
-        // float initialFrontRightPower, initialBackRightPower, initialFrontLeftPower, initialBackLeftPower;
 
-        double targetBlock = 0;
-        double upCoolDown = -10;
-        double downCoolDown = -10;
+
+
+        boolean foundationOpen = false;
+        boolean a = false;
+
 
 
         // initialization finished
@@ -128,12 +123,14 @@ public class BetterTeleop extends LinearOpMode {
         leftBackDrive = hardwareMap.get(DcMotor.class, "lb");
         rightBackDrive = hardwareMap.get(DcMotor.class, "rb");
 
-        liftMotor = hardwareMap.get(DcMotor.class, "raise");
+
         foundationFront = hardwareMap.get(Servo.class, "ff");
         foundationBack = hardwareMap.get(Servo.class, "fb");
 
         leftIntakeMotor = hardwareMap.get(DcMotor.class, "li");
+        leftIntakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightIntakeMotor = hardwareMap.get(DcMotor.class, "ri");
+        rightIntakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         intakeMotorLift = hardwareMap.get(DcMotor.class, "il");
 
         //rightClawServo = hardwareMap.get(Servo.class, "cr");
@@ -163,21 +160,25 @@ public class BetterTeleop extends LinearOpMode {
             sendPowerToMotor(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, speedMult);
 
 
-            // AUXILIARY FUNCTIONS
-             if (gamepad1.right_bumper || gamepad1.left_bumper)
+            // Intake in and out like the burger joint
+            if (gamepad1.right_trigger>.5)
                 powerIntake();
+            else if (gamepad1.left_trigger>.5)
+                {powerOuttake();
+                telemetry.addLine("Outtake");}
             else stopIntake();
 
+
+
+            //move intake up and down
             if (gamepad1.y)
                 liftIntake();
             if (gamepad1.x)
                 lowerIntake();
 
 
-            rightTrigger = gamepad1.right_trigger < .5;
-            // foundation functions
-
-            if (gamepad1.left_trigger < .5 && !leftTrigger) {
+            //toggle for foundation
+            if (gamepad1.a&&!a) {
                 if (foundationOpen) {
                     foundationOpen = false;
                     closeFoundation();
@@ -186,53 +187,11 @@ public class BetterTeleop extends LinearOpMode {
                     openFoundation();
                 }
             }
+            a=gamepad1.a;
 
-            leftTrigger = gamepad1.left_trigger < .5;
 
 
-            // lift motor telemetry
-            //  telemetry.addData("Status", "Run Time: " + runtime.toString());
-
-            // lift motor functions
-            rightBumper = gamepad1.right_bumper;
-            leftBumper = gamepad1.left_bumper;
-
-            if (rightBumper && getRuntime() > upCoolDown) {
-                targetBlock++;
-                upCoolDown = getRuntime() + 0.2; //cooldown of .2s
-            }
-            if (leftBumper && getRuntime() > downCoolDown) {
-                targetBlock--;
-                downCoolDown = getRuntime() + 0.2; //cooldown of .2s
-            }
-            targetBlock = Math.max(targetBlock, 0);
-
-            // cap the lift motor to stop crashing
-            /** NOTE: allows targetBlock to increase to one more than the max value
-             * in the case that it is above the max value it will round to the max value
-             * the final increment will simply set it to the max height (probably less than oneBlock)
-             */
-            if ((targetBlock - 1) * FTCConstants.ONE_BLOCK < -5500)
-                targetBlock--;
-
-            if (gamepad1.a)
-                openFoundation();
-            else if (gamepad1.b)
-                closeFoundation();
-
-            // raiseBlock telemetry
-            telemetry.addData("Raiseblock", "going to: " + targetBlock);
-            controlLiftMotor(targetBlock);
-
-            // other telemetry
-            // telemetry.addData("foundationFront:", foundationFront.getDirection());
-            // telemetry.addData("foundationBack:", foundationBack.getPosition());
-            // telemetry.addData("x:", gamepad1.left_stick_x);
-            // telemetry.addData("y:", gamepad1.left_stick_y);
-            // telemetry.addData("r:", gamepad1.right_stick_x);
-            // telemetry.addData("l:", gamepad2.right_stick_y);
-            // telemetry.addData("e:", gamepad2.left_stick_y);
-            telemetry.addData("Lift Motor", "raisePos: " + liftMotor.getCurrentPosition());
+            telemetry.addLine("IntakeHeight"+intakeMotorLift.getCurrentPosition());
             telemetry.update();
         }
     }
@@ -323,37 +282,15 @@ public class BetterTeleop extends LinearOpMode {
     }
 
 
-    // lift motor code
-    void controlLiftMotor(double targetBlock) {
-        int targetPos = (int) Math.round(targetBlock * FTCConstants.ONE_BLOCK);
-        double positionPlus = liftMotor.getCurrentPosition() + 20;
-        double positionMinus = liftMotor.getCurrentPosition() - 20;
 
-        if (targetPos < -5500) {
-            telemetry.addData("Warning", "targetPos value is too low!");
-            targetPos = -5500;
-        }
-        if (targetPos > 0) {
-            telemetry.addData("Warning", "targetPos value is too high!");
-            targetPos = 0;
-        }
-
-        telemetry.addData("Raisepos", "going to: " + targetPos);
-
-        //Just makes the lift motor not go to the target position if it's close enough, so it stops
-        //trying to run when it's one tick off.
-
-        liftMotor.setTargetPosition(targetPos);
-
-
-    }
 
 
     // lift initialization
     void setupLift() {
-        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        liftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        liftMotor.setPower(1);
+        intakeMotorLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //This is temmportary for debugging
+        intakeMotorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //intakeMotorLift.setPower(1);
     }
 
     // foundation mover code
@@ -373,12 +310,17 @@ public class BetterTeleop extends LinearOpMode {
         leftIntakeMotor.setPower(0.5);
         rightIntakeMotor.setPower(-0.5);
     }
+    void powerOuttake() {
+        leftIntakeMotor.setPower(-0.5);
+        rightIntakeMotor.setPower(0.5);
+    }
+
 
     void stopIntake() {
         leftIntakeMotor.setPower(0);
         rightIntakeMotor.setPower(0);
     }
-
+    //going to be replaced with encoder stuffs
     void liftIntake() {
         intakeMotorLift.setPower(0.5);
     }
