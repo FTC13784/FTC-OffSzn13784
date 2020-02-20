@@ -288,9 +288,8 @@ public class BetterTeleop extends LinearOpMode {
     // lift initialization
     void setupLift() {
         intakeMotorLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //This is temmportary for debugging
         intakeMotorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //intakeMotorLift.setPower(1);
+        intakeMotorLift.setPower(1);
     }
 
     // foundation mover code
