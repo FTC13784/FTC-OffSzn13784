@@ -144,7 +144,7 @@ public class BetterTeleop extends LinearOpMode {
 
         // initial position
         setupLift();
-        closeFoundation();
+        //closeFoundation();
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -171,9 +171,9 @@ public class BetterTeleop extends LinearOpMode {
 
 
             //move intake up and down
-            if (gamepad1.y)
+            if (gamepad1.left_bumper)
                 liftIntake();
-            if (gamepad1.x)
+            if (gamepad1.right_bumper)
                 lowerIntake();
 
 
@@ -209,6 +209,7 @@ public class BetterTeleop extends LinearOpMode {
 
 
         // motor speed variables
+        r *=.75;
         double backLeftPower = x + y - r;
         double backRightPower = -y + x - r;
         double frontLeftPower = y - x - r;
@@ -282,7 +283,57 @@ public class BetterTeleop extends LinearOpMode {
     }
 
 
+    void sendPowerToMotor2(double x, double y, double r, double speedMult) {
+        // sensitivity
+        if (Math.abs(x) < 0.025) {
+            x = 0;
+        }
 
+        if (Math.abs(y) < 0.025) {
+            y = 0;
+        }
+
+
+        // motor speed variables
+        r *=.75;
+        double backLeftPower = x + y - r;
+        double backRightPower = -y + x - r;
+        double frontLeftPower = y - x - r;
+        double frontRightPower = -y - x - r;
+
+        // clip values from -1 to 1
+        backLeftPower = Range.clip(backLeftPower, -1F, 1F);
+        backRightPower = Range.clip(backRightPower, -1F, 1F);
+        frontLeftPower = Range.clip(frontLeftPower, -1F, 1F);
+        frontRightPower = Range.clip(frontRightPower, -1F, 1F);
+
+        // triggers for speeding up and slowing down
+        backLeftPower *= speedMult;
+        backRightPower *= speedMult;
+        frontLeftPower *= speedMult;
+        frontRightPower *= speedMult;
+
+        // acceleration
+        //lf
+        if (frontLeftPower > leftFrontDrive.getPower()+.13)  leftFrontDrive.setPower(leftFrontDrive.getPower()+.25);
+
+        else if (frontLeftPower<leftFrontDrive.getPower()-.13)  leftFrontDrive.setPower(leftFrontDrive.getPower()-.25);
+        //rf
+        if (frontRightPower > rightFrontDrive.getPower()+.13)  rightFrontDrive.setPower(rightFrontDrive.getPower()+.25);
+
+        else if (frontRightPower<rightFrontDrive.getPower()-.13)  rightFrontDrive.setPower(rightFrontDrive.getPower()-.25);
+        //lb
+        if (backLeftPower > leftBackDrive.getPower()+.13)  leftBackDrive.setPower(leftBackDrive.getPower()+.25);
+
+        else if (backLeftPower<leftBackDrive.getPower()-.13)  leftBackDrive.setPower(leftBackDrive.getPower()-.25);
+        //rb
+        if (backRightPower > rightBackDrive.getPower()+.13)  rightBackDrive.setPower(rightBackDrive.getPower()+.25);
+
+        else if (backRightPower<rightBackDrive.getPower()-.13)  rightBackDrive.setPower(rightBackDrive.getPower()-.25);
+
+
+
+    }
 
 
     // lift initialization
@@ -321,10 +372,10 @@ public class BetterTeleop extends LinearOpMode {
     }
     //going to be replaced with encoder stuffs
     void liftIntake() {
-        intakeMotorLift.setPower(0.5);
+        intakeMotorLift.setTargetPosition(-300);
     }
 
     void lowerIntake() {
-        intakeMotorLift.setPower(-0.5);
+        intakeMotorLift.setTargetPosition(0);
     }
 }
