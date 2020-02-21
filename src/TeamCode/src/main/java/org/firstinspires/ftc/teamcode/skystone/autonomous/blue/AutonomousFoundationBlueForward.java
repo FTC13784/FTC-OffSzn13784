@@ -34,7 +34,7 @@ public class AutonomousFoundationBlueForward extends LinearOpMode {
         bot.closeClaw();
 
          //Drive left one square (drive a little less due to the robot's jank)
-        bot.driveBackCm(FTCConstants.ONE_SQUARE - 5, 0.4F);
+        bot.driveBackCm(FTCConstants.ONE_SQUARE * 1.25F, 0.4F);
 
         //Drive up to the foundation
         bot.driveContinuousLeftCm(0.385F, new Predicate<EncoderFunLight>() {
@@ -63,7 +63,7 @@ public class AutonomousFoundationBlueForward extends LinearOpMode {
         //Park
         //Drive to the right
         bot.closeFoundation();
-        bot.driveCm(FTCConstants.ONE_SQUARE * 1.5F, 0.385F);
+        bot.driveCm(FTCConstants.ONE_SQUARE * 1.75F, 0.385F);
         bot.driveLeftCm(1 * FTCConstants.ONE_SQUARE, 0.385);
         bot.driveCm(0.675F * FTCConstants.ONE_SQUARE, 0.385);
         bot.stopDriving();
