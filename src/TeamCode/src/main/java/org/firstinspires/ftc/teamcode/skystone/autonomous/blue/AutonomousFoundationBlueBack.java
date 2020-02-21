@@ -49,22 +49,15 @@ public class AutonomousFoundationBlueBack extends LinearOpMode {
 
         //Deliver Foundation
         bot.driveRightCm(2 * FTCConstants.ONE_SQUARE, 0.325F);
+        bot.driveBackCm(0.25 * FTCConstants.ONE_SQUARE, 0.325);
 
         bot.openFoundation();
 
         //Park
-        //Lower the intake
-        runTime.reset();
-        bot.moveIntake(-0.25F, new Predicate<EncoderFunLight>() {
-            @Override
-            public boolean test(EncoderFunLight encoderFunLight) {
-                telemetry.addData("Runtime: ", runTime.seconds());
-                telemetry.update();
-                return runTime.seconds() > 1.5;
-            }
-        });
-        bot.driveCm(1.875F * FTCConstants.ONE_SQUARE, 0.35F);
+        bot.driveCm(1.3F * FTCConstants.ONE_SQUARE, 0.35F);
         bot.closeFoundation();
+        bot.turnLeft(180, 0.2F);
+        bot.driveBackCm(0.5F * FTCConstants.ONE_SQUARE, 0.385);
         bot.stopDriving();
     }
 }
