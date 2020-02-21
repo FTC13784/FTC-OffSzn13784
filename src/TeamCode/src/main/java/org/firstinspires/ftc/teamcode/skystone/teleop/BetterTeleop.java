@@ -95,6 +95,7 @@ package org.firstinspires.ftc.teamcode.skystone.teleop;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -172,7 +173,7 @@ public class BetterTeleop extends LinearOpMode {
 
         // initial position
         setupLift();
-        setUpIntake();
+       // setUpIntake();
         //closeFoundation();
 
         // run until the end of the match (driver presses STOP)
@@ -418,9 +419,13 @@ public class BetterTeleop extends LinearOpMode {
         intakeMotorLift.setPower(0);
     }
 
-    void setUpIntake() {
+   /* void setUpIntake() {
         intakeMotorLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftIntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightIntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    }
+
+        intakeMotorLift.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftIntakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightIntakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+    }**/
 }

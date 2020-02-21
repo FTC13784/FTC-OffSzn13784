@@ -50,9 +50,6 @@ public class AutonomousFoundationBlueBack extends LinearOpMode {
         //Deliver Foundation
         bot.driveRightCm(2 * FTCConstants.ONE_SQUARE, 0.325F);
 
-        //Push the foundation
-        bot.driveBackCm(0.25 * FTCConstants.ONE_SQUARE, 0.5F);
-
         bot.openFoundation();
 
         //Park
@@ -66,7 +63,7 @@ public class AutonomousFoundationBlueBack extends LinearOpMode {
                 return runTime.seconds() > 1.5;
             }
         });
-        bot.driveCm(2 * FTCConstants.ONE_SQUARE, 0.35F);
+        bot.driveCm(1.875F * FTCConstants.ONE_SQUARE, 0.35F);
         bot.closeFoundation();
         bot.stopDriving();
     }

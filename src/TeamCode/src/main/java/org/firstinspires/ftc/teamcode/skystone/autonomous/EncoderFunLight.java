@@ -582,15 +582,15 @@ public class EncoderFunLight extends Encoder {
 
     // claw code
     public void openClaw() {
-        clawClampServo.setPosition(0.9);
+        clawClampServo.setPosition(0.8);
     }
 
     public void closeClaw() {
-        clawClampServo.setPosition(0);
+        clawClampServo.setPosition(0.3);
     }
 
     public void lowerClaw() {
-        raiseClawServo.setPosition(1);
+        raiseClawServo.setPosition(0.6);
     }
 
     public void raiseClaw() {
@@ -667,8 +667,8 @@ public class EncoderFunLight extends Encoder {
 
     //Move the intake
     public void moveIntake(double speed, Predicate<EncoderFunLight> filter) {
-        raiseIntakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        raiseIntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+      //  raiseIntakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+       // raiseIntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         raiseIntakeMotor.setPower(speed);
 
         while (raiseIntakeMotor.isBusy() && opMode.opModeIsActive() && !filter.test(this)) {
