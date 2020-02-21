@@ -35,6 +35,38 @@
  * <p>
  * left claw servo -> cl
  * right claw servo -> cr
+ * <p>
+ * Configuration:
+ * <p>
+ * left front motor -> lf
+ * right front motor -> rf
+ * left back motor -> lb
+ * right back motor -> rb
+ * <p>
+ * lifter motor -> raise
+ * extender motor -> extend
+ * <p>
+ * foundation front motor -> ff
+ * foundation back motor -> fb
+ * <p>
+ * left claw servo -> cl
+ * right claw servo -> cr
+ * <p>
+ * Configuration:
+ * <p>
+ * left front motor -> lf
+ * right front motor -> rf
+ * left back motor -> lb
+ * right back motor -> rb
+ * <p>
+ * lifter motor -> raise
+ * extender motor -> extend
+ * <p>
+ * foundation front motor -> ff
+ * foundation back motor -> fb
+ * <p>
+ * left claw servo -> cl
+ * right claw servo -> cr
  */
 
 /**
@@ -66,8 +98,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-
-import org.firstinspires.ftc.teamcode.FTCConstants;
 
 
 // TeleOp declaration
@@ -106,10 +136,8 @@ public class BetterTeleop extends LinearOpMode {
         // declaration of variables
 
 
-
         boolean foundationOpen = false;
         boolean a = false;
-
 
 
         // initialization finished
@@ -144,6 +172,7 @@ public class BetterTeleop extends LinearOpMode {
 
         // initial position
         setupLift();
+        setUpIntake();
         //closeFoundation();
 
         // run until the end of the match (driver presses STOP)
@@ -161,23 +190,22 @@ public class BetterTeleop extends LinearOpMode {
 
 
             // Intake in and out like the burger joint
-            if (gamepad1.right_trigger>.5)
+            if (gamepad1.right_trigger > .5)
                 powerIntake();
-            else if (gamepad1.left_trigger>.5)
+            else if (gamepad1.left_trigger > .5)
                 powerOuttake();
             else stopIntake();
-
 
 
             //move intake up and down
             if (gamepad1.left_bumper)
                 liftIntake();
-            if (gamepad1.right_bumper)
+            else if (gamepad1.right_bumper)
                 lowerIntake();
-
+            else stopLiftIntake();
 
             //toggle for foundation
-            if (gamepad1.a&&!a) {
+            if (gamepad1.a && !a) {
                 if (foundationOpen) {
                     foundationOpen = false;
                     closeFoundation();
@@ -186,11 +214,10 @@ public class BetterTeleop extends LinearOpMode {
                     openFoundation();
                 }
             }
-            a=gamepad1.a;
+            a = gamepad1.a;
 
 
-
-            telemetry.addLine("IntakeHeight"+intakeMotorLift.getCurrentPosition());
+            telemetry.addLine("IntakeHeight" + intakeMotorLift.getCurrentPosition());
             telemetry.update();
         }
     }
@@ -208,7 +235,7 @@ public class BetterTeleop extends LinearOpMode {
 
 
         // motor speed variables
-        r *=.75;
+        r *= .75;
         double backLeftPower = x + y - r;
         double backRightPower = -y + x - r;
         double frontLeftPower = y - x - r;
@@ -294,7 +321,7 @@ public class BetterTeleop extends LinearOpMode {
 
 
         // motor speed variables
-        r *=.75;
+        r *= .75;
         double backLeftPower = x + y - r;
         double backRightPower = -y + x - r;
         double frontLeftPower = y - x - r;
@@ -314,22 +341,29 @@ public class BetterTeleop extends LinearOpMode {
 
         // acceleration
         //lf
-        if (frontLeftPower > leftFrontDrive.getPower()+.13)  leftFrontDrive.setPower(leftFrontDrive.getPower()+.25);
+        if (frontLeftPower > leftFrontDrive.getPower() + .13)
+            leftFrontDrive.setPower(leftFrontDrive.getPower() + .25);
 
-        else if (frontLeftPower<leftFrontDrive.getPower()-.13)  leftFrontDrive.setPower(leftFrontDrive.getPower()-.25);
+        else if (frontLeftPower < leftFrontDrive.getPower() - .13)
+            leftFrontDrive.setPower(leftFrontDrive.getPower() - .25);
         //rf
-        if (frontRightPower > rightFrontDrive.getPower()+.13)  rightFrontDrive.setPower(rightFrontDrive.getPower()+.25);
+        if (frontRightPower > rightFrontDrive.getPower() + .13)
+            rightFrontDrive.setPower(rightFrontDrive.getPower() + .25);
 
-        else if (frontRightPower<rightFrontDrive.getPower()-.13)  rightFrontDrive.setPower(rightFrontDrive.getPower()-.25);
+        else if (frontRightPower < rightFrontDrive.getPower() - .13)
+            rightFrontDrive.setPower(rightFrontDrive.getPower() - .25);
         //lb
-        if (backLeftPower > leftBackDrive.getPower()+.13)  leftBackDrive.setPower(leftBackDrive.getPower()+.25);
+        if (backLeftPower > leftBackDrive.getPower() + .13)
+            leftBackDrive.setPower(leftBackDrive.getPower() + .25);
 
-        else if (backLeftPower<leftBackDrive.getPower()-.13)  leftBackDrive.setPower(leftBackDrive.getPower()-.25);
+        else if (backLeftPower < leftBackDrive.getPower() - .13)
+            leftBackDrive.setPower(leftBackDrive.getPower() - .25);
         //rb
-        if (backRightPower > rightBackDrive.getPower()+.13)  rightBackDrive.setPower(rightBackDrive.getPower()+.25);
+        if (backRightPower > rightBackDrive.getPower() + .13)
+            rightBackDrive.setPower(rightBackDrive.getPower() + .25);
 
-        else if (backRightPower<rightBackDrive.getPower()-.13)  rightBackDrive.setPower(rightBackDrive.getPower()-.25);
-
+        else if (backRightPower < rightBackDrive.getPower() - .13)
+            rightBackDrive.setPower(rightBackDrive.getPower() - .25);
 
 
     }
@@ -359,6 +393,7 @@ public class BetterTeleop extends LinearOpMode {
         leftIntakeMotor.setPower(0.5);
         rightIntakeMotor.setPower(-0.5);
     }
+
     void powerOuttake() {
         leftIntakeMotor.setPower(-0.5);
         rightIntakeMotor.setPower(0.5);
@@ -369,12 +404,23 @@ public class BetterTeleop extends LinearOpMode {
         leftIntakeMotor.setPower(0);
         rightIntakeMotor.setPower(0);
     }
+
     //going to be replaced with encoder stuffs
     void liftIntake() {
-        intakeMotorLift.setTargetPosition(-300);
+        intakeMotorLift.setPower(0.25);
     }
 
     void lowerIntake() {
-        intakeMotorLift.setTargetPosition(0);
+        intakeMotorLift.setPower(-0.25);
+    }
+
+    void stopLiftIntake() {
+        intakeMotorLift.setPower(0);
+    }
+
+    void setUpIntake() {
+        intakeMotorLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        leftIntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        rightIntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 }
