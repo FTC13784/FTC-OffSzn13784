@@ -164,8 +164,7 @@ public class BetterTeleop extends LinearOpMode {
             if (gamepad1.right_trigger>.5)
                 powerIntake();
             else if (gamepad1.left_trigger>.5)
-                {powerOuttake();
-                telemetry.addLine("Outtake");}
+                powerOuttake();
             else stopIntake();
 
 
