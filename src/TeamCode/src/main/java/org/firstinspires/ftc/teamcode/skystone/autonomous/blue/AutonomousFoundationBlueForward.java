@@ -43,13 +43,15 @@ public class AutonomousFoundationBlueForward extends LinearOpMode {
                 return encoderFunLight.touchSensor.isPressed();
             }
         });
-        
+
         //Grab foundation
         bot.closeFoundation();
 
+        bot.driveBackCm(0.125 * FTCConstants.ONE_SQUARE, 0.325F);
+
+
         //Drive back
         bot.driveRightCm(2 * FTCConstants.ONE_SQUARE, 0.385F);
-        bot.driveBackCm(0.25 * FTCConstants.ONE_SQUARE, 0.325F);
 
         //Release Foundation
         bot.openFoundation();

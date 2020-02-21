@@ -139,7 +139,8 @@ public class BetterTeleop extends LinearOpMode {
 
         boolean foundationOpen = false;
         boolean a = false;
-
+        boolean newacc = false;
+        boolean y = false;
 
         // initialization finished
         telemetry.addData("Status", "Initialization finished");
@@ -186,9 +187,16 @@ public class BetterTeleop extends LinearOpMode {
 
             // triggers for better motion control
             if (gamepad1.left_stick_button) speedMult = 0.25;
+            if (gamepad1.y && !y) {
 
-            sendPowerToMotor(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, speedMult);
-
+                newacc=!newacc;
+            }
+            y = gamepad1.y;
+            if (newacc){sendPowerToMotor2(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, speedMult);
+            telemetry.addLine("Testing new acc");}
+            else {
+                sendPowerToMotor(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, speedMult);
+            telemetry.addLine("Normal acc");}
 
             // Intake in and out like the burger joint
             if (gamepad1.right_trigger > .5)
@@ -374,7 +382,7 @@ public class BetterTeleop extends LinearOpMode {
     void setupLift() {
         intakeMotorLift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         intakeMotorLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        intakeMotorLift.setPower(1);
+        //intakeMotorLift.setPower(1);
     }
 
     // foundation mover code

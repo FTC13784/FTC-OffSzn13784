@@ -47,9 +47,10 @@ public class AutonomousFoundationBlueBack extends LinearOpMode {
         //Grab foundation
         bot.closeFoundation();
 
+        bot.driveBackCm(0.125 * FTCConstants.ONE_SQUARE, 0.325);
+
         //Deliver Foundation
         bot.driveRightCm(2 * FTCConstants.ONE_SQUARE, 0.325F);
-        bot.driveBackCm(0.25 * FTCConstants.ONE_SQUARE, 0.325);
 
         bot.openFoundation();
 
