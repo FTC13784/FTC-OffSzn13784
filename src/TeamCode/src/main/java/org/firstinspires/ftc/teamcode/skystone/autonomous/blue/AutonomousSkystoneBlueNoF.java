@@ -121,10 +121,10 @@ public class AutonomousSkystoneBlueNoF extends LinearOpMode {
 
                     break;
                 case 1:
-                    bot.driveCm(FTCConstants.ONE_BLOCK, 40);
+                    bot.driveCm(FTCConstants.BLOCK_LENGTH, 40);
                     break;
                 case 0:
-                    bot.driveCm(FTCConstants.ONE_BLOCK * 2, 40);
+                    bot.driveCm(FTCConstants.BLOCK_LENGTH * 2, 40);
                     break;
                 default:
                     // TODO: copypaste furthest code
