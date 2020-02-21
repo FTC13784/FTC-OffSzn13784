@@ -80,7 +80,7 @@ public class AutonomousSkystoneBlueNoF extends LinearOpMode {
          */
 
         bot = new EncoderFunLight(this);
-        
+
         // map and initialize hardware
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);

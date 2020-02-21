@@ -79,6 +79,8 @@ public class AutonomousSkystoneRed extends LinearOpMode {
          * @parkWall Boolean for whether to park at the wall (bottom) or at the bridge (top)
          */
 
+        bot = new EncoderFunLight(this);
+
         // map and initialize hardware
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance().createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
