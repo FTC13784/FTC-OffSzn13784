@@ -144,6 +144,8 @@ public class EncoderFunLight extends Encoder {
     DcMotor[] rightDrive = new DcMotor[2];
     HardwareMap hardwareMap;
 
+    DcMotor raiseIntakeMotor;
+
     // these are the measurements you need to change for a different tank drive robot
     /* private final double TICKSPERREV = 1120;
     private final double WHEELRADIUS = 2; // inches
@@ -214,6 +216,9 @@ public class EncoderFunLight extends Encoder {
         // claw servo
         raiseClawServo = hardwareMap.get(Servo.class, "cr");
         clawClampServo = hardwareMap.get(Servo.class, "cc");
+
+        //Intake
+        raiseIntakeMotor = hardwareMap.get(DcMotor.class, "il");
     }
 
     // BASIC DRIVE FUNCTIONS
@@ -660,5 +665,20 @@ public class EncoderFunLight extends Encoder {
         }
     }
 
+    //Move the intake
+    public void moveIntake(double speed, Predicate<EncoderFunLight> filter) {
+        raiseIntakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        raiseIntakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        raiseIntakeMotor.setPower(speed);
+        raiseIntakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        while (raiseIntakeMotor.isBusy() && opMode.opModeIsActive() && !filter.test(this)) {
+        }
+        raiseIntakeMotor.setPower(0);
+    }
+
+    public void raiseIntake(double speed, Predicate<EncoderFunLight> filter) {
+
+    }
     //TODO: Add initialisation positions for intake
 }

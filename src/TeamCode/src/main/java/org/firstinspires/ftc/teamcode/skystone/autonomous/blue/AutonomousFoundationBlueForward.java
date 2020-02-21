@@ -62,8 +62,17 @@ public class AutonomousFoundationBlueForward extends LinearOpMode {
 
         //Park
         //Drive to the right
-        bot.closeFoundation();
         bot.driveCm(FTCConstants.ONE_SQUARE * 1.75F, 0.385F);
+        bot.closeFoundation();
+        runTime.reset();
+        runTime.seconds();
+        //Lower the intake
+        bot.moveIntake(-0.25F, new Predicate<EncoderFunLight>() {
+            @Override
+            public boolean test(EncoderFunLight encoderFunLight) {
+                return runTime.seconds() > 1.5;
+            }
+        });
         bot.driveLeftCm(1 * FTCConstants.ONE_SQUARE, 0.385);
         bot.driveCm(0.675F * FTCConstants.ONE_SQUARE, 0.385);
         bot.stopDriving();
