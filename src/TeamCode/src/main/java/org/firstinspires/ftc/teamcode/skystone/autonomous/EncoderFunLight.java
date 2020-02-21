@@ -667,7 +667,7 @@ public class EncoderFunLight extends Encoder {
 
     //Move the intake
     public void moveIntake(double speed, Predicate<EncoderFunLight> filter) {
-        raiseIntakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        raiseIntakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         raiseIntakeMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         raiseIntakeMotor.setPower(speed);
         raiseIntakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
