@@ -58,12 +58,7 @@ public class AutonomousFoundationRedBack extends LinearOpMode {
 
         //Park
         //Go back to the original position
-        bot.moveIntake(-0.25F, new Predicate<EncoderFunLight>() {
-            @Override
-            public boolean test(EncoderFunLight encoderFunLight) {
-                return runTime.seconds() > 1.5;
-            }
-        });
+
         bot.driveBackCm(2 * FTCConstants.ONE_SQUARE, 0.385F);
         //Go past line on the left, extend motor
         bot.closeFoundation();

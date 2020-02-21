@@ -62,7 +62,7 @@ public class AutonomousFoundationBlueForward extends LinearOpMode {
 
         //Park
         //Drive to the right
-        bot.driveCm(FTCConstants.ONE_SQUARE * 1.75F, 0.385F);
+        bot.driveCm(FTCConstants.ONE_SQUARE * 1.5F, 0.385F);
         bot.closeFoundation();
         runTime.reset();
         runTime.seconds();
@@ -74,7 +74,7 @@ public class AutonomousFoundationBlueForward extends LinearOpMode {
             }
         });
         bot.driveLeftCm(1 * FTCConstants.ONE_SQUARE, 0.385);
-        bot.driveCm(0.675F * FTCConstants.ONE_SQUARE, 0.385);
+        bot.driveCm(0.5F * FTCConstants.ONE_SQUARE, 0.385);
         bot.stopDriving();
     }
 }

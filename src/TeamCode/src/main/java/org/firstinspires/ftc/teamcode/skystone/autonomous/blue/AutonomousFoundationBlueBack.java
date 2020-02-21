@@ -50,26 +50,23 @@ public class AutonomousFoundationBlueBack extends LinearOpMode {
         //Deliver Foundation
         bot.driveRightCm(2 * FTCConstants.ONE_SQUARE, 0.325F);
 
-        //I'll uncomment this in class once I've tested code without turning; if I need to turn, I'll make 
-        //it turn 90 degrees then push it into the corner.
-        /*
-        bot.turnLeft(120, 0.35F);
+        //Push the foundation
+        bot.driveBackCm(0.25 * FTCConstants.ONE_SQUARE, 0.5F);
 
-        bot.driveBackCm(FTCConstants.ONE_SQUARE / 4, 0.35F);**/
-
-        //Release Foundation
-        //bot.driveLeftCm(FTCConstants.ONE_SQUARE*.05,.4F);
         bot.openFoundation();
 
         //Park
         //Lower the intake
+        runTime.reset();
         bot.moveIntake(-0.25F, new Predicate<EncoderFunLight>() {
             @Override
             public boolean test(EncoderFunLight encoderFunLight) {
+                telemetry.addData("Runtime: ", runTime.seconds());
+                telemetry.update();
                 return runTime.seconds() > 1.5;
             }
         });
-        bot.driveCm(2.175 * FTCConstants.ONE_SQUARE, 0.35F);
+        bot.driveCm(2 * FTCConstants.ONE_SQUARE, 0.35F);
         bot.closeFoundation();
         bot.stopDriving();
     }

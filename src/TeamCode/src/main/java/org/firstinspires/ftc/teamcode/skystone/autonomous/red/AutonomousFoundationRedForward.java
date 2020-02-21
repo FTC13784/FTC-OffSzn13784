@@ -48,23 +48,18 @@ public class AutonomousFoundationRedForward extends LinearOpMode {
         //Deliver Foundation
         bot.driveRightCm(2 * FTCConstants.ONE_SQUARE, 0.325F);
         //Turn it left
-        bot.driveBackCm(FTCConstants.ONE_SQUARE, 0.385F);
+        bot.driveCm(FTCConstants.ONE_SQUARE, 0.385F);
 
         //Release Foundation
         bot.openFoundation();
 
         //Park
         // Go towards the line
-        bot.driveBackCm(1.3 * FTCConstants.ONE_SQUARE, 0.385);
+        bot.driveBackCm(1.3 * FTCConstants.ONE_SQUARE, 0.385F);
         bot.closeFoundation();
-        bot.moveIntake(-0.25F, new Predicate<EncoderFunLight>() {
-            @Override
-            public boolean test(EncoderFunLight encoderFunLight) {
-                return runTime.seconds() > 1.5;
-            }
-        });
+
         bot.driveLeftCm(.9 * FTCConstants.ONE_SQUARE, 0.385);
-        bot.driveBackCm(0.7 * FTCConstants.ONE_SQUARE, 0.385);
+        bot.driveBackCm(0.65 * FTCConstants.ONE_SQUARE, 0.385F);
 
         bot.closeFoundation();
         bot.stopDriving();
