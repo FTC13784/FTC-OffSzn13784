@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.skystone.autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name = "ClawTest", group = "AutoTest")
+@Autonomous(name = "ClawTestClass", group = "AutoTest")
 public class ClawTestClass extends LinearOpMode {
 
     @Override
