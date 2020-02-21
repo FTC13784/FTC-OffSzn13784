@@ -65,7 +65,7 @@ public class AutonomousSkystoneRed extends LinearOpMode {
 
 
     // skystone location variable - FIGURE OUT ORDER
-    // TODO: location
+    // 0 = left, 1 = mid, 2 = right relative to robot
     public int skystoneLocations;
 
     @Override
@@ -166,7 +166,7 @@ public class AutonomousSkystoneRed extends LinearOpMode {
             bot.openClaw();
 
             bot.raiseClaw();
-            
+
 
 
 

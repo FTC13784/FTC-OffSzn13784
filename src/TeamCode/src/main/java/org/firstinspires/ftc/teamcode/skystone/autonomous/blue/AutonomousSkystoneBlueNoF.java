@@ -32,8 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 // autonomous declaration
-@Autonomous(group = "Autonomous", name = "SkystoneGeneralBlue")
-public class AutonomousSkystoneBlue extends LinearOpMode {
+@Autonomous(group = "NoFSkystone", name = "SkystoneBlueNoF")
+public class AutonomousSkystoneBlueNoF extends LinearOpMode {
     // bot initialization
     EncoderFunLight bot;
     private ElapsedTime runTime = new ElapsedTime();
@@ -53,7 +53,7 @@ public class AutonomousSkystoneBlue extends LinearOpMode {
     private static float rectWidth = 1.5f / 8f;
 
     private static float offsetX = 0f / 8f; //changing this moves the three rects and the three circles left or right, range : (-2, 2) not inclusive
-    private static float offsetY = 0f / 8f; //changing this moves the three rects and circles up or down, range: (-4, 4) not inclusive
+    private static float offsetY = -4f / 8f; //changing this moves the three rects and circles up or down, range: (-4, 4) not inclusive
 
     private static float[] midPos = {4f / 8f + offsetX, 4f / 8f + offsetY};//0 = col, 1 = row
     private static float[] leftPos = {2f / 8f + offsetX, 4f / 8f + offsetY};
@@ -115,14 +115,14 @@ public class AutonomousSkystoneBlue extends LinearOpMode {
             bot.openClaw();
 
             switch(skystoneLocations) {
-                case 0:
+                case 2:
 
                     break;
                 case 1:
-
+                    bot.driveCm(FTCConstants.ONE_BLOCK, 40);
                     break;
-                case 2:
-
+                case 0:
+                    bot.driveCm(FTCConstants.ONE_BLOCK * 2, 40);
                     break;
                 default:
                     // TODO: copypaste furthest code
