@@ -139,8 +139,7 @@ public class BetterTeleop extends LinearOpMode {
 
         boolean foundationOpen = false;
         boolean a = false;
-        boolean newacc = false;
-        boolean y = false;
+
 
         // initialization finished
         telemetry.addData("Status", "Initialization finished");
@@ -187,16 +186,10 @@ public class BetterTeleop extends LinearOpMode {
 
             // triggers for better motion control
             if (gamepad1.left_stick_button) speedMult = 0.25;
-            if (gamepad1.y && !y) {
 
-                newacc=!newacc;
-            }
-            y = gamepad1.y;
-            if (newacc){sendPowerToMotor2(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, speedMult);
-            telemetry.addLine("Testing new acc");}
-            else {
-                sendPowerToMotor(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, speedMult);
-            telemetry.addLine("Normal acc");}
+            sendPowerToMotor2(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, speedMult);
+
+
 
             // Intake in and out like the burger joint
             if (gamepad1.right_trigger > .5)
@@ -232,91 +225,6 @@ public class BetterTeleop extends LinearOpMode {
     }
 
     // movement code
-    void sendPowerToMotor(double x, double y, double r, double speedMult) {
-        // sensitivity
-        if (Math.abs(x) < 0.025) {
-            x = 0;
-        }
-
-        if (Math.abs(y) < 0.025) {
-            y = 0;
-        }
-
-
-        // motor speed variables
-        r *= .75;
-        double backLeftPower = x + y - r;
-        double backRightPower = -y + x - r;
-        double frontLeftPower = y - x - r;
-        double frontRightPower = -y - x - r;
-
-        // clip values from -1 to 1
-        backLeftPower = Range.clip(backLeftPower, -1F, 1F);
-        backRightPower = Range.clip(backRightPower, -1F, 1F);
-        frontLeftPower = Range.clip(frontLeftPower, -1F, 1F);
-        frontRightPower = Range.clip(frontRightPower, -1F, 1F);
-
-        // triggers for speeding up and slowing down
-        backLeftPower *= speedMult;
-        backRightPower *= speedMult;
-        frontLeftPower *= speedMult;
-        frontRightPower *= speedMult;
-
-        // acceleration
-        if (leftFrontDrive.getPower() != frontLeftPower) {
-            if (frontLeftPower > leftFrontDrive.getPower()) {
-                for (double i = leftFrontDrive.getPower(); i < frontLeftPower; i += 0.25) {
-                    leftFrontDrive.setPower(i);
-                }
-            } else {
-                for (double i = leftFrontDrive.getPower(); i > frontLeftPower; i -= 0.25) {
-                    leftFrontDrive.setPower(i);
-                }
-            }
-            leftFrontDrive.setPower(frontLeftPower);
-        }
-
-
-        if (leftBackDrive.getPower() != backLeftPower) {
-            if (backLeftPower > leftBackDrive.getPower()) {
-                for (double i = leftBackDrive.getPower(); i < backLeftPower; i += 0.25) {
-                    leftBackDrive.setPower(i);
-                }
-            } else {
-                for (double i = leftBackDrive.getPower(); i > backLeftPower; i -= 0.25) {
-                    leftBackDrive.setPower(i);
-                }
-            }
-            leftBackDrive.setPower(backLeftPower);
-        }
-
-        if (rightFrontDrive.getPower() != frontRightPower) {
-            if (frontRightPower > rightFrontDrive.getPower()) {
-                for (double i = rightFrontDrive.getPower(); i < frontRightPower; i += 0.25) {
-                    rightFrontDrive.setPower(i);
-                }
-            } else {
-                for (double i = rightFrontDrive.getPower(); i > frontRightPower; i -= 0.25) {
-                    rightFrontDrive.setPower(i);
-                }
-            }
-            rightFrontDrive.setPower(frontRightPower);
-        }
-
-        if (rightBackDrive.getPower() != backRightPower) {
-            if (backRightPower > rightBackDrive.getPower()) {
-                for (double i = rightBackDrive.getPower(); i < backRightPower; i += 0.25) {
-                    rightBackDrive.setPower(i);
-                }
-            } else {
-                for (double i = rightBackDrive.getPower(); i > backRightPower; i -= 0.25) {
-                    rightBackDrive.setPower(i);
-                }
-            }
-            rightBackDrive.setPower(backRightPower);
-        }
-    }
-
 
     void sendPowerToMotor2(double x, double y, double r, double speedMult) {
         // sensitivity
@@ -350,29 +258,29 @@ public class BetterTeleop extends LinearOpMode {
 
         // acceleration
         //lf
-        if (frontLeftPower > leftFrontDrive.getPower() + .13)
-            leftFrontDrive.setPower(leftFrontDrive.getPower() + .25);
+        if (frontLeftPower > leftFrontDrive.getPower() + .25)
+            leftFrontDrive.setPower(leftFrontDrive.getPower() + .5);
 
-        else if (frontLeftPower < leftFrontDrive.getPower() - .13)
-            leftFrontDrive.setPower(leftFrontDrive.getPower() - .25);
+        else if (frontLeftPower < leftFrontDrive.getPower() - .25)
+            leftFrontDrive.setPower(leftFrontDrive.getPower() - .5);
         //rf
-        if (frontRightPower > rightFrontDrive.getPower() + .13)
-            rightFrontDrive.setPower(rightFrontDrive.getPower() + .25);
+        if (frontRightPower > rightFrontDrive.getPower() + .25)
+            rightFrontDrive.setPower(rightFrontDrive.getPower() + .5);
 
-        else if (frontRightPower < rightFrontDrive.getPower() - .13)
-            rightFrontDrive.setPower(rightFrontDrive.getPower() - .25);
+        else if (frontRightPower < rightFrontDrive.getPower() - .25)
+            rightFrontDrive.setPower(rightFrontDrive.getPower() - .5);
         //lb
-        if (backLeftPower > leftBackDrive.getPower() + .13)
-            leftBackDrive.setPower(leftBackDrive.getPower() + .25);
+        if (backLeftPower > leftBackDrive.getPower() + .25)
+            leftBackDrive.setPower(leftBackDrive.getPower() + .5);
 
-        else if (backLeftPower < leftBackDrive.getPower() - .13)
-            leftBackDrive.setPower(leftBackDrive.getPower() - .25);
+        else if (backLeftPower < leftBackDrive.getPower() - .25)
+            leftBackDrive.setPower(leftBackDrive.getPower() - .5);
         //rb
-        if (backRightPower > rightBackDrive.getPower() + .13)
-            rightBackDrive.setPower(rightBackDrive.getPower() + .25);
+        if (backRightPower > rightBackDrive.getPower() + .25)
+            rightBackDrive.setPower(rightBackDrive.getPower() + .5);
 
-        else if (backRightPower < rightBackDrive.getPower() - .13)
-            rightBackDrive.setPower(rightBackDrive.getPower() - .25);
+        else if (backRightPower < rightBackDrive.getPower() - .25)
+            rightBackDrive.setPower(rightBackDrive.getPower() - .5);
 
 
     }
@@ -416,7 +324,7 @@ public class BetterTeleop extends LinearOpMode {
 
     //going to be replaced with encoder stuffs
     void liftIntake() {
-        intakeMotorLift.setPower(0.25);
+        intakeMotorLift.setPower(1);
     }
 
     void lowerIntake() {

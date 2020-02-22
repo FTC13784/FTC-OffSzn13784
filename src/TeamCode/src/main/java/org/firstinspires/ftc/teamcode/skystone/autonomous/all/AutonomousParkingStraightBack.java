@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.skystone.autonomous.red;
+package org.firstinspires.ftc.teamcode.skystone.autonomous.all;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.skystone.autonomous.EncoderFunLight;
  * @author FavouriteDragon
  */
 
-@Autonomous(name = "AutonomousParkingLeftRedForward", group = "Red Autonomous")
-public class AutonomousParkingLeftRedForward extends LinearOpMode {
+@Autonomous(name = "AutonomousParkingStraightBack", group = "Blue Autonomous")
+public class AutonomousParkingStraightBack extends LinearOpMode {
 
     EncoderFunLight bot;
     private ElapsedTime runTime = new ElapsedTime();
@@ -27,13 +27,12 @@ public class AutonomousParkingLeftRedForward extends LinearOpMode {
         // wait for the game to start (driver presses PLAY)
         waitForStart();
         runTime.reset();
-        bot.closeFoundation();
-        bot.closeClaw();
+        //bot.closeFoundation();
+        //bot.closeClaw();
 
-        //Park
-        //Go past line on the right, extend motor
-        bot.driveCm(1 * FTCConstants.ONE_SQUARE, 0.35);
-        bot.driveLeftCm(1 * FTCConstants.ONE_SQUARE, 0.35F);
-      //  bot.extendCM(20, 0.5, getRuntime());
+        bot.driveBackCm(1 * FTCConstants.ONE_SQUARE, 0.4F);
+        //Just extend the motor
+      //  bot.extendCM(20, 0.5F, getRuntime());
+        bot.stop();
     }
 }
