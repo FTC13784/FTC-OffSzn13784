@@ -307,13 +307,13 @@ public class BetterTeleop extends LinearOpMode {
     }
 
     void powerIntake() {
-        leftIntakeMotor.setPower(0.5);
-        rightIntakeMotor.setPower(-0.5);
+        leftIntakeMotor.setPower(-0.5);
+        rightIntakeMotor.setPower(0.5);
     }
 
     void powerOuttake() {
-        leftIntakeMotor.setPower(-0.5);
-        rightIntakeMotor.setPower(0.5);
+        leftIntakeMotor.setPower(0.5);
+        rightIntakeMotor.setPower(-0.5);
     }
 
 
