@@ -324,11 +324,11 @@ public class BetterTeleop extends LinearOpMode {
 
     //going to be replaced with encoder stuffs
     void liftIntake() {
-        intakeMotorLift.setPower(1);
+        intakeMotorLift.setPower(-1);
     }
 
     void lowerIntake() {
-        intakeMotorLift.setPower(-0.25);
+        intakeMotorLift.setPower(0.25);
     }
 
     void stopLiftIntake() {

@@ -53,7 +53,7 @@ public class AutonomousSkystoneRedNoF extends LinearOpMode {
     private static float rectWidth = 1.5f / 8f;
 
     private static float offsetX = 0f / 8f; //changing this moves the three rects and the three circles left or right, range : (-2, 2) not inclusive
-    private static float offsetY = -1.75f / 8f; //changing this moves the three rects and circles up or down, range: (-4, 4) not inclusive
+    private static float offsetY = -2.25f / 8f; //changing this moves the three rects and circles up or down, range: (-4, 4) not inclusive
 
     private static float[] midPos = {4f / 8f + offsetX, 4f / 8f + offsetY};//0 = col, 1 = row
     private static float[] leftPos = {2f / 8f + offsetX, 4f / 8f + offsetY};
@@ -117,50 +117,59 @@ public class AutonomousSkystoneRedNoF extends LinearOpMode {
             bot.openClaw();
 
             switch(skystoneLocations) {
-                case 2:
-
+                case 0:
+                    bot.driveCm(FTCConstants.BLOCK_LENGTH * 2, 40);
                     break;
                 case 1:
-                    bot.driveBackCm(FTCConstants.BLOCK_LENGTH, 40);
+                    bot.driveCm(FTCConstants.BLOCK_LENGTH, 40);
                     break;
-                case 0:
-                    bot.driveBackCm(FTCConstants.BLOCK_LENGTH * 2, 40);
+                case 2:
+
                     break;
                 default:
                     // TODO: copypaste furthest code
             }
 
             // grab block
-            bot.driveRightCm(FTCConstants.ONE_SQUARE * 1.1, 40);
+            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 1.2, 40);
+
+            bot.sleep(200);
+
+            bot.lowerClaw();
             bot.closeClaw();
+
+            bot.sleep(500);
 
             bot.raiseClaw();
 
-            // code for driving blocks down and crap
-            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
-            bot.driveCm(FTCConstants.ONE_SQUARE * 4, 40);
 
+            bot.lowerIntake();
+
+            // code for driving blocks down and crap
             bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
+            bot.driveCm(FTCConstants.ONE_SQUARE, 40);
+
+            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
 
             bot.lowerClaw();
             bot.openClaw();
 
             bot.raiseClaw();
 
-            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
-            bot.driveBackCm(FTCConstants.ONE_SQUARE * 3, 40);
+            bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
+            bot.driveBackCm(FTCConstants.ONE_SQUARE * 2, 40);
 
 
             // code for grabbing second block
-            bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
+            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
             bot.closeClaw();
 
             bot.raiseClaw();
 
 
             // drop second block off
-            bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
-            bot.driveCm(FTCConstants.ONE_SQUARE * 3.5, 40);
+            bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
+            bot.driveCm(FTCConstants.ONE_SQUARE * 2, 40);
 
             bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
 

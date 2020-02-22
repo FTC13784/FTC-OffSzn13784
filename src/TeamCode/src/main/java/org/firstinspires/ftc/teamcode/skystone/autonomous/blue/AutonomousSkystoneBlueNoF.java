@@ -53,7 +53,7 @@ public class AutonomousSkystoneBlueNoF extends LinearOpMode {
     private static float rectWidth = 1.5f / 8f;
 
     private static float offsetX = 0f / 8f; //changing this moves the three rects and the three circles left or right, range : (-2, 2) not inclusive
-    private static float offsetY = -1.75f / 8f; //changing this moves the three rects and circles up or down, range: (-4, 4) not inclusive
+    private static float offsetY = -2.25f / 8f; //changing this moves the three rects and circles up or down, range: (-4, 4) not inclusive
 
     private static float[] midPos = {4f / 8f + offsetX, 4f / 8f + offsetY};//0 = col, 1 = row
     private static float[] leftPos = {2f / 8f + offsetX, 4f / 8f + offsetY};
@@ -138,7 +138,7 @@ public class AutonomousSkystoneBlueNoF extends LinearOpMode {
 
             // code for driving blocks down and crap
             bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
-            bot.driveBackCm(FTCConstants.ONE_SQUARE * 4, 40);
+            bot.driveBackCm(FTCConstants.ONE_SQUARE * 1, 40);
 
             bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
 
@@ -148,7 +148,7 @@ public class AutonomousSkystoneBlueNoF extends LinearOpMode {
             bot.raiseClaw();
 
             bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
-            bot.driveCm(FTCConstants.ONE_SQUARE * 3, 40);
+            bot.driveCm(FTCConstants.ONE_SQUARE * 2, 40);
 
 
             // code for grabbing second block
@@ -160,7 +160,7 @@ public class AutonomousSkystoneBlueNoF extends LinearOpMode {
 
             // drop second block off
             bot.driveRightCm(FTCConstants.ONE_SQUARE * 0.2, 40);
-            bot.driveBackCm(FTCConstants.ONE_SQUARE * 3.5, 40);
+            bot.driveBackCm(FTCConstants.ONE_SQUARE * 2, 40);
 
             bot.driveLeftCm(FTCConstants.ONE_SQUARE * 0.2, 40);
 

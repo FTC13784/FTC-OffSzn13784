@@ -666,6 +666,17 @@ public class EncoderFunLight extends Encoder {
     }
 
     //Move the intake
+    public void lowerIntake() {
+        double start = getRuntime();
+        while (getRuntime() > start + 1.5) {
+            raiseIntakeMotor.setPower(-0.25);
+        }
+        raiseIntakeMotor.setPower(0);
+    }
+
+
+
+    // heckin john code
     public void moveIntake(double speed, Predicate<EncoderFunLight> filter) {
         raiseIntakeMotor.setPower(speed);
 
