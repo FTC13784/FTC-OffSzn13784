@@ -100,9 +100,9 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         LynxModuleUtil.ensureMinimumFirmwareVersion(hardwareMap);
 
-        for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
-            module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
-        }
+      //  for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
+        //    module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
+      //  }
 
         // TODO: adjust the names of the following hardware devices to match your configuration
         imu = hardwareMap.get(BNO055IMU.class, "imu");
