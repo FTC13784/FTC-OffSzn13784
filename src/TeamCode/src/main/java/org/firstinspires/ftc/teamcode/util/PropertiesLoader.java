@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.util;
 
-import android.os.Environment;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,7 +9,7 @@ public class PropertiesLoader {
     private Properties properties;
 
     public PropertiesLoader(String fileName) {
-       // File sdcard = Environment.DIR;
+        // File sdcard = Environment.DIR;
         File config = new File(fileName + ".properties");
         properties = new Properties();
         try {
