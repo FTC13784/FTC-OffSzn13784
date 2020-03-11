@@ -100,6 +100,7 @@ public class SampleMecanumDrive extends MecanumDrive {
 
         LynxModuleUtil.ensureMinimumFirmwareVersion(hardwareMap);
 
+        //TODO: Fix this when we get rev hubs!
       //  for (LynxModule module : hardwareMap.getAll(LynxModule.class)) {
         //    module.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
       //  }

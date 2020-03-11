@@ -19,6 +19,8 @@ import java.util.regex.Pattern
 
 apply plugin: 'com.android.application'
 
+def useProguard = true
+
 android {
 
     compileSdkVersion 28
@@ -40,6 +42,7 @@ android {
         applicationId 'com.qualcomm.ftcrobotcontroller'
         minSdkVersion 19
         targetSdkVersion 26
+        multiDexEnabled !useProguard
 
         /**
          * We keep the versionCode and versionName of robot controller applications in sync with
@@ -49,7 +52,7 @@ android {
          *
          * We accomplish this with the help of a funky little Groovy script that maintains that
          * correspondence automatically.
-         *
+         *multiDexEnabled !useProguard
          * @see <a href="http://developer.android.com/tools/building/configuring-gradle.html">Configure Your Build</a>
          * @see <a href="http://developer.android.com/tools/publishing/versioning.html">Versioning Your App</a>
          */
