@@ -1,44 +1,17 @@
-# 2019-2020 Skystone Robotics Team
+# Road Runner Quickstart
 
-##### IMPORTANT: DO NOT UPDATE GRADLE VERSION WHEN ANDROID STUDIO ASKS YOU TO. IT WILL SCREW STUFF UP.
+An example FTC project using [Road Runner](https://github.com/acmerobotics/road-runner). **Note:** Road Runner is in alpha and many of its APIs are incubating.
 
-###### Store code in TeamCode/java/org.javainspires.ftc.teamcode/skystone/
+## Installation
 
-### TODO
-- [ ] have everyone on the same code to avoid duplication / formalize
-- [x] move everyone to same node and update SkyStone folder naming convention
-- [ ] fix inverted joystick issue + get movement running
-- [ ] create method for moving servos and merge with teleop or util
-- [x] fix the stupid formatting for directory in readme
+For more detailed instructions on getting Road Runner setup in your own project, see the [Road Runner README](https://github.com/acmerobotics/road-runner#core).
 
-### Dir
-**bold** = folder
-regular = file
+1. Download or clone this repo with `git clone https://github.com/acmerobotics/road-runner-quickstart`.
 
-#### src
-- **autonomous**
-  - AutonomousTest - testing for autonomous mode
+1. Open the project in Android Studio and build `TeamCode` like any other `ftc_app` project.
 
-- **teleop**
-  - MovementTest - testing for teleop mode
+1. If you have trouble with multidex, enable proguard by changing `useProguard` to `true` in `build.common.gradle`.
 
-- SkyStoneUtils - general code relevant to both auto and teleop (e.g. motor / servo initialization)
-- ServoCode - testing for servo motors; on Joey's branch in Teleop folder (note: merge later)
+## Documentation
 
-
-
-#### Rob Orientation - intake in the front, pulley to left, foundmover in back
-*insert image here later*
-
-### MotNamingConventions
-##### Motors
-- Movement motors: Left_Front, Left_Back, Right_Front, Right_Back
-- Pulley motor: Lever
-- Intake motors: Intake_Left, Intake_Right
-
-##### Servos
-- Foundation mover: Found_Left, Found_Right
-
-
-### Contact Us
-[Discord](https://discord.gg/5g2hdSN "Skystone Competition Discord")
+Check out the new [online quickstart documentation](https://acme-robotics.gitbook.io/road-runner/quickstart/introduction).
