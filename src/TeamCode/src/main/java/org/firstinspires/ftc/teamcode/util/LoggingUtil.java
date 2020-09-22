@@ -38,7 +38,7 @@ public class LoggingUtil {
         }
 
         while (dirSize > LOG_QUOTA) {
-            if (logFiles.size() == 0) break;
+            if (logFiles.size() == 0) break;a
             File fileToRemove = logFiles.remove(0);
             dirSize -= fileToRemove.length();
             //noinspection ResultOfMethodCallIgnored
