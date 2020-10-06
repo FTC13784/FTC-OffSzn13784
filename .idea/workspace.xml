@@ -7,7 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cda4a6ab-284b-40b6-a48a-3fe0d7acdb10" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -145,7 +144,7 @@
       </method>
     </configuration>
     <configuration name="TeamCode" type="AndroidRunConfigurationType" factoryName="Android App">
-      <module name="TeamCode" />
+      <module name="FTC-OffSzn13784-TeamCode" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />
@@ -195,6 +194,10 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Android App.FTC-OffSzn13784-TeamCode" />
+      <item itemvalue="Android App.TeamCode" />
+    </list>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -218,6 +221,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="496" y="58" key="#TeamCode/0.0.1536.824@0.0.1536.824" timestamp="1601400448507" />
+    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602002710175">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1602002710175" />
     <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1600896083446">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -226,10 +233,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1600896111553" />
-    <state x="525" y="273" key="com.intellij.ide.util.TipDialog" timestamp="1601400195775">
+    <state x="525" y="273" key="com.intellij.ide.util.TipDialog" timestamp="1602002590434">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="525" y="273" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1601400195775" />
+    <state x="525" y="273" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1602002590434" />
     <state x="656" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1600896122772" />
   </component>
 </project>
