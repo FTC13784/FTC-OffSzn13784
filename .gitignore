@@ -89,4 +89,6 @@ lint/tmp/
 .DS_Store
 .idea
 
+# xml
 *.xml
+.idea/*.xml
