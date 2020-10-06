@@ -91,4 +91,4 @@ lint/tmp/
 
 # xml
 *.xml
-.idea/*.xml
+.idea/workspace.xml
