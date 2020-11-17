@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FTC-OffSzn13784.iml" filepath="$PROJECT_DIR$/.idea/modules/FTC-OffSzn13784.iml" group="FTC-OffSzn13784" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/FTC-OffSzn13784-FtcRobotController.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/FTC-OffSzn13784-FtcRobotController.iml" group="FTC-OffSzn13784/FtcRobotController" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/FTC-OffSzn13784-TeamCode.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/FTC-OffSzn13784-TeamCode.iml" group="FTC-OffSzn13784/TeamCode" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/FtcRobotController.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/FtcRobotController.iml" group="FTC-OffSzn13784/FtcRobotController" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Github-FTC-OffSzn13784.iml" filepath="$PROJECT_DIR$/.idea/modules/Github-FTC-OffSzn13784.iml" group="FTC-OffSzn13784" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/TeamCode.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/TeamCode.iml" group="FTC-OffSzn13784/TeamCode" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/FtcRobotController/FTC-OffSzn13784.FtcRobotController.iml" filepath="$PROJECT_DIR$/.idea/modules/FtcRobotController/FTC-OffSzn13784.FtcRobotController.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TeamCode/FTC-OffSzn13784.TeamCode.iml" filepath="$PROJECT_DIR$/.idea/modules/TeamCode/FTC-OffSzn13784.TeamCode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Github.FTC-OffSzn13784.iml" filepath="$PROJECT_DIR$/.idea/modules/Github.FTC-OffSzn13784.iml" />
     </modules>
   </component>
 </project>
