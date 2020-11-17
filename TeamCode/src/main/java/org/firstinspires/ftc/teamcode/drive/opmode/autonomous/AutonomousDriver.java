@@ -61,6 +61,7 @@ public class AutonomousDriver {
     public void driveGoal(SampleMecanumDrive drive, Side side, GoalType type) {
         switch (side) {
             case BLUE:
+                //TODO: Add an ActionType variable
                 switch (type) {
                     case A:
                         drive.trajectoryBuilder(drive.getPoseEstimate())
