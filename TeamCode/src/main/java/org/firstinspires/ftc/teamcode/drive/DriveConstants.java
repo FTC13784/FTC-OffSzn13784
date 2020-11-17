@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.drive;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.control.PIDCoefficients;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
 
 /*
@@ -83,5 +84,33 @@ public class DriveConstants {
     public static double getMotorVelocityF() {
         // see https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit#heading=h.61g9ixenznbx
         return 32767 * 60.0 / (MAX_RPM * TICKS_PER_REV);
+    }
+
+    //General constants for autonomous.
+
+    public static final Pose2d
+            BLUE_START = new Pose2d(-60, 37),
+            RED_START = new Pose2d(-60, -37),
+            CENTRE = new Pose2d(0, 0);
+
+    public enum ActionType {
+        WOBBLE,
+        LOW_GOAL,
+        MEDIUM_GOAL,
+        HIGH_GOAL,
+        POWER_SHOT,
+        PARK;
+    }
+
+    public enum GoalType {
+        A,
+        B,
+        C,
+        NONE;
+    }
+
+    public enum Side {
+        BLUE,
+        RED;
     }
 }
