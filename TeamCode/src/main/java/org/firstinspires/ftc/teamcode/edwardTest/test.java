@@ -1,14 +1,18 @@
 package org.firstinspires.ftc.teamcode.edwardTest;
 
 // import packages
+import com.acmerobotics.roadrunner.util.NanoClock;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.teamcode.util.Encoder;
 
 // TeleOp declaration
 // @TeleOp(name = "Test Program", group = "test")
@@ -16,7 +20,7 @@ import com.qualcomm.robotcore.util.Range;
 // disable telemetry
 // @Disabled
 
-public class test extends OpMode {
+public class test extends LinearOpMode {
     // declare OpMode members
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftFrontDrive = null;
@@ -48,9 +52,5 @@ public class test extends OpMode {
         runtime.reset();
 
 
-        @Override
-        public void runOpMode() throws InterruptedException {
-        
-        }
     }
 }
