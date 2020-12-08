@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.drive;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.control.PIDCoefficients;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
 
 /*
@@ -88,10 +89,25 @@ public class DriveConstants {
 
     //General constants for autonomous.
 
-    public static final Pose2d
-            BLUE_START = new Pose2d(-60, 37),
-            RED_START = new Pose2d(-60, -37),
-            CENTRE = new Pose2d(0, 0);
+    public static final Vector2d
+            //Start, Stop
+            BLUE_START = new Vector2d(-60, 37),
+            RED_START = new Vector2d(-60, -37),
+            CENTRE = new Vector2d(0, 0),
+            BLUE_PARK = new Vector2d(10, 60),
+
+            //Blue Constants
+            BLUE_A = new Vector2d(10, 60),
+            BLUE_B = new Vector2d(35, 37),
+            BLUE_C = new Vector2d(60, 60),
+            BLUE_HIGH_GOAL = new Vector2d(-5, 37),
+            BLUE_MEDIUM_GOAL = new Vector2d(-5, -37),
+            BLUE_SHORT_GOAL = new Vector2d(55, 37),
+
+            //Red Constants
+            RED_HIGH_GOAL = new Vector2d(-5, -37),
+            RED_MEDIUM_GOAL = new Vector2d(-5, 37),
+            RED_SHORT_GOAL = new Vector2d(55, -37);
 
     public enum ActionType {
         WOBBLE,

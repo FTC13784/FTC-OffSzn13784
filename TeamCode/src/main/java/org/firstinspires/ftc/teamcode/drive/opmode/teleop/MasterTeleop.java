@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.drive.opmode.teleop;
 
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 /**
@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 public class MasterTeleop extends OpMode {
 
     SampleMecanumDrive drive;
+
     @Override
     public void init() {
         drive = new SampleMecanumDrive(hardwareMap);
@@ -27,13 +28,29 @@ public class MasterTeleop extends OpMode {
     public void loop() {
 
 
-
-
         //To the centre from anywhere on the field
-        if (gamepad2.left_bumper) {
+        if (gamepad1.dpad_up) {
             drive.followTrajectory(
                     drive.trajectoryBuilder(drive.getPoseEstimate())
-                            .splineTo(new Vector2d(0, 0), 0)
+                            .splineTo(DriveConstants.CENTRE, 0)
+                            .build()
+            );
+        }
+
+        //Left High Goal
+        if (gamepad1.left_bumper) {
+            drive.followTrajectory(
+                    drive.trajectoryBuilder(drive.getPoseEstimate())
+                            .splineTo(DriveConstants.BLUE_HIGH_GOAL, 0)
+                            .build()
+            );
+        }
+
+        //Right High Goal
+        if (gamepad1.right_bumper) {
+            drive.followTrajectory(
+                    drive.trajectoryBuilder(drive.getPoseEstimate())
+                            .splineTo(DriveConstants.RED_HIGH_GOAL, 0)
                             .build()
             );
         }

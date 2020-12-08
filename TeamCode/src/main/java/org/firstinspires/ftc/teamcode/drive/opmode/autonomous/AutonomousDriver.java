@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.drive.opmode.autonomous;
 
 import com.acmerobotics.roadrunner.drive.Drive;
-import com.acmerobotics.roadrunner.drive.MecanumDrive;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.SampleRevBlinkinLedDriver;
-import org.firstinspires.ftc.teamcode.drive.DriveConstants.*;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants.ActionType;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants.GoalType;
+import org.firstinspires.ftc.teamcode.drive.DriveConstants.Side;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 
@@ -24,16 +26,18 @@ public class AutonomousDriver {
     private Drive drive;
     private HardwareMap map;
     private DriveType driveType;
+    private OpMode opMode;
 
     //Start positions are in DriveConstants
 
-    public AutonomousDriver(Side side, GoalType goalType, ActionType actionType, Drive drive, HardwareMap map, DriveType type) {
+    public AutonomousDriver(Side side, GoalType goalType, ActionType actionType, Drive drive, HardwareMap map, DriveType type, OpMode mode) {
         this.side = side;
         this.goalType = goalType;
         this.actionType = actionType;
         this.drive = drive;
         this.map = map;
         this.driveType = type;
+        this.opMode = mode;
     }
 
     public void start() {
@@ -53,7 +57,6 @@ public class AutonomousDriver {
 
 
     /**
-     *
      * @param drive
      * @param side
      * @param type
@@ -65,15 +68,15 @@ public class AutonomousDriver {
                 switch (type) {
                     case A:
                         drive.trajectoryBuilder(drive.getPoseEstimate())
-                                .splineTo(new Vector2d(10, 60), 0).build();
+                                .splineTo(DriveConstants.BLUE_A, 0).build();
                         break;
                     case B:
                         drive.trajectoryBuilder(drive.getPoseEstimate())
-                                .splineTo(new Vector2d(35, 37), 0).build();
+                                .splineTo(DriveConstants.BLUE_B, 0).build();
                         break;
                     case C:
                         drive.trajectoryBuilder(drive.getPoseEstimate())
-                                .splineTo(new Vector2d(60, 60), 0).build();
+                                .splineTo(DriveConstants.BLUE_C, 0).build();
                         break;
                 }
                 break;
@@ -90,6 +93,8 @@ public class AutonomousDriver {
                 }
                 break;
         }
+        this.opMode.requestOpModeStop();
+
     }
 
     public void driveGoal(SampleTankDrive drive, Side side, GoalType type) {
