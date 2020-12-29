@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.drive.opmode.autonomous;
 
 import com.acmerobotics.roadrunner.drive.Drive;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -19,6 +21,8 @@ import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
  * Also makes it really easy for newbie coders to learn.
  */
 public class AutonomousDriver {
+
+    //TODO: Change trajectoryBuilding to trajectoryFollowing
 
     private Side side;
     private GoalType goalType;
@@ -47,57 +51,98 @@ public class AutonomousDriver {
         //Drive type!
         switch (driveType) {
             case MECANUM:
-                driveGoal((SampleMecanumDrive) drive, side, goalType);
+                driveGoal((SampleMecanumDrive) drive, side, actionType, goalType);
                 break;
             case TANK:
-                driveGoal((SampleTankDrive) drive, side, goalType);
+                driveGoal((SampleTankDrive) drive, side, actionType, goalType);
                 break;
         }
     }
 
+
+    public void park(SampleMecanumDrive drive, Side side) {
+        switch (side) {
+            case BLUE:
+                followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
+                        .splineTo(DriveConstants.BLUE_PARK, 0));
+                break;
+            case RED:
+                followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
+                        .splineTo(DriveConstants.RED_PARK, 0));
+        }
+
+    }
 
     /**
      * @param drive
      * @param side
-     * @param type
+     * @param actionType
      */
-    public void driveGoal(SampleMecanumDrive drive, Side side, GoalType type) {
+    public void driveGoal(SampleMecanumDrive drive, Side side, ActionType actionType, GoalType goalType) {
         switch (side) {
             case BLUE:
-                //TODO: Add an ActionType variable
-                switch (type) {
-                    case A:
-                        drive.trajectoryBuilder(drive.getPoseEstimate())
-                                .splineTo(DriveConstants.BLUE_A, 0).build();
+                switch (actionType) {
+                    case WOBBLE:
+                        switch (goalType) {
+                            case A:
+                                followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
+                                        .splineTo(DriveConstants.BLUE_A, 0));
+                                break;
+                            case B:
+                                followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
+                                        .splineTo(DriveConstants.BLUE_B, 0));
+                                break;
+                            case C:
+                                followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
+                                        .splineTo(DriveConstants.BLUE_C, 0));
+                                break;
+                            default:
+                                break;
+                        }
+                        //Todo: Add a pickup method
                         break;
-                    case B:
-                        drive.trajectoryBuilder(drive.getPoseEstimate())
-                                .splineTo(DriveConstants.BLUE_B, 0).build();
+                    case HIGH_GOAL:
+                        followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
+                                .splineTo(DriveConstants.BLUE_HIGH_GOAL, 0));
+                        //Todo: Shoot
                         break;
-                    case C:
-                        drive.trajectoryBuilder(drive.getPoseEstimate())
-                                .splineTo(DriveConstants.BLUE_C, 0).build();
+                    default:
                         break;
                 }
                 break;
             case RED:
-                switch (type) {
-                    case A:
-                        drive.trajectoryBuilder(drive.getPoseEstimate()).splineTo(new Vector2d(10, -60), 0)
-                                .build();
+                switch (actionType) {
+                    case WOBBLE:
+                        switch (goalType) {
+                            case A:
+                                followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate()).splineTo(DriveConstants.RED_A, 0));
+                                break;
+                            case B:
+                                followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate()).splineTo(DriveConstants.RED_B, 0));
+                                break;
+                            case C:
+                                followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate()).splineTo(DriveConstants.RED_C, 0));
+                                break;
+                            default:
+                                break;
+                        }
+                        //TODO: Pickup method
                         break;
-                    case B:
-                        break;
-                    case C:
+                    case HIGH_GOAL:
+                        followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
+                                .splineTo(DriveConstants.RED_HIGH_GOAL, 0));
+                        //TODO: Shoot
+                    default:
                         break;
                 }
                 break;
         }
+        park(drive, side);
         this.opMode.requestOpModeStop();
 
     }
 
-    public void driveGoal(SampleTankDrive drive, Side side, GoalType type) {
+    public void driveGoal(SampleTankDrive drive, Side side, ActionType actionType, GoalType goalType) {
 
     }
 
@@ -108,6 +153,10 @@ public class AutonomousDriver {
         if (drive instanceof SampleTankDrive)
             ((SampleTankDrive) drive).update();
         drive.updatePoseEstimate();
+    }
+
+    public void followTrajectory(SampleMecanumDrive drive, TrajectoryBuilder builder) {
+        drive.followTrajectory(builder.build());
     }
 
     public void end() {

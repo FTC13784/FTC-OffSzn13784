@@ -95,6 +95,7 @@ public class DriveConstants {
             RED_START = new Vector2d(-60, -37),
             CENTRE = new Vector2d(0, 0),
             BLUE_PARK = new Vector2d(10, 60),
+            RED_PARK = new Vector2d(10, -60),
 
             //Blue Constants
             BLUE_A = new Vector2d(10, 60),
@@ -105,6 +106,9 @@ public class DriveConstants {
             BLUE_SHORT_GOAL = new Vector2d(55, 37),
 
             //Red Constants
+            RED_A = new Vector2d(10, -60),
+            RED_B = new Vector2d(37, -37),
+            RED_C = new Vector2d(60, -60),
             RED_HIGH_GOAL = new Vector2d(-5, -37),
             RED_MEDIUM_GOAL = new Vector2d(-5, 37),
             RED_SHORT_GOAL = new Vector2d(55, -37);
