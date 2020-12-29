@@ -34,15 +34,36 @@ public abstract class MasterAutonomous extends OpMode {
         driver.update();
     }
 
+    /**
+     * @return The side to return. Blue or Red. Pretty easy to understand.
+     */
     public abstract DriveConstants.Side getSide();
 
+    /**
+     * @return The goal type. A, B, C, or none.
+     * If you're shooting, just return ActionType.NONE.
+     */
     public abstract DriveConstants.GoalType getGoal();
 
+    /**
+     * @return The action type. Wobble, HighGoal, PowerShot, e.t.c.
+     */
     public abstract DriveConstants.ActionType getAction();
 
+    /**
+     * @return The Drive class to be used in the AutonomousDriver. Return anyone you want, but make sure its a child
+     * of SampleMecanumDrive. You can also return SampleMecanumDrive itself.
+     * Example usage: return new SampleMecanumDrive(hardwaremap);
+     */
     public abstract Drive getDrive();
 
+    /**
+     * @return Return the drive type of the AutonomousDriver: Mecanum or Tank. Use Mecanum. For the love of god.
+     */
     public abstract AutonomousDriver.DriveType getDriveType();
 
+    /**
+     * @return The OpMode being passed to the AutonomousDriver. Just return the class itself/this.
+     */
     public abstract OpMode getMode();
 }
