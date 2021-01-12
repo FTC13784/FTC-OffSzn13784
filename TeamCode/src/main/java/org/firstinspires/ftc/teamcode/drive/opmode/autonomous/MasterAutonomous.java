@@ -1,15 +1,12 @@
 package org.firstinspires.ftc.teamcode.drive.opmode.autonomous;
 
-import android.drm.DrmStore;
-
 import com.acmerobotics.roadrunner.drive.Drive;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
-@Autonomous(group = "autonomous", name = "master")
+//@Autonomous(group = "autonomous", name = "master")
 public abstract class MasterAutonomous extends OpMode {
 
     AutonomousDriver driver;
