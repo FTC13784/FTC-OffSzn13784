@@ -11,6 +11,9 @@ public class LightningMecanumDrive extends SampleMecanumDrive {
     //Intake & load motor
     //Shoot motor
     //Right & left triggers: intake, shooter on respectively. Hold. 360 servos. Use 0-90.
+
+    //bruh
+
     public LightningMecanumDrive(HardwareMap hardwareMap) {
         super(hardwareMap);
     }
