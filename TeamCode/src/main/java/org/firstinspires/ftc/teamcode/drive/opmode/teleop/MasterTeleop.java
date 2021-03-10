@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.drive.opmode.teleop;
 
+import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drive.LightningMecanumDrive;
 
 /**
  * This is our master teleop class. Always use OpMode instead of LinearOpMode!
@@ -16,12 +17,17 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 @TeleOp(group = "Teleop", name = "Master")
 public class MasterTeleop extends OpMode {
 
-    SampleMecanumDrive drive;
+    LightningMecanumDrive drive;
+    double powerLevel;
+    double defaultAngle;
 
     @Override
     public void init() {
-        drive = new SampleMecanumDrive(hardwareMap);
+        drive = new LightningMecanumDrive(hardwareMap);
         //Todo: initialize shiz.
+        powerLevel = drive.getPowerLevel();
+        //10 degrees per tick
+        defaultAngle = drive.getTurnDegrees();
     }
 
     @Override
@@ -54,6 +60,16 @@ public class MasterTeleop extends OpMode {
                             .build()
             );
         }
+
+        //The only way to move is trajectory; accept nothing else.
+        //Need a power level for distance
+        TrajectoryBuilder trajectory = drive.trajectoryBuilder(drive.getPoseEstimate())
+                .forward(powerLevel * gamepad1.left_stick_y)
+                .strafeRight(powerLevel * gamepad1.left_stick_x);
+        //Assuming right is positive, left is negative (have to test). If this is not the case, make it
+        //strafe left instead.
+        drive.followTrajectory(trajectory.build());
+        drive.turn(Math.toRadians(powerLevel * defaultAngle * gamepad1.right_stick_x));
     }
 
 }

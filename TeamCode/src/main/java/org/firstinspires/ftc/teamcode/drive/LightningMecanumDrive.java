@@ -15,15 +15,29 @@ public class LightningMecanumDrive extends SampleMecanumDrive {
 
     //bruh
 
+    //Degrees per tick
+    private double turnDegrees;
+    //How fast everything goes
+    private double powerLevel;
     private UltrasonicSensor distanceSensor;
 
     public LightningMecanumDrive(HardwareMap hardwareMap) {
         super(hardwareMap);
 
+        this.powerLevel = 1.0;
+        this.turnDegrees = 10;
         distanceSensor = hardwareMap.get(UltrasonicSensor.class, "ds");
     }
 
-    public double getCmDestance(UltrasonicSensor sensor) {
+    public double getTurnDegrees() {
+        return this.turnDegrees;
+    }
+
+    public double getPowerLevel() {
+        return this.powerLevel;
+    }
+
+    public double getDistanceCm(UltrasonicSensor sensor) {
         return sensor.getUltrasonicLevel();
     }
 }
