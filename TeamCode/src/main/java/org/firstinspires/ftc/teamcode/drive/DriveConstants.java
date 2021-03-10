@@ -133,4 +133,6 @@ public class DriveConstants {
         BLUE,
         RED;
     }
+
+    public static final int MAX_INPUT_DELAY = 20;
 }

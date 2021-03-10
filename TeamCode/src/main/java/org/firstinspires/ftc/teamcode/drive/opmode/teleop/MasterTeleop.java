@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.LightningMecanumDrive;
+import org.firstinspires.ftc.teamcode.util.Controller;
 
 /**
  * This is our master teleop class. Always use OpMode instead of LinearOpMode!
@@ -20,6 +21,7 @@ public class MasterTeleop extends OpMode {
     LightningMecanumDrive drive;
     double powerLevel;
     double defaultAngle;
+    Controller controller1, controller2;
 
     @Override
     public void init() {
@@ -28,14 +30,17 @@ public class MasterTeleop extends OpMode {
         powerLevel = drive.getPowerLevel();
         //10 degrees per tick
         defaultAngle = drive.getTurnDegrees();
+        controller1 = new Controller(gamepad1);
+        controller2 = new Controller(gamepad2);
     }
 
     @Override
     public void loop() {
 
 
+        /** Control functions for resetting position **/
         //To the centre from anywhere on the field
-        if (gamepad1.dpad_up) {
+        if (controller1.dpadUpOnce()) {
             drive.followTrajectory(
                     drive.trajectoryBuilder(drive.getPoseEstimate())
                             .splineTo(DriveConstants.CENTRE, 0)
@@ -44,7 +49,7 @@ public class MasterTeleop extends OpMode {
         }
 
         //Left High Goal
-        if (gamepad1.left_bumper) {
+        if (controller1.leftBumperOnce()) {
             drive.followTrajectory(
                     drive.trajectoryBuilder(drive.getPoseEstimate())
                             .splineTo(DriveConstants.BLUE_HIGH_GOAL, 0)
@@ -53,7 +58,7 @@ public class MasterTeleop extends OpMode {
         }
 
         //Right High Goal
-        if (gamepad1.right_bumper) {
+        if (controller1.rightBumperOnce()) {
             drive.followTrajectory(
                     drive.trajectoryBuilder(drive.getPoseEstimate())
                             .splineTo(DriveConstants.RED_HIGH_GOAL, 0)
@@ -61,6 +66,7 @@ public class MasterTeleop extends OpMode {
             );
         }
 
+        /** Controlled Movement**/
         //The only way to move is trajectory; accept nothing else.
         //Need a power level for distance
         TrajectoryBuilder trajectory = drive.trajectoryBuilder(drive.getPoseEstimate())
@@ -70,6 +76,13 @@ public class MasterTeleop extends OpMode {
         //strafe left instead.
         drive.followTrajectory(trajectory.build());
         drive.turn(Math.toRadians(powerLevel * defaultAngle * gamepad1.right_stick_x));
+
+        /** Miscellaneous **/
+
+        //Speed toggle
+        if (controller1.AOnce())
+            drive.togglePowerLevel();
+
     }
 
 }

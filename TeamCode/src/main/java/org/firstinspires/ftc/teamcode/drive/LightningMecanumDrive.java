@@ -37,6 +37,19 @@ public class LightningMecanumDrive extends SampleMecanumDrive {
         return this.powerLevel;
     }
 
+    public void setTurnDegrees(int degrees) {
+        this.turnDegrees = degrees;
+    }
+
+    public void togglePowerLevel() {
+        if (getPowerLevel() < 2)
+            setPowerLevel(getPowerLevel() + 0.5);
+        else setPowerLevel(0.5);
+    }
+
+    public void setPowerLevel(double level) {
+        this.powerLevel = level;
+    }
     public double getDistanceCm(UltrasonicSensor sensor) {
         return sensor.getUltrasonicLevel();
     }
