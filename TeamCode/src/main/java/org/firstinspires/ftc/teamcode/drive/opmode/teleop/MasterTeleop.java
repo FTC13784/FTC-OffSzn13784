@@ -36,6 +36,7 @@ public class MasterTeleop extends OpMode {
 
     @Override
     public void loop() {
+        powerLevel = drive.getPowerLevel();
 
 
         /** Control functions for resetting position **/
@@ -76,6 +77,8 @@ public class MasterTeleop extends OpMode {
         //strafe left instead.
         drive.followTrajectory(trajectory.build());
         drive.turn(Math.toRadians(powerLevel * defaultAngle * gamepad1.right_stick_x));
+
+        /** Intake and Shooting **/
 
         /** Miscellaneous **/
 
