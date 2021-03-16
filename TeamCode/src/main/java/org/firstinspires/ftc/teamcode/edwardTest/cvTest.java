@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.edwardTest;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+/*import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -36,7 +36,7 @@ import java.util.List;
  */
 // @Autonomous(name = "opencvSkystoneDetector", group = "Sky autonomous")
 // @Disabled //comment out this line before using
-public class cvTest extends OpMode {
+/*public class cvTest extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     //0 means skystone, 1 means yellow stone
@@ -105,7 +105,7 @@ public class cvTest extends OpMode {
     } */
 
     //detection pipeline
-    static class StageSwitchingPipeline extends OpenCvPipeline {
+   /* static class StageSwitchingPipeline extends OpenCvPipeline {
         Mat yCbCrChan2Mat = new Mat();
         Mat thresholdMat = new Mat();
         Mat all = new Mat();
@@ -127,7 +127,7 @@ public class cvTest extends OpMode {
              * so whatever we do here, we must do quickly.
              */
 
-            int currentStageNum = stageToRenderToViewport.ordinal();
+            /*int currentStageNum = stageToRenderToViewport.ordinal();
 
             int nextStageNum = currentStageNum + 1;
 
@@ -149,7 +149,7 @@ public class cvTest extends OpMode {
             //color diff cb.
             //lower cb = more blue = skystone = white
             //higher cb = less blue = yellow stone = grey
-            Imgproc.cvtColor(input, yCbCrChan2Mat, Imgproc.COLOR_RGB2YCrCb);//converts rgb to ycrcb
+       /*     Imgproc.cvtColor(input, yCbCrChan2Mat, Imgproc.COLOR_RGB2YCrCb);//converts rgb to ycrcb
             Core.extractChannel(yCbCrChan2Mat, yCbCrChan2Mat, 2);//takes cb difference and stores
 
             //b&w
@@ -230,4 +230,4 @@ public class cvTest extends OpMode {
         }
 
     }
-}
+}**/
