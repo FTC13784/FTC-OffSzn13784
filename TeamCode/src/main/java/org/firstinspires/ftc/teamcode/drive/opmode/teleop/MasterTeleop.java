@@ -34,7 +34,7 @@ public class MasterTeleop extends OpMode {
         controller2 = new Controller(gamepad2);
     }
 
-    @Override
+    @Override   
     public void loop() {
         powerLevel = drive.getPowerLevel();
 
@@ -79,6 +79,13 @@ public class MasterTeleop extends OpMode {
         drive.turn(Math.toRadians(powerLevel * defaultAngle * gamepad1.right_stick_x));
 
         /** Intake and Shooting **/
+        if (controller1.rightBumper())
+            drive.powerShooter();
+        else drive.shooterOff();
+
+        if (controller1.leftBumper())
+            drive.powerIntake();
+        else drive.intakeOff();
 
         /** Miscellaneous **/
 

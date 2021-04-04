@@ -2,18 +2,42 @@
 
 import com.acmerobotics.roadrunner.drive.Drive;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 
 //@Autonomous(group = "autonomous", name = "master")
-public abstract class MasterAutonomous extends OpMode {
+public abstract class MasterAutonomous extends LinearOpMode {
 
     AutonomousDriver driver;
 
     //TODO: Possibly make action type an array?
     //Nah you park anyway who cares
+
+
     @Override
+    public void waitForStart() {
+        super.waitForStart();
+        driver = new AutonomousDriver(getSide(), getGoal(), getAction(),
+                getDrive(), hardwareMap, getDriveType(), getMode());
+    }
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+        //Initialises
+        waitForStart();
+        if (isStopRequested()) {
+            return;
+        }
+        driver.start();
+        driver.update();
+
+
+    }
+
+
+  /*  @Override
     public void init() {
         driver = new AutonomousDriver(getSide(), getGoal(), getAction(),
                 getDrive(), hardwareMap, getDriveType(), getMode());
@@ -30,7 +54,7 @@ public abstract class MasterAutonomous extends OpMode {
     public void loop() {
         driver.update();
     }
-
+**/
     /**
      * @return The side to return. Blue or Red. Pretty easy to understand.
      */

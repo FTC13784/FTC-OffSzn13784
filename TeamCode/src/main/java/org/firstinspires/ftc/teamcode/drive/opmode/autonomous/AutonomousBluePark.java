@@ -5,9 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
+import org.firstinspires.ftc.teamcode.drive.LightningMecanumDrive;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
-@Autonomous(group = "autonomous", name = "blue_park")
+@Autonomous(group = "autonomous")
 public class AutonomousBluePark extends MasterAutonomous {
 
     @Override
@@ -27,7 +28,7 @@ public class AutonomousBluePark extends MasterAutonomous {
 
     @Override
     public Drive getDrive() {
-        return new SampleMecanumDrive(hardwareMap);
+        return new LightningMecanumDrive(hardwareMap);
     }
 
     @Override

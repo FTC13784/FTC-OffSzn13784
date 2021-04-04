@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
-@Autonomous(name = "redB", group = "autonomous")
+@Autonomous(group = "autonomous")
 public class AutonomousRedB extends MasterAutonomous {
 
     @Override
