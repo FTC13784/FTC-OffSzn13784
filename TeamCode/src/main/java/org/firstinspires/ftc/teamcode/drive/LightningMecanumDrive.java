@@ -88,10 +88,10 @@ public class LightningMecanumDrive extends SampleMecanumDrive {
         //TODO: add DCMotors for them, and then an additional crservo for intake
   ///     feeder = hardwareMap.crservo.get("intake");
 
-        intake = hardwareMap.get(DcMotorEx.class, "intake");
-        shooter = hardwareMap.get(DcMotorEx.class, "shooter");
-        intake.setDirection(DcMotorSimple.Direction.FORWARD);
-        shooter.setDirection(DcMotorSimple.Direction.FORWARD);
+//        intake = hardwareMap.get(DcMotorEx.class, "intake");
+//        shooter = hardwareMap.get(DcMotorEx.class, "shooter");
+//        intake.setDirection(DcMotorSimple.Direction.FORWARD);
+//        shooter.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //Bro am I smart or what
         //AND THE ANSWER IS YES
@@ -166,27 +166,27 @@ public class LightningMecanumDrive extends SampleMecanumDrive {
         return sensor.getUltrasonicLevel();
     }
 
-    @Override
-    public Double getExternalHeadingVelocity() {
-        // TODO: This must be changed to match your configuration
-        //                           | Z axis
-        //                           |
-        //     (Motor Port Side)     |   / X axis
-        //                       ____|__/____
-        //          Y axis     / *   | /    /|   (IO Side)
-        //          _________ /______|/    //      I2C
-        //                   /___________ //     Digital
-        //                  |____________|/      Analog
-        //
-        //                 (Servo Port Side)
-        //
-        // The positive x axis points toward the USB port(s)
-        //
-        // Adjust the axis rotation rate as necessary
-        // Rotate about the z axis is the default assuming your REV Hub/Control Hub is laying
-        // flat on a surface
-
-        return 0D;
-     //   return (double) imu.getAngularVelocity().zRotationRate;
-    }
+//    @Override
+//    public Double getExternalHeadingVelocity() {
+//        // TODO: This must be changed to match your configuration
+//        //                           | Z axis
+//        //                           |
+//        //     (Motor Port Side)     |   / X axis
+//        //                       ____|__/____
+//        //          Y axis     / *   | /    /|   (IO Side)
+//        //          _________ /______|/    //      I2C
+//        //                   /___________ //     Digital
+//        //                  |____________|/      Analog
+//        //
+//        //                 (Servo Port Side)
+//        //
+//        // The positive x axis points toward the USB port(s)
+//        //
+//        // Adjust the axis rotation rate as necessary
+//        // Rotate about the z axis is the default assuming your REV Hub/Control Hub is laying
+//        // flat on a surface
+//
+//        return 0D;
+//     //   return (double) imu.getAngularVelocity().zRotationRate;
+//    }
 }

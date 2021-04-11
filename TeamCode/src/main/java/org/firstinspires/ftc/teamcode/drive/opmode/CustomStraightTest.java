@@ -18,7 +18,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 @Config
 @Autonomous(group = "drive")
 public class CustomStraightTest extends LinearOpMode {
-    public static double DISTANCE = 1; // in
+    public static double DISTANCE = 2; // in
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -34,9 +34,11 @@ public class CustomStraightTest extends LinearOpMode {
 
         waitForStart();
 
+        drive.followTrajectory(trajectory);
+
         if (isStopRequested()) return;
 
-        drive.followTrajectory(trajectory);
+
 
         Pose2d poseEstimate = drive.getPoseEstimate();
         telemetry.addData("finalX", poseEstimate.getX());

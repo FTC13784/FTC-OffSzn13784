@@ -22,7 +22,7 @@ public class DriveConstants {
      * These are motor constants that should be listed online for your motors.
      */
     //Input * output for ticks per rev
-    public static final double TICKS_PER_REV = 4 * 288;
+    public static final double TICKS_PER_REV = 1;//4 * 288; //Obtained after testing; 1 makes it go forwards 3x dist, almost
     public static final double MAX_RPM = 135;
 
     /*
@@ -56,6 +56,7 @@ public class DriveConstants {
      * motor encoders or have elected not to use them for velocity control, these values should be
      * empirically tuned.
      */
+    //Max Velocity: 29900-30000, almost
     public static double kV = 1.0 / rpmToVelocity(MAX_RPM);
     public static double kA = 0;
     public static double kStatic = 0;
@@ -83,6 +84,7 @@ public class DriveConstants {
 
     public static double getMotorVelocityF(double ticksPerSecond) {
         // see https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit#heading=h.61g9ixenznbx
+        //About 1.1
         return 32767 / ticksPerSecond;
     }
 
