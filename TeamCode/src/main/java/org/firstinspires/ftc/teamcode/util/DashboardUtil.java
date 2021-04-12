@@ -11,8 +11,8 @@ import java.util.List;
  * Set of helper functions for drawing Road Runner paths and trajectories on dashboard canvases.
  */
 public class DashboardUtil {
-    private static final double DEFAULT_RESOLUTION = 2.0; // distance units; presumed inches
-    private static final double ROBOT_RADIUS = 9; // in
+    public static final double DEFAULT_RESOLUTION = 2.0; // distance units; presumed inches
+    public static final double ROBOT_RADIUS = 9; // in
 
 
     public static void drawPoseHistory(Canvas canvas, List<Pose2d> poseHistory) {
