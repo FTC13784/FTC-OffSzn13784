@@ -15,8 +15,8 @@ public class LightningMecanumDrive extends SampleMecanumDrive {
 
     //OK HERE WE GO kP AND kD HAVE TO HAVE OPPOSITE SIGNS
     //8 -16 -16 or -8 16 16 work well for translational
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0, 0, 0);
+//    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0, 0, 0);
+//    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0, 0, 0);
 
     //Need to initialise:
     //Wobble goal mechanism/claw

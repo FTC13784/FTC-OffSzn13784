@@ -22,7 +22,7 @@ public class DriveConstants {
      * These are motor constants that should be listed online for your motors.
      */
     //Input * output for ticks per rev
-    public static final double TICKS_PER_REV = 1;//4 * 288; //Obtained after testing; 1 makes it go forwards 3x dist, almost
+    public static final double TICKS_PER_REV = 1 / 4F;//4 * 288; //Obtained after testing; 1 makes it go forwards 3x dist, almost
     public static final double MAX_RPM = 135;
 
     /*
@@ -35,8 +35,8 @@ public class DriveConstants {
      */
     public static final boolean RUN_USING_ENCODER = true;
     //TODO: Properly customise this
-    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(1.095, 0.1095, 0,
-            10.95);//getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV));
+    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(10, 0.5, 0,//1.095, 0.1095, 0,
+            /*10.95);*/getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV));
     //Max speed is about 2990.9
 
     /*

@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.util.Controller;
  * Probably also want a dynamic list or something of usable buttons and their functions.
  * Gotta make it useful for anyone new coding.
  */
-@TeleOp(group = "Teleop", name = "Master")
+@TeleOp(group = "Teleop")
 public class MasterTeleop extends OpMode {
 
     LightningMecanumDrive drive;
@@ -68,14 +68,7 @@ public class MasterTeleop extends OpMode {
         }
 
         /** Controlled Movement**/
-        //The only way to move is trajectory; accept nothing else.
-        //Need a power level for distance
-        TrajectoryBuilder trajectory = drive.trajectoryBuilder(drive.getPoseEstimate())
-                .forward(powerLevel * gamepad1.left_stick_y)
-                .strafeRight(powerLevel * gamepad1.left_stick_x);
-        //Assuming right is positive, left is negative (have to test). If this is not the case, make it
-        //strafe left instead.
-        drive.followTrajectory(trajectory.build());
+
         drive.turn(Math.toRadians(powerLevel * defaultAngle * gamepad1.right_stick_x));
 
         /** Intake and Shooting **/
