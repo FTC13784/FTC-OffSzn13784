@@ -37,6 +37,7 @@ public class DriveConstants {
     //TODO: Properly customise this
     public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(1.095, 0.1095, 0,
             10.95);//getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV));
+    //Max speed is about 2990.9
 
     /*
      * These are physical constants that can be determined from your robot (including the track
