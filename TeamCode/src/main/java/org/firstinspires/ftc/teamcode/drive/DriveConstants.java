@@ -18,11 +18,13 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 @Config
 public class DriveConstants {
 
+    //Each square is 52 cm
     /*
      * These are motor constants that should be listed online for your motors.
      */
     //Input * output for ticks per rev
-    public static final double TICKS_PER_REV = 1 / 4F;//4 * 288; //Obtained after testing; 1 makes it go forwards 3x dist, almost
+    //1 / 8F to 8
+    public static final double TICKS_PER_REV = 1.095F;//4 * 288; //Obtained after testing; 1 makes it go forwards 3x dist, almost
     public static final double MAX_RPM = 135;
 
     /*
@@ -35,8 +37,8 @@ public class DriveConstants {
      */
     public static final boolean RUN_USING_ENCODER = true;
     //TODO: Properly customise this
-    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(10, 0.5, 0,//1.095, 0.1095, 0,
-            /*10.95);*/getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV));
+    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(10, 0.3, 0,//1.095, 0.1095, 0,
+            /*10.95);*/10.95);//getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV * 72));
     //Max speed is about 2990.9
 
     /*
@@ -49,7 +51,7 @@ public class DriveConstants {
      */
     public static double WHEEL_RADIUS = 2; // in
     public static double GEAR_RATIO = 288 / 4F; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 1; // in
+    public static double TRACK_WIDTH = 14.5; // in
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using

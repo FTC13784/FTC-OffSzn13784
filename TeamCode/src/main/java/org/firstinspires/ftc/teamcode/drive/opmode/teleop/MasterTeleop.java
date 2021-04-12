@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.drive.opmode.teleop;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.LightningMecanumDrive;
@@ -68,8 +70,15 @@ public class MasterTeleop extends OpMode {
         }
 
         /** Controlled Movement**/
-
-        drive.turn(Math.toRadians(powerLevel * defaultAngle * gamepad1.right_stick_x));
+        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        drive.setWeightedDrivePower(
+                new Pose2d(
+                        -gamepad1.left_stick_x,
+                        -gamepad1.left_stick_y,
+                        -gamepad1.right_stick_y
+                )
+        );
+        drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         /** Intake and Shooting **/
         if (controller1.rightBumper())

@@ -57,12 +57,13 @@ public class LightningMecanumDrive extends SampleMecanumDrive {
         //AND THE ANSWER IS YES
         //Wheels went in the wrong direction, in case you couldn't tell.
         //Front of the robot is the direction of the shooter
-        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID,
-                new Pose2d(0.5, 0.5, Math.toRadians(5.0)), 0.5);
+//        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+//        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
+    }
 
+    public void park(DriveConstants.Side side) {
+        setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public double getTurnDegrees() {
