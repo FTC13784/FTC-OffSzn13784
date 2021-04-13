@@ -16,8 +16,7 @@ public class AutonomousShooterTest extends LinearOpMode {
 
         if (isStopRequested()) return;
 
-        drive.powerShooter(0);
-        drive.powerIntake();
+        drive.powerShooter();
 
         //keeps it running
         while (!isStopRequested() && opModeIsActive());

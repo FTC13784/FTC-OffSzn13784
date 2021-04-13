@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.DriveConstants.ActionType;
 import org.firstinspires.ftc.teamcode.drive.DriveConstants.GoalType;
 import org.firstinspires.ftc.teamcode.drive.DriveConstants.Side;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.drive.LightningMecanumDrive;
 import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
 
 /**
@@ -45,13 +45,23 @@ public class AutonomousDriver {
     }
 
     public void start() {
-        SampleMecanumDrive mecanumDrive = null;
+        LightningMecanumDrive mecanumDrive = null;
         SampleTankDrive tankDrive = null;
 
+        switch (side) {
+            case BLUE:
+                drive.setPoseEstimate(new Pose2d(
+                        DriveConstants.BLUE_START.getX(), DriveConstants.BLUE_START.getY(), 0));
+                break;
+            case RED:
+                drive.setPoseEstimate(new Pose2d(
+                        DriveConstants.RED_START.getX(), DriveConstants.RED_START.getY(), 0));
+
+        }
         //Drive type!
         switch (driveType) {
             case MECANUM:
-                driveGoal((SampleMecanumDrive) drive, side, actionType, goalType);
+                driveGoal((LightningMecanumDrive) drive, side, actionType, goalType);
                 break;
             case TANK:
                 driveGoal((SampleTankDrive) drive, side, actionType, goalType);
@@ -60,7 +70,7 @@ public class AutonomousDriver {
     }
 
 
-    public void park(SampleMecanumDrive drive, Side side) {
+    public void park(LightningMecanumDrive drive, Side side) {
         switch (side) {
             case BLUE:
                 followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
@@ -78,7 +88,7 @@ public class AutonomousDriver {
      * @param side
      * @param actionType
      */
-    public void driveGoal(SampleMecanumDrive drive, Side side, ActionType actionType, GoalType goalType) {
+    public void driveGoal(LightningMecanumDrive drive, Side side, ActionType actionType, GoalType goalType) {
         switch (side) {
             case BLUE:
                 switch (actionType) {
@@ -148,14 +158,14 @@ public class AutonomousDriver {
 
     //Call this to update the autonomous class.
     public void update() {
-        if (drive instanceof SampleMecanumDrive)
-            ((SampleMecanumDrive) drive).update();
+        if (drive instanceof LightningMecanumDrive)
+            ((LightningMecanumDrive) drive).update();
         if (drive instanceof SampleTankDrive)
             ((SampleTankDrive) drive).update();
         drive.updatePoseEstimate();
     }
 
-    public void followTrajectory(SampleMecanumDrive drive, TrajectoryBuilder builder) {
+    public void followTrajectory(LightningMecanumDrive drive, TrajectoryBuilder builder) {
         drive.followTrajectory(builder.build());
     }
 

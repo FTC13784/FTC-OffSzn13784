@@ -11,6 +11,9 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 @Autonomous(group = "autonomous")
 public class AutonomousBluePark extends MasterAutonomous {
 
+    //HELL YEAH IT WORKS
+    //2 rules: SIDEWAYS, AND RUN IT TWICE EACH TIME. START POSITIONING IS EXACT OR YOU ARE FUCKED.
+    //Didn't set heading for running it sideways; did that change???
     @Override
     public DriveConstants.Side getSide() {
         return DriveConstants.Side.BLUE;

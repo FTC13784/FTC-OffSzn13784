@@ -37,7 +37,7 @@ public class DriveConstants {
      */
     public static final boolean RUN_USING_ENCODER = true;
     //TODO: Properly customise this
-    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(10, 0.3, 0,//1.095, 0.1095, 0,
+    public static PIDFCoefficients MOTOR_VELO_PID = new PIDFCoefficients(10, 3, 0,//1.095, 0.1095, 0,
             /*10.95);*/10.95);//getMotorVelocityF(MAX_RPM / 60 * TICKS_PER_REV * 72));
     //Max speed is about 2990.9
 
