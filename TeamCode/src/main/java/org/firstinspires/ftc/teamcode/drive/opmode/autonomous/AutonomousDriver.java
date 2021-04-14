@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleTankDrive;
  * Why? Because I'm lazy. Also because this should be usable in future years.
  * Also makes it really easy for newbie coders to learn.
  */
-public class AutonomousDriver {
+public class  AutonomousDriver {
 
     //TODO: Change trajectoryBuilding to trajectoryFollowing
 

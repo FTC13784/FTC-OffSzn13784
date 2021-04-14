@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
-public class LightningMecanumDrive extends SampleMecanumDrive {
+public class  LightningMecanumDrive extends SampleMecanumDrive {
 
 
     //OK HERE WE GO kP AND kD HAVE TO HAVE OPPOSITE SIGNS
