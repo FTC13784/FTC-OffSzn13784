@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.drive.LightningMecanumDrive;
 
 @Autonomous(group = "autonomous")
-public class AutonomousShooterTest extends LinearOpMode {
+public class AutonomousPowerIntakeTest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -16,7 +16,8 @@ public class AutonomousShooterTest extends LinearOpMode {
 
         if (isStopRequested()) return;
 
-        drive.powerShooter();
+        drive.powerIntake();
+        drive.powerFeeder();
 
         //keeps it running
         while (!isStopRequested() && opModeIsActive());

@@ -73,12 +73,14 @@ public class  AutonomousDriver {
     public void park(LightningMecanumDrive drive, Side side) {
         switch (side) {
             case BLUE:
+                //Should be 0 but it turns around; probably because I'm too lazy to properly tune it. TODO.
                 followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
-                        .splineTo(DriveConstants.BLUE_PARK, 0));
+                        .splineTo(DriveConstants.BLUE_PARK, 180));
                 break;
             case RED:
+                //Should be 0 but it turns around; probably because I'm too lazy to properly tune it. TODO.
                 followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
-                        .splineTo(DriveConstants.RED_PARK, 0));
+                        .splineTo(DriveConstants.RED_PARK, 180));
         }
 
     }
@@ -95,16 +97,19 @@ public class  AutonomousDriver {
                     case WOBBLE:
                         switch (goalType) {
                             case A:
+                                //Should be 0 but it turns around; probably because I'm too lazy to properly tune it. TODO.
                                 followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
-                                        .splineTo(DriveConstants.BLUE_A, 0));
+                                        .splineTo(DriveConstants.BLUE_A, 180));
                                 break;
                             case B:
+                                //Should be 0 but it turns around; probably because I'm too lazy to properly tune it. TODO.
                                 followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
-                                        .splineTo(DriveConstants.BLUE_B, 0));
+                                        .splineTo(DriveConstants.BLUE_B, 180));
                                 break;
                             case C:
+                                //Should be 0 but it turns around; probably because I'm too lazy to properly tune it. TODO.
                                 followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
-                                        .splineTo(DriveConstants.BLUE_C, 0));
+                                        .splineTo(DriveConstants.BLUE_C, 180));
                                 break;
                             default:
                                 break;
@@ -112,8 +117,9 @@ public class  AutonomousDriver {
                         //Todo: Add a pickup method
                         break;
                     case HIGH_GOAL:
+                        //Should be 0 but it turns around; probably because I'm too lazy to properly tune it. TODO.
                         followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
-                                .splineTo(DriveConstants.BLUE_HIGH_GOAL, 0));
+                                .splineTo(DriveConstants.BLUE_HIGH_GOAL, 180));
                         //Todo: Shoot
                         break;
                     default:
@@ -125,13 +131,16 @@ public class  AutonomousDriver {
                     case WOBBLE:
                         switch (goalType) {
                             case A:
-                                followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate()).splineTo(DriveConstants.RED_A, 0));
+                                //Should be 0 but it turns around; probably because I'm too lazy to properly tune it. TODO.
+                                followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate()).splineTo(DriveConstants.RED_A, 180));
                                 break;
                             case B:
-                                followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate()).splineTo(DriveConstants.RED_B, 0));
+                                //Should be 0 but it turns around; probably because I'm too lazy to properly tune it. TODO.
+                                followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate()).splineTo(DriveConstants.RED_B, 180));
                                 break;
                             case C:
-                                followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate()).splineTo(DriveConstants.RED_C, 0));
+                                //Should be 0 but it turns around; probably because I'm too lazy to properly tune it. TODO.
+                                followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate()).splineTo(DriveConstants.RED_C, 180));
                                 break;
                             default:
                                 break;
@@ -139,8 +148,9 @@ public class  AutonomousDriver {
                         //TODO: Pickup method
                         break;
                     case HIGH_GOAL:
+                        //Should be 0 but it turns around; probably because I'm too lazy to properly tune it. TODO.
                         followTrajectory(drive, drive.trajectoryBuilder(drive.getPoseEstimate())
-                                .splineTo(DriveConstants.RED_HIGH_GOAL, 0));
+                                .splineTo(DriveConstants.RED_HIGH_GOAL, 180));
                         //TODO: Shoot
                     default:
                         break;

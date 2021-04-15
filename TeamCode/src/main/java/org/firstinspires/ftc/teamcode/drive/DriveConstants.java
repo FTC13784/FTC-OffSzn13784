@@ -24,7 +24,7 @@ public class DriveConstants {
      */
     //Input * output for ticks per rev
     //1 / 8F to 8
-    public static final double TICKS_PER_REV = 1.825F;//4 * 480 (changed from 288); //Obtained after testing; 1 makes it go forwards 3x dist, almost (updated 4/15 by leo)
+    public static final double TICKS_PER_REV = 1.095F;//4 * 480 (changed from 288); //Obtained after testing; 1 makes it go forwards 3x dist, almost (updated 4/15 by leo)
     public static final double MAX_RPM = 135;
 
     /*
@@ -50,7 +50,7 @@ public class DriveConstants {
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
     public static double WHEEL_RADIUS = 2; // in
-    public static double GEAR_RATIO = 480 / 4F; // output (wheel) speed / input (motor) speed (edited by leo 4/15 from 288/4F to match change in gearing)
+    public static double GEAR_RATIO = 288 / 4F; // output (wheel) speed / input (motor) speed (edited by leo 4/15 from 288/4F to match change in gearing)
     public static double TRACK_WIDTH = 14.5; // in
 
     /*

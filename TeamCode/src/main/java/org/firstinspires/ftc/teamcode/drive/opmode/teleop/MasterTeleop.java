@@ -73,15 +73,16 @@ public class MasterTeleop extends OpMode {
         /** Controlled Movement**/
         drive.setWeightedDrivePower(
                 new Pose2d(
-                        -gamepad1.left_stick_x * powerLevel * 0.75,
                         -gamepad1.left_stick_y * powerLevel * 0.75,
-                        -gamepad1.right_stick_y * powerLevel * 0.75
+                        -gamepad1.left_stick_x * powerLevel * 0.75,
+                        -gamepad1.right_stick_x * powerLevel * 0.75
                 )
         );
 
 
         /** Intake and Shooting **/
         //Should be right and left but leo and soren are fuckin nerds
+        //Not working??? is my wrapper class bad? no, it's the builders who are wrong
         if (controller1.Y())
             drive.powerShooter();
         else drive.shooterOff();
@@ -99,6 +100,9 @@ public class MasterTeleop extends OpMode {
         //Speed toggle
         if (controller1.AOnce())
             drive.togglePowerLevel();
+
+        controller1.update();
+        controller2.update();
 
     }
 
