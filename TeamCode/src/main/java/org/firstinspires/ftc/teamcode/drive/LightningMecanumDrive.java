@@ -46,7 +46,7 @@ public class  LightningMecanumDrive extends SampleMecanumDrive {
         this.turnDegrees = 10;
         //     distanceSensor = hardwareMap.get(UltrasonicSensor.class, "ds");
         //TODO: add DCMotors for them, and then an additional crservo for intake
-        ///     feeder = hardwareMap.crservo.get("intake");
+        feeder = hardwareMap.crservo.get("intake");
 
         intake = hardwareMap.get(DcMotorEx.class, "intake");
         shooter = hardwareMap.get(DcMotorEx.class, "shooter");
@@ -119,6 +119,18 @@ public class  LightningMecanumDrive extends SampleMecanumDrive {
 
     public void setPowerLevel(double level) {
         this.powerLevel = level;
+    }
+
+    public void powerFeeder() {
+        this.feeder.setPower(0.5);
+    }
+
+    public void powerFeeder(float power) {
+        this.feeder.setPower(power);
+    }
+
+    public void feederOff() {
+        this.feeder.setPower(0);
     }
 
     public double getDistanceCm(UltrasonicSensor sensor) {

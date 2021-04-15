@@ -90,6 +90,10 @@ public class MasterTeleop extends OpMode {
             drive.powerIntake();
         else drive.intakeOff();
 
+        if (controller1.B())
+            drive.powerFeeder();
+        else drive.feederOff();
+        
         /** Miscellaneous **/
 
         //Speed toggle
