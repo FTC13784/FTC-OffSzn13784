@@ -46,7 +46,7 @@ public class  LightningMecanumDrive extends SampleMecanumDrive {
         this.turnDegrees = 10;
         //     distanceSensor = hardwareMap.get(UltrasonicSensor.class, "ds");
         //TODO: add DCMotors for them, and then an additional crservo for intake
-        feeder = hardwareMap.crservo.get("intake");
+        feeder = hardwareMap.crservo.get("prime");
 
         intake = hardwareMap.get(DcMotorEx.class, "intake");
         shooter = hardwareMap.get(DcMotorEx.class, "shooter");
