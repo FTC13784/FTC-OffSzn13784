@@ -81,11 +81,12 @@ public class MasterTeleop extends OpMode {
 
 
         /** Intake and Shooting **/
-        if (controller1.rightBumper())
+        //Should be right and left but leo and soren are fuckin nerds
+        if (controller1.Y())
             drive.powerShooter();
         else drive.shooterOff();
 
-        if (controller1.leftBumper())
+        if (controller1.X())
             drive.powerIntake();
         else drive.intakeOff();
 
