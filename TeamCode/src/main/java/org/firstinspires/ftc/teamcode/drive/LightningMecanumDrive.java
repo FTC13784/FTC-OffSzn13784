@@ -57,8 +57,8 @@ public class  LightningMecanumDrive extends SampleMecanumDrive {
         //AND THE ANSWER IS YES
         //Wheels went in the wrong direction, in case you couldn't tell.
         //Front of the robot is the direction of the shooter
-//        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
-//        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
 
