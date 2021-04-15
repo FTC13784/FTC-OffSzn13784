@@ -34,6 +34,7 @@ public class MasterTeleop extends OpMode {
         defaultAngle = drive.getTurnDegrees();
         controller1 = new Controller(gamepad1);
         controller2 = new Controller(gamepad2);
+        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     @Override   
@@ -43,7 +44,7 @@ public class MasterTeleop extends OpMode {
 
         /** Control functions for resetting position **/
         //To the centre from anywhere on the field
-        if (controller1.dpadUpOnce()) {
+     /*   if (controller1.dpadUpOnce()) {
             drive.followTrajectory(
                     drive.trajectoryBuilder(drive.getPoseEstimate())
                             .splineTo(DriveConstants.CENTRE, 0)
@@ -67,18 +68,17 @@ public class MasterTeleop extends OpMode {
                             .splineTo(DriveConstants.RED_HIGH_GOAL, 0)
                             .build()
             );
-        }
+        }**/
 
         /** Controlled Movement**/
-        drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         drive.setWeightedDrivePower(
                 new Pose2d(
-                        -gamepad1.left_stick_x,
-                        -gamepad1.left_stick_y,
-                        -gamepad1.right_stick_y
+                        -gamepad1.left_stick_x * powerLevel * 0.75,
+                        -gamepad1.left_stick_y * powerLevel * 0.75,
+                        -gamepad1.right_stick_y * powerLevel * 0.75
                 )
         );
-        drive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
         /** Intake and Shooting **/
         if (controller1.rightBumper())
